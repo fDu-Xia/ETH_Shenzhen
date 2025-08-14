@@ -1,7 +1,6 @@
 "use client"
 
 import { useState } from "react"
-import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -218,7 +217,6 @@ export default function ProfilePage() {
 
   return (
     <div className="min-h-screen bg-[#1E1B3A] text-white">
-      <Header />
       <main className="container mx-auto px-4 py-8">
         {/* User Info Card */}
         <Card className="bg-[#2A2550] border-purple-500/20 mb-8">

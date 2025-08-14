@@ -7,8 +7,8 @@ import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 export function Header() {
   return (
-    <header className="border-b border-purple-800/30 sticky top-0 z-50 bg-transparent backdrop-blur-md">
-      <div className="container mx-auto px-4 py-4">
+    <header className="border-b border-purple-800/30 sticky top-0 z-50 bg-transparent backdrop-blur-md flex items-center h-16">
+      <div className="container mx-auto px-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2 w-[320px]">

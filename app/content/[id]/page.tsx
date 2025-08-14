@@ -1,7 +1,6 @@
 "use client"
 
 import { useState } from "react"
-import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import { ContentDetailMain } from "@/components/content-detail-main"
 import { ContentDetailSidebar } from "@/components/content-detail-sidebar"
@@ -113,7 +112,6 @@ export default function ContentDetailPage({ params }: ContentDetailPageProps) {
 
   return (
     <div className="min-h-screen bg-[#1E1B3A] text-white">
-      <Header />
       <main className="container mx-auto px-4 py-8">
         {/* Main Content Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">

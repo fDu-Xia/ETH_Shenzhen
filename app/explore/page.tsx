@@ -1,4 +1,3 @@
-import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import { ContentGrid } from "@/components/content-grid"
 import { SearchAndFilters } from "@/components/search-and-filters"
@@ -6,7 +5,6 @@ import { SearchAndFilters } from "@/components/search-and-filters"
 export default function ExplorePage() {
   return (
     <div className="min-h-screen bg-[#1E1B3A] text-white">
-      <Header />
       <main>
         {/* Page Header */}
         <section className="bg-gradient-to-br from-[#1E1B3A] via-[#2D1B69] to-[#1E1B3A] py-16">

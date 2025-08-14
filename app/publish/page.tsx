@@ -3,7 +3,6 @@
 import type React from "react"
 
 import { useState } from "react"
-import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -188,7 +187,6 @@ export default function PublishPage() {
 
   return (
     <div className="min-h-screen bg-[#1E1B3A] text-white">
-      <Header />
       <main className="container mx-auto px-4 py-8">
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">

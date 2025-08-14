@@ -38,7 +38,7 @@ html {
         <Providers>
           <Bg>
             <Header />
-            {children}
+            <div className="flex flex-col flex-1">{children}</div>
           </Bg>
         </Providers>
       </body>
