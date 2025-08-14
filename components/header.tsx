@@ -48,13 +48,6 @@ export function Header() {
 
           {/* Actions */}
           <div className="flex items-center justify-end space-x-4 w-[320px]">
-            <Button
-              variant="ghost"
-              size="sm"
-              className="text-gray-300 hover:text-purple-400"
-            >
-              <Search className="w-4 h-4" />
-            </Button>
             <ConnectButton
               label="连接钱包"
               accountStatus={{
