@@ -2,7 +2,8 @@
 
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { Search, Wallet } from "lucide-react"
+import { Search } from "lucide-react"
+import { ConnectButton } from '@rainbow-me/rainbowkit'
 
 export function Header() {
   return (
@@ -38,10 +39,21 @@ export function Header() {
             <Button variant="ghost" size="sm" className="text-gray-300 hover:text-purple-400">
               <Search className="w-4 h-4" />
             </Button>
-            <Button className="bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white">
-              <Wallet className="w-4 h-4 mr-2" />
-              连接钱包
-            </Button>
+            <ConnectButton 
+              label="连接钱包"
+              accountStatus={{
+                smallScreen: 'avatar',
+                largeScreen: 'full',
+              }}
+              chainStatus={{
+                smallScreen: 'icon',
+                largeScreen: 'full',
+              }}
+              showBalance={{
+                smallScreen: false,
+                largeScreen: true,
+              }}
+            />
           </div>
         </div>
       </div>
