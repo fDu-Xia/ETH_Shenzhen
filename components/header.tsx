@@ -24,19 +24,19 @@ export function Header() {
               href="/"
               className="text-gray-300 hover:text-purple-400 transition-colors"
             >
-              发现
+              首页
             </Link>
             <Link
-              href="/trending"
+              href="/explore"
               className="text-gray-300 hover:text-purple-400 transition-colors"
             >
-              热门
+              发现
             </Link>
             <Link
               href="/publish"
               className="text-gray-300 hover:text-purple-400 transition-colors"
             >
-              发布新内容
+              发布
             </Link>
             <Link
               href="/profile"
