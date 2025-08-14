@@ -3,7 +3,9 @@ import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
 import { Providers } from "@/components/providers";
 import "./globals.css";
-import "../lib/styles/animate-background.css"
+import "../lib/styles/animate-background.css";
+import { Header } from "@/components/header";
+import Bg from "@/components/animation/home/bg";
 
 export const metadata: Metadata = {
   title: "ContentDAO",
@@ -30,9 +32,15 @@ html {
       <body
         className="scrollbar scrollbar-thumb-purple-500/70 scroll-m-0
                     scrollbar-thumb-rounded-full scrollbar-w-[6px]
+                    min-h-screen max-w-screen
                   "
       >
-        <Providers>{children}</Providers>
+        <Providers>
+          <Bg>
+            <Header />
+            {children}
+          </Bg>
+        </Providers>
       </body>
     </html>
   );

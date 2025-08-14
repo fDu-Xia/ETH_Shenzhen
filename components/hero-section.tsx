@@ -1,72 +1,45 @@
-"use client"
+"use client";
 
-import { Button } from "@/components/ui/button"
-import { ArrowRight, TrendingUp, Users, Zap } from "lucide-react"
-import { useRouter } from "next/navigation"
+import { ArrowRight } from "lucide-react";
+import { useMotionTemplate, motion } from "motion/react";
+import { useRouter } from "next/navigation";
+import { useColorChange } from "@/hooks/animation/use-color-change";
 
-export function HeroSection() {
-  const router = useRouter()
+export const HeroSection = () => {
+  const router = useRouter();
+  const color = useColorChange();
 
-  const navigateToExplore = () => {
-    router.push("/explore")
-  }
+  const border = useMotionTemplate`1px solid ${color}`;
+  const boxShadow = useMotionTemplate`0px 4px 24px ${color}`;
 
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-[#1E1B3A] via-[#2D1B69] to-[#1E1B3A] py-20">
-    {/* <section className="relative overflow-hidden py-20"> */}
-      {/* Background Effects */}
-      <div className="absolute inset-0 opacity-10 animate-background"></div>
-      <div className="absolute top-20 left-10 w-72 h-72 bg-purple-500/20 rounded-full blur-3xl animate-pulse"></div>
-      <div className="absolute bottom-20 right-10 w-96 h-96 bg-purple-400/10 rounded-full blur-3xl animate-pulse"></div>
-
-      <div className="container mx-auto px-4 relative z-10">
-        <div className="text-center max-w-4xl mx-auto">
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-white via-purple-200 to-purple-400 bg-clip-text text-transparent">
-            发现和投资
-            <br />
-            优质内容
-          </h1>
-          <p className="text-xl md:text-2xl text-gray-300 mb-8 max-w-2xl mx-auto">
-            通过代币化让优质内容获得应有价值，创作者直接从社区获得收益，投资者分享内容成功的回报
-          </p>
-
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-            <Button
-              size="lg"
-              className="bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white px-8 py-4 text-lg cursor-pointer"
-              onClick={navigateToExplore}
-            >
-              开始探索
-              <ArrowRight className="ml-2 w-5 h-5" />
-            </Button>
-          </div>
-
-          {/* Stats */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-2xl mx-auto">
-            <div className="text-center">
-              <div className="flex items-center justify-center mb-2">
-                <TrendingUp className="w-6 h-6 text-purple-400 mr-2" />
-                <span className="text-2xl font-bold text-white">1.2M+</span>
-              </div>
-              <p className="text-gray-400">内容投资总额</p>
-            </div>
-            <div className="text-center">
-              <div className="flex items-center justify-center mb-2">
-                <Users className="w-6 h-6 text-purple-400 mr-2" />
-                <span className="text-2xl font-bold text-white">50K+</span>
-              </div>
-              <p className="text-gray-400">活跃用户</p>
-            </div>
-            <div className="text-center">
-              <div className="flex items-center justify-center mb-2">
-                <Zap className="w-6 h-6 text-purple-400 mr-2" />
-                <span className="text-2xl font-bold text-white">10K+</span>
-              </div>
-              <p className="text-gray-400">优质内容</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  )
-}
+    <div className="relative z-10 flex flex-col items-center m-auto">
+      <h1 className="max-w-3xl bg-gradient-to-br from-white to-gray-400 bg-clip-text text-center text-3xl font-medium leading-tight text-transparent sm:text-5xl sm:leading-tight md:text-7xl md:leading-tight">
+        {/* Decrease your SaaS churn by over 90% */}
+        发现和投资
+        <br />
+        优质内容
+      </h1>
+      <p className="my-6 max-w-xl text-center text-base leading-relaxed md:text-lg md:leading-relaxed">
+        通过代币化让优质内容获得应有价值，创作者直接从社区获得收益，投资者分享内容成功的回报
+      </p>
+      <motion.button
+        style={{
+          border,
+          boxShadow,
+        }}
+        whileHover={{
+          scale: 1.015,
+        }}
+        whileTap={{
+          scale: 0.985,
+        }}
+        className="group relative flex w-fit items-center gap-1.5 rounded-full bg-gray-950/10 px-4 py-2 text-gray-50 transition-colors hover:bg-gray-950/50 cursor-pointer"
+        onClick={() => router.push("/explore")}
+      >
+        开始探索
+        <ArrowRight className="transition-transform group-hover:-rotate-45 group-active:-rotate-12" />
+      </motion.button>
+    </div>
+  );
+};
