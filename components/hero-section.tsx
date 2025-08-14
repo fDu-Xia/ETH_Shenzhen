@@ -13,10 +13,11 @@ export function HeroSection() {
 
   return (
     <section className="relative overflow-hidden bg-gradient-to-br from-[#1E1B3A] via-[#2D1B69] to-[#1E1B3A] py-20">
+    {/* <section className="relative overflow-hidden py-20"> */}
       {/* Background Effects */}
-      <div className="absolute inset-0 bg-[url('/abstract-purple-gradient.png')] opacity-10"></div>
-      <div className="absolute top-20 left-10 w-72 h-72 bg-purple-500/20 rounded-full blur-3xl"></div>
-      <div className="absolute bottom-20 right-10 w-96 h-96 bg-purple-400/10 rounded-full blur-3xl"></div>
+      <div className="absolute inset-0 opacity-10 animate-background"></div>
+      <div className="absolute top-20 left-10 w-72 h-72 bg-purple-500/20 rounded-full blur-3xl animate-pulse"></div>
+      <div className="absolute bottom-20 right-10 w-96 h-96 bg-purple-400/10 rounded-full blur-3xl animate-pulse"></div>
 
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center max-w-4xl mx-auto">
