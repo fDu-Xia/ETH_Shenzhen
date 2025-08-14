@@ -1,18 +1,11 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Footer } from "@/components/footer"
-import { ContentDetailMain } from "@/components/content-detail-main"
-import { ContentDetailSidebar } from "@/components/content-detail-sidebar"
-import { CommentsSection } from "@/components/comments-section"
-import { ContentDataCharts } from "@/components/content-data-charts"
-import { UnlockedContentDisplay } from "@/components/unlocked-content-display"
-
-interface ContentDetailPageProps {
-  params: {
-    id: string
-  }
-}
+import { useState, use } from "react";
+import { ContentDetailMain } from "@/components/content-detail-main";
+import { ContentDetailSidebar } from "@/components/content-detail-sidebar";
+import { CommentsSection } from "@/components/comments-section";
+import { ContentDataCharts } from "@/components/content-data-charts";
+import { UnlockedContentDisplay } from "@/components/unlocked-content-display";
 
 // Mock data - in real app this would come from API
 const mockContent = {
@@ -96,60 +89,65 @@ Web3去中心化社交网络将在以下方面实现突破：
     "/smart-contract-vulnerabilities.png",
   ],
   downloadUrl: "/content/web3-social-network-analysis.pdf",
-}
+};
 
-export default function ContentDetailPage({ params }: ContentDetailPageProps) {
-  const [isUnlocked, setIsUnlocked] = useState(mockContent.isUnlocked)
+export default function ContentDetailPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const [isUnlocked, setIsUnlocked] = useState(mockContent.isUnlocked);
+  const paramsId = use(params);
 
   const handlePurchaseComplete = () => {
-    setIsUnlocked(true)
-  }
+    setIsUnlocked(true);
+  };
 
   const contentWithUnlockStatus = {
     ...mockContent,
     isUnlocked,
-  }
+  };
 
   return (
-    <div className="min-h-screen bg-[#1E1B3A] text-white">
-      <main className="container mx-auto px-4 py-8">
-        {/* Main Content Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Left Main Content (2/3 width on desktop) */}
-          <div className="lg:col-span-2">
-            <ContentDetailMain content={contentWithUnlockStatus} />
+    <main className="container mx-auto pt-8 pb-4">
+      {/* Main Content Layout */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        {/* Left Main Content (2/3 width on desktop) */}
+        <div className="lg:col-span-2">
+          <ContentDetailMain content={contentWithUnlockStatus} />
 
-            {isUnlocked && (
-              <div className="mt-8">
-                <UnlockedContentDisplay
-                  content={{
-                    title: mockContent.title,
-                    fullContent: mockContent.fullContent,
-                    images: mockContent.images,
-                    downloadUrl: mockContent.downloadUrl,
-                  }}
-                />
-              </div>
-            )}
-          </div>
-
-          {/* Right Sidebar (1/3 width on desktop) */}
-          <div className="lg:col-span-1">
-            <ContentDetailSidebar content={contentWithUnlockStatus} onPurchaseComplete={handlePurchaseComplete} />
-          </div>
+          {isUnlocked && (
+            <div className="mt-8">
+              <UnlockedContentDisplay
+                content={{
+                  title: mockContent.title,
+                  fullContent: mockContent.fullContent,
+                  images: mockContent.images,
+                  downloadUrl: mockContent.downloadUrl,
+                }}
+              />
+            </div>
+          )}
         </div>
 
-        {/* Data Visualization Charts Section */}
-        <div className="mt-12">
-          <ContentDataCharts contentId={params.id} />
+        {/* Right Sidebar (1/3 width on desktop) */}
+        <div className="lg:col-span-1">
+          <ContentDetailSidebar
+            content={contentWithUnlockStatus}
+            onPurchaseComplete={handlePurchaseComplete}
+          />
         </div>
+      </div>
 
-        {/* Comments Section */}
-        <div className="mt-12">
-          <CommentsSection contentId={params.id} />
-        </div>
-      </main>
-      <Footer />
-    </div>
-  )
+      {/* Data Visualization Charts Section */}
+      <div className="mt-12">
+        <ContentDataCharts contentId={paramsId.id} />
+      </div>
+
+      {/* Comments Section */}
+      <div className="mt-12">
+        <CommentsSection contentId={paramsId.id} />
+      </div>
+    </main>
+  );
 }
