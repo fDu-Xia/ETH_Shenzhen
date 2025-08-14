@@ -11,7 +11,11 @@ interface ContentDetailSidebarProps {
   content: {
     id: string
     title: string
-    author: string
+    author: {
+      name: string
+      avatar: string
+      verified: boolean
+    }
     price: number
     currency: string
     isUnlocked: boolean
@@ -163,7 +167,7 @@ export function ContentDetailSidebar({ content, onPurchaseComplete }: ContentDet
         onClose={() => setShowPurchaseModal(false)}
         content={{
           title: content.title,
-          author: content.author,
+          author: content.author.name,
           price: content.price,
           currency: content.currency,
           previewImage: content.previewImage,
