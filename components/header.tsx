@@ -10,6 +10,7 @@ export function Header() {
   const pathname = usePathname();
   const color = useColorChange();
   const backgroundImage = useMotionTemplate`linear-gradient(to right, ${color}, ${color}dd)`;
+  const backgroundColor = useMotionTemplate`${color}`;
 
   const navItems = [
     { href: "/", label: "首页" },
@@ -25,7 +26,7 @@ export function Header() {
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2 w-[320px]">
             <motion.div
-              style={{ backgroundImage }}
+              style={{ backgroundColor }}
               className="w-8 h-8 rounded-lg flex items-center justify-center"
             >
               <span className="text-white font-bold text-sm">C</span>

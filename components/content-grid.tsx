@@ -120,9 +120,11 @@ const mockContent = [
 
 export function ContentGrid() {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 p-4">
       {mockContent.map((content) => (
-        <ContentCard key={content.id} content={content} />
+        <div key={content.id} className="p-2">
+          <ContentCard content={content} />
+        </div>
       ))}
     </div>
   )

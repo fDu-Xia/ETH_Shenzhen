@@ -1,6 +1,6 @@
 import { useThemeStore } from "@/lib/stores/theme-store";
 import { useMotionValue, animate } from "motion/react";
-// import { useEffect } from "react";
+import { useEffect } from "react";
 
 export const useColorChange = () => {
   const colorsTop = useThemeStore((state) => state.colorsTop);
