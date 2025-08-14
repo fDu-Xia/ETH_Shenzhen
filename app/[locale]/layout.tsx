@@ -2,8 +2,15 @@ import type { Metadata } from "next";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
 import { Providers } from "@/components/providers";
-import "./globals.css";
-import "../lib/styles/animate-background.css"
+import "../globals.css";
+import "../../lib/styles/animate-background.css";
+
+export async function generateStaticParams() {
+  return [
+    { locale: 'en' },
+    { locale: 'zh' }
+  ];
+}
 
 export const metadata: Metadata = {
   title: "ContentDAO",
@@ -11,13 +18,17 @@ export const metadata: Metadata = {
   generator: "v0.app",
 };
 
-export default function RootLayout({
+export default async function LocaleLayout({
   children,
-}: Readonly<{
+  params,
+}: {
   children: React.ReactNode;
-}>) {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  
   return (
-    <html>
+    <html lang={locale}>
       <head>
         <style>{`
 html {

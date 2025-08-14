@@ -19,6 +19,7 @@ import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Save, Eye, Send, Upload, X, Globe, Lock, Users, AlertCircle, CheckCircle, Clock } from "lucide-react"
 import { ContentPreviewModal } from "@/components/content-preview-modal"
 import { RichTextEditor } from "@/components/rich-text-editor"
+import { usePathname } from "next/navigation"
 
 interface PublishFormData {
   title: string
@@ -86,6 +87,192 @@ export default function PublishPage() {
   const [newTag, setNewTag] = useState("")
   const [activeTab, setActiveTab] = useState("edit")
 
+  const pathname = usePathname()
+  const currentLocale = pathname.startsWith('/en') ? 'en' : 'zh'
+
+  const translations = {
+    zh: {
+      // Header
+      publishContent: "发布内容",
+      createAndPublish: "创建并发布您的优质内容",
+      saveDraft: "保存草稿",
+      saving: "保存中...",
+      preview: "预览",
+      publishContent: "发布内容",
+      publishing: "发布中...",
+      
+      // Progress
+      completionProgress: "完成进度",
+      publishingContent: "正在发布内容...",
+      
+      // Tabs
+      editContent: "编辑内容",
+      publishSettings: "发布设置",
+      
+      // Form Fields
+      contentTitle: "内容标题",
+      titlePlaceholder: "输入吸引人的标题...",
+      contentSummary: "内容摘要",
+      summaryPlaceholder: "简要描述您的内容...",
+      coverImage: "封面图片",
+      uploadImage: "上传图片",
+      contentBody: "内容正文",
+      
+      // Price Settings
+      priceSetting: "价格设置",
+      pricePlaceholder: "0.05",
+      
+      // Category
+      contentCategory: "内容分类",
+      selectCategory: "选择分类",
+      
+      // Tags
+      tagSelection: "标签选择",
+      addTag: "添加标签...",
+      add: "添加",
+      popularTags: "热门标签",
+      selectedTags: "已选标签",
+      
+      // Visibility
+      visibilitySettings: "可见性设置",
+      public: "公开 - 所有人可见",
+      subscribers: "订阅者 - 仅订阅者可见",
+      private: "私有 - 仅自己可见",
+      
+      // Publish Type
+      publishMethod: "发布方式",
+      scheduledPublish: "定时发布",
+      publishDate: "发布日期",
+      publishTime: "发布时间",
+      
+      // Publishing Guide
+      publishingGuide: "发布指南",
+      attractiveTitle: "使用吸引人的标题",
+      highQualityCover: "添加高质量封面图",
+      clearStructure: "内容结构清晰",
+      reasonablePrice: "合理设置价格",
+      relevantTags: "选择相关标签",
+      estimatedEarnings: "预计收益",
+      setPrice: "设置价格",
+      basedOnCurrentPrice: "基于当前价格设置",
+      
+      // Validation Errors
+      titleRequired: "请输入内容标题",
+      summaryRequired: "请输入内容摘要",
+      contentRequired: "请输入内容正文",
+      coverImageRequired: "请上传封面图片",
+      priceRequired: "请设置有效价格",
+      categoryRequired: "请选择内容分类",
+      tagsRequired: "请至少添加一个标签",
+      dateRequired: "请选择发布日期",
+      timeRequired: "请选择发布时间",
+      
+      // Publishing Steps
+      validatingFormat: "验证内容格式...",
+      uploadingCover: "上传封面图片...",
+      processingContent: "处理内容数据...",
+      publishingToBlockchain: "发布到区块链...",
+      publishComplete: "发布完成！",
+      
+      // Content Preview
+      contentTitle: "内容标题",
+      contentSummary: "内容摘要",
+      contentBody: "内容正文",
+      uncategorized: "未分类",
+    },
+    en: {
+      // Header
+      publishContent: "Publish Content",
+      createAndPublish: "Create and publish your quality content",
+      saveDraft: "Save Draft",
+      saving: "Saving...",
+      preview: "Preview",
+      publishContent: "Publish Content",
+      publishing: "Publishing...",
+      
+      // Progress
+      completionProgress: "Completion Progress",
+      publishingContent: "Publishing content...",
+      
+      // Tabs
+      editContent: "Edit Content",
+      publishSettings: "Publish Settings",
+      
+      // Form Fields
+      contentTitle: "Content Title",
+      titlePlaceholder: "Enter an attractive title...",
+      contentSummary: "Content Summary",
+      summaryPlaceholder: "Briefly describe your content...",
+      coverImage: "Cover Image",
+      uploadImage: "Upload Image",
+      contentBody: "Content Body",
+      
+      // Price Settings
+      priceSetting: "Price Setting",
+      pricePlaceholder: "0.05",
+      
+      // Category
+      contentCategory: "Content Category",
+      selectCategory: "Select Category",
+      
+      // Tags
+      tagSelection: "Tag Selection",
+      addTag: "Add tag...",
+      add: "Add",
+      popularTags: "Popular Tags",
+      selectedTags: "Selected Tags",
+      
+      // Visibility
+      visibilitySettings: "Visibility Settings",
+      public: "Public - Visible to everyone",
+      subscribers: "Subscribers - Visible to subscribers only",
+      private: "Private - Visible to yourself only",
+      
+      // Publish Type
+      publishMethod: "Publish Method",
+      scheduledPublish: "Scheduled Publish",
+      publishDate: "Publish Date",
+      publishTime: "Publish Time",
+      
+      // Publishing Guide
+      publishingGuide: "Publishing Guide",
+      attractiveTitle: "Use attractive titles",
+      highQualityCover: "Add high-quality cover images",
+      clearStructure: "Clear content structure",
+      reasonablePrice: "Set reasonable prices",
+      relevantTags: "Choose relevant tags",
+      estimatedEarnings: "Estimated Earnings",
+      setPrice: "Set Price",
+      basedOnCurrentPrice: "Based on current price setting",
+      
+      // Validation Errors
+      titleRequired: "Please enter content title",
+      summaryRequired: "Please enter content summary",
+      contentRequired: "Please enter content body",
+      coverImageRequired: "Please upload cover image",
+      priceRequired: "Please set a valid price",
+      categoryRequired: "Please select content category",
+      tagsRequired: "Please add at least one tag",
+      dateRequired: "Please select publish date",
+      timeRequired: "Please select publish time",
+      
+      // Publishing Steps
+      validatingFormat: "Validating content format...",
+      uploadingCover: "Uploading cover image...",
+      processingContent: "Processing content data...",
+      publishingToBlockchain: "Publishing to blockchain...",
+      publishComplete: "Publish complete!",
+      
+      // Content Preview
+      contentTitle: "Content Title",
+      contentSummary: "Content Summary",
+      contentBody: "Content Body",
+      uncategorized: "Uncategorized",
+    }
+  }
+
+  const t = translations[currentLocale]
+
   // Calculate form completion progress
   const calculateProgress = () => {
     const fields = [
@@ -135,17 +322,17 @@ export default function PublishPage() {
   const validateForm = () => {
     const newErrors: Record<string, string> = {}
 
-    if (!formData.title.trim()) newErrors.title = "请输入内容标题"
-    if (!formData.summary.trim()) newErrors.summary = "请输入内容摘要"
-    if (!formData.content.trim()) newErrors.content = "请输入内容正文"
-    if (!formData.coverImage) newErrors.coverImage = "请上传封面图片"
-    if (!formData.price || Number.parseFloat(formData.price) <= 0) newErrors.price = "请设置有效价格"
-    if (!formData.category) newErrors.category = "请选择内容分类"
-    if (formData.tags.length === 0) newErrors.tags = "请至少添加一个标签"
+    if (!formData.title.trim()) newErrors.title = t.titleRequired
+    if (!formData.summary.trim()) newErrors.summary = t.summaryRequired
+    if (!formData.content.trim()) newErrors.content = t.contentRequired
+    if (!formData.coverImage) newErrors.coverImage = t.coverImageRequired
+    if (!formData.price || Number.parseFloat(formData.price) <= 0) newErrors.price = t.priceRequired
+    if (!formData.category) newErrors.category = t.categoryRequired
+    if (formData.tags.length === 0) newErrors.tags = t.tagsRequired
 
     if (formData.publishType === "scheduled") {
-      if (!formData.scheduledDate) newErrors.scheduledDate = "请选择发布日期"
-      if (!formData.scheduledTime) newErrors.scheduledTime = "请选择发布时间"
+      if (!formData.scheduledDate) newErrors.scheduledDate = t.dateRequired
+      if (!formData.scheduledTime) newErrors.scheduledTime = t.timeRequired
     }
 
     setErrors(newErrors)
@@ -168,11 +355,11 @@ export default function PublishPage() {
 
     // Simulate publishing process
     const steps = [
-      { message: "验证内容格式...", progress: 20 },
-      { message: "上传封面图片...", progress: 40 },
-      { message: "处理内容数据...", progress: 60 },
-      { message: "发布到区块链...", progress: 80 },
-      { message: "发布完成！", progress: 100 },
+      { message: t.validatingFormat, progress: 20 },
+      { message: t.uploadingCover, progress: 40 },
+      { message: t.processingContent, progress: 60 },
+      { message: t.publishingToBlockchain, progress: 80 },
+      { message: t.publishComplete, progress: 100 },
     ]
 
     for (const step of steps) {
@@ -193,8 +380,8 @@ export default function PublishPage() {
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
           <div>
-            <h1 className="text-3xl font-bold mb-2">发布内容</h1>
-            <p className="text-gray-400">创建并发布您的优质内容</p>
+            <h1 className="text-3xl font-bold mb-2">{t.publishContent}</h1>
+            <p className="text-gray-400">{t.createAndPublish}</p>
           </div>
 
           <div className="flex items-center gap-3">
@@ -207,12 +394,12 @@ export default function PublishPage() {
               {isDraft ? (
                 <>
                   <Clock className="w-4 h-4 mr-2 animate-spin" />
-                  保存中...
+                  {t.saving}
                 </>
               ) : (
                 <>
                   <Save className="w-4 h-4 mr-2" />
-                  保存草稿
+                  {t.saveDraft}
                 </>
               )}
             </Button>
@@ -223,19 +410,19 @@ export default function PublishPage() {
               className="border-purple-500/30 bg-transparent hover:bg-purple-600/20"
             >
               <Eye className="w-4 h-4 mr-2" />
-              预览
+              {t.preview}
             </Button>
 
             <Button onClick={handlePublish} disabled={isPublishing} className="bg-purple-600 hover:bg-purple-700">
               {isPublishing ? (
                 <>
                   <Clock className="w-4 h-4 mr-2 animate-spin" />
-                  发布中...
+                  {t.publishing}
                 </>
               ) : (
                 <>
                   <Send className="w-4 h-4 mr-2" />
-                  发布内容
+                  {t.publishContent}
                 </>
               )}
             </Button>
@@ -246,7 +433,7 @@ export default function PublishPage() {
         <Card className="bg-[#2A2550] border-purple-500/20 mb-8">
           <CardContent className="p-4">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-sm font-medium">完成进度</span>
+              <span className="text-sm font-medium">{t.completionProgress}</span>
               <span className="text-sm text-purple-400">{progress}%</span>
             </div>
             <Progress value={progress} className="h-2" />
@@ -259,7 +446,7 @@ export default function PublishPage() {
             <CardContent className="p-4">
               <div className="flex items-center gap-3 mb-3">
                 <Clock className="w-5 h-5 text-purple-400 animate-spin" />
-                <span className="font-medium">正在发布内容...</span>
+                <span className="font-medium">{t.publishingContent}</span>
               </div>
               <Progress value={publishProgress} className="h-2" />
             </CardContent>
@@ -272,10 +459,10 @@ export default function PublishPage() {
             <Tabs value={activeTab} onValueChange={setActiveTab}>
               <TabsList className="grid w-full grid-cols-2 bg-[#2A2550] border-purple-500/20 mb-6">
                 <TabsTrigger value="edit" className="data-[state=active]:bg-purple-600">
-                  编辑内容
+                  {t.editContent}
                 </TabsTrigger>
                 <TabsTrigger value="settings" className="data-[state=active]:bg-purple-600">
-                  发布设置
+                  {t.publishSettings}
                 </TabsTrigger>
               </TabsList>
 
@@ -283,11 +470,11 @@ export default function PublishPage() {
                 {/* Title */}
                 <Card className="bg-[#2A2550] border-purple-500/20">
                   <CardHeader>
-                    <CardTitle className="text-lg">内容标题</CardTitle>
+                    <CardTitle className="text-lg">{t.contentTitle}</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <Input
-                      placeholder="输入吸引人的标题..."
+                      placeholder={t.titlePlaceholder}
                       value={formData.title}
                       onChange={(e) => handleInputChange("title", e.target.value)}
                       className="bg-[#1E1B3A] border-purple-500/30"
@@ -304,11 +491,11 @@ export default function PublishPage() {
                 {/* Summary */}
                 <Card className="bg-[#2A2550] border-purple-500/20">
                   <CardHeader>
-                    <CardTitle className="text-lg">内容摘要</CardTitle>
+                    <CardTitle className="text-lg">{t.contentSummary}</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <Textarea
-                      placeholder="简要描述您的内容..."
+                      placeholder={t.summaryPlaceholder}
                       value={formData.summary}
                       onChange={(e) => handleInputChange("summary", e.target.value)}
                       className="bg-[#1E1B3A] border-purple-500/30 min-h-[100px]"
@@ -325,7 +512,7 @@ export default function PublishPage() {
                 {/* Cover Image */}
                 <Card className="bg-[#2A2550] border-purple-500/20">
                   <CardHeader>
-                    <CardTitle className="text-lg">封面图片</CardTitle>
+                    <CardTitle className="text-lg">{t.coverImage}</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-4">
@@ -336,7 +523,7 @@ export default function PublishPage() {
                           className="border-purple-500/30 bg-transparent hover:bg-purple-600/20"
                         >
                           <Upload className="w-4 h-4 mr-2" />
-                          上传图片
+                          {t.uploadImage}
                         </Button>
                         <input
                           id="cover-upload"
@@ -378,7 +565,7 @@ export default function PublishPage() {
                 {/* Rich Text Editor */}
                 <Card className="bg-[#2A2550] border-purple-500/20">
                   <CardHeader>
-                    <CardTitle className="text-lg">内容正文</CardTitle>
+                    <CardTitle className="text-lg">{t.contentBody}</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <RichTextEditor
@@ -399,14 +586,14 @@ export default function PublishPage() {
                 {/* Price Setting */}
                 <Card className="bg-[#2A2550] border-purple-500/20">
                   <CardHeader>
-                    <CardTitle className="text-lg">价格设置</CardTitle>
+                    <CardTitle className="text-lg">{t.priceSetting}</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <div className="flex items-center gap-2">
                       <Input
                         type="number"
                         step="0.001"
-                        placeholder="0.05"
+                        placeholder={t.pricePlaceholder}
                         value={formData.price}
                         onChange={(e) => handleInputChange("price", e.target.value)}
                         className="bg-[#1E1B3A] border-purple-500/30"
@@ -425,12 +612,12 @@ export default function PublishPage() {
                 {/* Category */}
                 <Card className="bg-[#2A2550] border-purple-500/20">
                   <CardHeader>
-                    <CardTitle className="text-lg">内容分类</CardTitle>
+                    <CardTitle className="text-lg">{t.contentCategory}</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <Select value={formData.category} onValueChange={(value) => handleInputChange("category", value)}>
                       <SelectTrigger className="bg-[#1E1B3A] border-purple-500/30">
-                        <SelectValue placeholder="选择分类" />
+                        <SelectValue placeholder={t.selectCategory} />
                       </SelectTrigger>
                       <SelectContent className="bg-[#2A2550] border-purple-500/20">
                         {categories.map((category) => (
@@ -452,25 +639,25 @@ export default function PublishPage() {
                 {/* Tags */}
                 <Card className="bg-[#2A2550] border-purple-500/20">
                   <CardHeader>
-                    <CardTitle className="text-lg">标签选择</CardTitle>
+                    <CardTitle className="text-lg">{t.tagSelection}</CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-4">
                     <div className="flex gap-2">
                       <Input
-                        placeholder="添加标签..."
+                        placeholder={t.addTag}
                         value={newTag}
                         onChange={(e) => setNewTag(e.target.value)}
                         onKeyPress={(e) => e.key === "Enter" && handleAddTag()}
                         className="bg-[#1E1B3A] border-purple-500/30"
                       />
                       <Button onClick={handleAddTag} variant="outline" className="border-purple-500/30 bg-transparent">
-                        添加
+                        {t.add}
                       </Button>
                     </div>
 
                     {/* Popular Tags */}
                     <div>
-                      <Label className="text-sm text-gray-400 mb-2 block">热门标签</Label>
+                      <Label className="text-sm text-gray-400 mb-2 block">{t.popularTags}</Label>
                       <div className="flex flex-wrap gap-2">
                         {popularTags.map((tag) => (
                           <Badge
@@ -492,7 +679,7 @@ export default function PublishPage() {
                     {/* Selected Tags */}
                     {formData.tags.length > 0 && (
                       <div>
-                        <Label className="text-sm text-gray-400 mb-2 block">已选标签</Label>
+                        <Label className="text-sm text-gray-400 mb-2 block">{t.selectedTags}</Label>
                         <div className="flex flex-wrap gap-2">
                           {formData.tags.map((tag) => (
                             <Badge key={tag} className="bg-purple-600 hover:bg-purple-700">
@@ -516,7 +703,7 @@ export default function PublishPage() {
                 {/* Visibility Settings */}
                 <Card className="bg-[#2A2550] border-purple-500/20">
                   <CardHeader>
-                    <CardTitle className="text-lg">可见性设置</CardTitle>
+                    <CardTitle className="text-lg">{t.visibilitySettings}</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <Select
@@ -532,19 +719,19 @@ export default function PublishPage() {
                         <SelectItem value="public">
                           <div className="flex items-center gap-2">
                             <Globe className="w-4 h-4" />
-                            公开 - 所有人可见
+                            {t.public}
                           </div>
                         </SelectItem>
                         <SelectItem value="subscribers">
                           <div className="flex items-center gap-2">
                             <Users className="w-4 h-4" />
-                            订阅者 - 仅订阅者可见
+                            {t.subscribers}
                           </div>
                         </SelectItem>
                         <SelectItem value="private">
                           <div className="flex items-center gap-2">
                             <Lock className="w-4 h-4" />
-                            私有 - 仅自己可见
+                            {t.private}
                           </div>
                         </SelectItem>
                       </SelectContent>
@@ -555,7 +742,7 @@ export default function PublishPage() {
                 {/* Publish Type */}
                 <Card className="bg-[#2A2550] border-purple-500/20">
                   <CardHeader>
-                    <CardTitle className="text-lg">发布方式</CardTitle>
+                    <CardTitle className="text-lg">{t.publishMethod}</CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-4">
                     <div className="flex items-center space-x-2">
@@ -565,13 +752,13 @@ export default function PublishPage() {
                           handleInputChange("publishType", checked ? "scheduled" : "immediate")
                         }
                       />
-                      <Label>定时发布</Label>
+                      <Label>{t.scheduledPublish}</Label>
                     </div>
 
                     {formData.publishType === "scheduled" && (
                       <div className="grid grid-cols-2 gap-4">
                         <div>
-                          <Label className="text-sm text-gray-400 mb-2 block">发布日期</Label>
+                          <Label className="text-sm text-gray-400 mb-2 block">{t.publishDate}</Label>
                           <Input
                             type="date"
                             value={formData.scheduledDate}
@@ -581,7 +768,7 @@ export default function PublishPage() {
                           {errors.scheduledDate && <p className="text-red-400 text-sm mt-1">{errors.scheduledDate}</p>}
                         </div>
                         <div>
-                          <Label className="text-sm text-gray-400 mb-2 block">发布时间</Label>
+                          <Label className="text-sm text-gray-400 mb-2 block">{t.publishTime}</Label>
                           <Input
                             type="time"
                             value={formData.scheduledTime}
@@ -602,38 +789,38 @@ export default function PublishPage() {
           <div className="lg:col-span-1">
             <Card className="bg-[#2A2550] border-purple-500/20 sticky top-4">
               <CardHeader>
-                <CardTitle className="text-lg">发布指南</CardTitle>
+                <CardTitle className="text-lg">{t.publishingGuide}</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="space-y-3">
                   <div className="flex items-center gap-2">
                     <CheckCircle className="w-4 h-4 text-green-400" />
-                    <span className="text-sm">使用吸引人的标题</span>
+                    <span className="text-sm">{t.attractiveTitle}</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <CheckCircle className="w-4 h-4 text-green-400" />
-                    <span className="text-sm">添加高质量封面图</span>
+                    <span className="text-sm">{t.highQualityCover}</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <CheckCircle className="w-4 h-4 text-green-400" />
-                    <span className="text-sm">内容结构清晰</span>
+                    <span className="text-sm">{t.clearStructure}</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <CheckCircle className="w-4 h-4 text-green-400" />
-                    <span className="text-sm">合理设置价格</span>
+                    <span className="text-sm">{t.reasonablePrice}</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <CheckCircle className="w-4 h-4 text-green-400" />
-                    <span className="text-sm">选择相关标签</span>
+                    <span className="text-sm">{t.relevantTags}</span>
                   </div>
                 </div>
 
                 <div className="pt-4 border-t border-purple-500/20">
-                  <h4 className="font-medium mb-2">预计收益</h4>
+                  <h4 className="font-medium mb-2">{t.estimatedEarnings}</h4>
                   <div className="text-2xl font-bold text-green-400">
-                    {formData.price ? `${formData.price} ETH` : "设置价格"}
+                    {formData.price ? `${formData.price} ETH` : t.setPrice}
                   </div>
-                  <p className="text-sm text-gray-400">基于当前价格设置</p>
+                  <p className="text-sm text-gray-400">{t.basedOnCurrentPrice}</p>
                 </div>
               </CardContent>
             </Card>
@@ -645,13 +832,13 @@ export default function PublishPage() {
           isOpen={isPreviewOpen}
           onClose={() => setIsPreviewOpen(false)}
           content={{
-            title: formData.title || "内容标题",
-            summary: formData.summary || "内容摘要",
-            content: formData.content || "内容正文",
+            title: formData.title || t.contentTitle,
+            summary: formData.summary || t.contentSummary,
+            content: formData.content || t.contentBody,
             coverImage: formData.coverImage || "/placeholder.svg?height=300&width=600",
             price: Number.parseFloat(formData.price) || 0,
             tags: formData.tags,
-            category: formData.category || "未分类",
+            category: formData.category || t.uncategorized,
           }}
         />
       </main>
