@@ -5,7 +5,7 @@ import { Providers } from "@/components/providers";
 import "./globals.css";
 import "../lib/styles/animate-background.css";
 import { Header } from "@/components/header";
-import Bg from "@/components/animation/home/bg";
+import BgFixed from "@/components/animation/home/bg-fixed";
 
 export const metadata: Metadata = {
   title: "ContentDAO",
@@ -31,10 +31,10 @@ html {
       </head>
       <body className="min-h-screen max-w-screen">
         <Providers>
-          <Bg>
+          <BgFixed>
             <Header />
             <div className="flex flex-col flex-1">{children}</div>
-          </Bg>
+          </BgFixed>
         </Providers>
       </body>
     </html>
