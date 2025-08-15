@@ -252,12 +252,17 @@ export default function ProfilePage() {
       <motion.div
         className="p-8 rounded-2xl bg-gray-950/30 backdrop-blur-sm mb-8"
         style={{ border, boxShadow }}
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
       >
         <div className="flex flex-col md:flex-row items-start md:items-center gap-6">
           <motion.div
             className="relative"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5, delay: 0.2, ease: "easeOut" }}
             whileHover={{ scale: 1.05 }}
-            transition={{ type: "spring", stiffness: 300 }}
           >
             <Avatar className="w-24 h-24 border-2" style={{ borderColor: color.get() }}>
               <AvatarImage
@@ -272,7 +277,11 @@ export default function ProfilePage() {
 
           <div className="flex-1">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
-              <div>
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5, delay: 0.3, ease: "easeOut" }}
+              >
                 <h1 className="text-3xl md:text-4xl font-light mb-2 text-white">
                   {userData.username}
                 </h1>
@@ -281,8 +290,11 @@ export default function ProfilePage() {
                   <Calendar className="w-4 h-4 mr-1" />
                   加入时间：{userData.joinDate}
                 </div>
-              </div>
+              </motion.div>
               <motion.button
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5, delay: 0.4, ease: "easeOut" }}
                 style={{
                   border: buttonBorder,
                   boxShadow: buttonShadow,
@@ -301,6 +313,9 @@ export default function ProfilePage() {
             <div className="grid grid-cols-3 gap-4">
               <motion.div
                 className="text-center p-4 rounded-xl bg-gray-900/30"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.5, ease: "easeOut" }}
                 whileHover={{ scale: 1.05 }}
               >
                 <motion.div
@@ -313,6 +328,9 @@ export default function ProfilePage() {
               </motion.div>
               <motion.div
                 className="text-center p-4 rounded-xl bg-gray-900/30"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.6, ease: "easeOut" }}
                 whileHover={{ scale: 1.05 }}
               >
                 <div className="text-2xl font-bold text-green-400">
@@ -322,6 +340,9 @@ export default function ProfilePage() {
               </motion.div>
               <motion.div
                 className="text-center p-4 rounded-xl bg-gray-900/30"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.7, ease: "easeOut" }}
                 whileHover={{ scale: 1.05 }}
               >
                 <div className="text-2xl font-bold text-yellow-400">
@@ -339,6 +360,9 @@ export default function ProfilePage() {
         <motion.div
           className="grid w-full grid-cols-3 bg-gray-950/30 backdrop-blur-sm rounded-full p-1 mb-6"
           style={{ border }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.8, ease: "easeOut" }}
         >
           <motion.button
             onClick={() => setActiveTab("content")}
@@ -411,13 +435,20 @@ export default function ProfilePage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {userContent.map((content) => (
+            {userContent.map((content, index) => (
               <motion.div
                 key={content.id}
                 className="rounded-2xl bg-gray-950/30 backdrop-blur-sm overflow-hidden group hover:bg-gray-900/20 transition-all duration-300"
                 initial={{
+                  opacity: 0,
+                  y: 30,
                   boxShadow: `inset 0 1px 0 0 rgba(255,255,255,0.05)`
                 }}
+                animate={{
+                  opacity: 1,
+                  y: 0
+                }}
+                transition={{ duration: 0.5, delay: 1.0 + index * 0.1, ease: "easeOut" }}
                 whileHover={{
                   boxShadow: `inset 0 2px 0 0 ${color.get()}40, 0 0 0 1px ${color.get()}30, 0 4px 12px ${color.get()}20`
                 }}
