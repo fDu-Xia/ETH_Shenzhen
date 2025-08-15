@@ -5,7 +5,7 @@ export default function ContainerLayout({
 }) {
   return (
     <div className="container mx-auto min-h-screen backdrop-blur-[1px] z-10">
-      <div className="bg-gray-900/10 px-4">{children}</div>
+      <div className="bg-white/5 px-4 my-8 rounded-sm">{children}</div>
     </div>
   );
 }
