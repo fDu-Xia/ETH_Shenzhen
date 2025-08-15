@@ -6,6 +6,7 @@ export const useColorChange = () => {
   const colorsTop = useThemeStore((state) => state.colorsTop);
   const color = useMotionValue(colorsTop[0]);
 
+  // ! dev 模式下关了，容易卡
   // useEffect(() => {
   //   animate(color, colorsTop, {
   //     ease: "easeInOut",
