@@ -1,8 +1,11 @@
+"use client"
+
 import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Heart, Eye, Users, TrendingUp, CheckCircle } from "lucide-react"
+import { usePathname } from "next/navigation"
 
 interface ContentCardProps {
   content: {
@@ -27,6 +30,22 @@ interface ContentCardProps {
 }
 
 export function ContentCard({ content }: ContentCardProps) {
+  const pathname = usePathname()
+  const currentLocale = pathname.startsWith('/en') ? 'en' : 'zh'
+
+  const translations = {
+    zh: {
+      trending: "热门",
+      viewDetails: "查看详情"
+    },
+    en: {
+      trending: "Trending",
+      viewDetails: "View Details"
+    }
+  }
+
+  const t = translations[currentLocale as keyof typeof translations]
+
   return (
     <div className="bg-[#2A2147] rounded-xl border border-purple-800/30 overflow-hidden hover:border-purple-600/50 transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/10">
       {/* Image */}
@@ -41,7 +60,7 @@ export function ContentCard({ content }: ContentCardProps) {
         {content.trending && (
           <Badge className="absolute top-3 left-3 bg-gradient-to-r from-orange-500 to-red-500 text-white">
             <TrendingUp className="w-3 h-3 mr-1" />
-            热门
+            {t.trending}
           </Badge>
         )}
         <div className="absolute top-3 right-3 bg-black/50 backdrop-blur-sm rounded-lg px-2 py-1">
@@ -96,9 +115,9 @@ export function ContentCard({ content }: ContentCardProps) {
         </div>
 
         {/* Action Button */}
-        <Link href={`/content/${content.id}`}>
+        <Link href={`/${currentLocale}/content/${content.id}`}>
           <Button className="w-full bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white">
-            查看详情
+            {t.viewDetails}
           </Button>
         </Link>
       </div>

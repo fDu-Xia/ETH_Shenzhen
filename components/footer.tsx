@@ -1,6 +1,12 @@
-import Link from "next/link"
+"use client";
+
+import Link from "next/link";
+import { usePathname } from 'next/navigation';
 
 export function Footer() {
+  const pathname = usePathname();
+  const currentLocale = pathname.startsWith('/en') ? 'en' : 'zh';
+
   return (
     <footer className="bg-[#151229] border-t border-purple-800/30">
       <div className="container mx-auto px-4 py-12">
@@ -14,48 +20,55 @@ export function Footer() {
               <span className="text-xl font-bold text-white">ContentDAO</span>
             </div>
             <p className="text-gray-400 max-w-md">
-              去中心化内容付费平台，让优质内容获得应有的价值，让创作者直接从粉丝获得收益。
+              {currentLocale === 'en' 
+                ? 'Decentralized content platform, enabling quality content to receive its deserved value and creators to directly earn from their fans.'
+                : '去中心化内容付费平台，让优质内容获得应有的价值，让创作者直接从粉丝获得收益。'
+              }
             </p>
           </div>
 
           {/* Links */}
           <div>
-            <h3 className="text-white font-semibold mb-4">平台</h3>
+            <h3 className="text-white font-semibold mb-4">
+              {currentLocale === 'en' ? 'Platform' : '平台'}
+            </h3>
             <ul className="space-y-2">
               <li>
-                <Link href="/about" className="text-gray-400 hover:text-purple-400 transition-colors">
-                  关于我们
+                <Link href={`/${currentLocale}/about`} className="text-gray-400 hover:text-purple-400 transition-colors">
+                  {currentLocale === 'en' ? 'About Us' : '关于我们'}
                 </Link>
               </li>
               <li>
-                <Link href="/how-it-works" className="text-gray-400 hover:text-purple-400 transition-colors">
-                  工作原理
+                <Link href={`/${currentLocale}/how-it-works`} className="text-gray-400 hover:text-purple-400 transition-colors">
+                  {currentLocale === 'en' ? 'How It Works' : '工作原理'}
                 </Link>
               </li>
               <li>
-                <Link href="/tokenomics" className="text-gray-400 hover:text-purple-400 transition-colors">
-                  代币经济
+                <Link href={`/${currentLocale}/tokenomics`} className="text-gray-400 hover:text-purple-400 transition-colors">
+                  {currentLocale === 'en' ? 'Tokenomics' : '代币经济'}
                 </Link>
               </li>
             </ul>
           </div>
 
           <div>
-            <h3 className="text-white font-semibold mb-4">支持</h3>
+            <h3 className="text-white font-semibold mb-4">
+              {currentLocale === 'en' ? 'Support' : '支持'}
+            </h3>
             <ul className="space-y-2">
               <li>
-                <Link href="/help" className="text-gray-400 hover:text-purple-400 transition-colors">
-                  帮助中心
+                <Link href={`/${currentLocale}/help`} className="text-gray-400 hover:text-purple-400 transition-colors">
+                  {currentLocale === 'en' ? 'Help Center' : '帮助中心'}
                 </Link>
               </li>
               <li>
-                <Link href="/docs" className="text-gray-400 hover:text-purple-400 transition-colors">
-                  开发文档
+                <Link href={`/${currentLocale}/docs`} className="text-gray-400 hover:text-purple-400 transition-colors">
+                  {currentLocale === 'en' ? 'Documentation' : '开发文档'}
                 </Link>
               </li>
               <li>
-                <Link href="/contact" className="text-gray-400 hover:text-purple-400 transition-colors">
-                  联系我们
+                <Link href={`/${currentLocale}/contact`} className="text-gray-400 hover:text-purple-400 transition-colors">
+                  {currentLocale === 'en' ? 'Contact Us' : '联系我们'}
                 </Link>
               </li>
             </ul>
