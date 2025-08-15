@@ -1,8 +1,5 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-@plugin 'tailwind-scrollbar' {
-  nocompatible: true;
-}
 
 @custom-variant dark (&:is(.dark *));
 
@@ -95,4 +92,13 @@
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+body::-webkit-scrollbar {
+  width: 4px;
+}
+
+body::-webkit-scrollbar-thumb {
+  background: rgba(88, 85, 85, 0.4);
+  border-radius: 8px;
 }

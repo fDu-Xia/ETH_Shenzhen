@@ -29,12 +29,7 @@ html {
 }
         `}</style>
       </head>
-      <body
-        className="scrollbar scrollbar-thumb-purple-500/70 scroll-m-0
-                    scrollbar-thumb-rounded-full scrollbar-w-[6px]
-                    min-h-screen max-w-screen
-                  "
-      >
+      <body className="min-h-screen max-w-screen">
         <Providers>
           <Bg>
             <Header />
