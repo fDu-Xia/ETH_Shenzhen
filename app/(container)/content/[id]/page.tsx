@@ -6,6 +6,8 @@ import { ContentDetailSidebar } from "@/components/content-detail-sidebar";
 import { CommentsSection } from "@/components/comments-section";
 import { ContentDataCharts } from "@/components/content-data-charts";
 import { UnlockedContentDisplay } from "@/components/unlocked-content-display";
+import { motion } from "motion/react";
+import { useColorChange } from "@/hooks/animation/use-color-change";
 
 // Mock data - in real app this would come from API
 const mockContent = {
@@ -98,6 +100,7 @@ export default function ContentDetailPage({
 }) {
   const [isUnlocked, setIsUnlocked] = useState(mockContent.isUnlocked);
   const paramsId = use(params);
+  const color = useColorChange();
 
   const handlePurchaseComplete = () => {
     setIsUnlocked(true);
@@ -109,15 +112,44 @@ export default function ContentDetailPage({
   };
 
   return (
-    <main className="container mx-auto pt-8 pb-4">
+    <main className="container mx-auto px-4 pt-8 pb-4">
+      {/* Page Title with Dynamic Color */}
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="mb-8"
+      >
+        <h1 className="text-3xl font-bold text-white mb-2">内容详情</h1>
+        <motion.div
+          className="h-1 w-24 rounded-full"
+          style={{ backgroundColor: color }}
+        />
+      </motion.div>
+
       {/* Main Content Layout */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5, delay: 0.1 }}
+        className="grid grid-cols-1 lg:grid-cols-3 gap-8"
+      >
         {/* Left Main Content (2/3 width on desktop) */}
-        <div className="lg:col-span-2">
-          <ContentDetailMain content={contentWithUnlockStatus} />
+        <div className="lg:col-span-2 space-y-8">
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
+            <ContentDetailMain content={contentWithUnlockStatus} />
+          </motion.div>
 
           {isUnlocked && (
-            <div className="mt-8">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
               <UnlockedContentDisplay
                 content={{
                   title: mockContent.title,
@@ -126,28 +158,43 @@ export default function ContentDetailPage({
                   downloadUrl: mockContent.downloadUrl,
                 }}
               />
-            </div>
+            </motion.div>
           )}
         </div>
 
         {/* Right Sidebar (1/3 width on desktop) */}
-        <div className="lg:col-span-1">
+        <motion.div
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="lg:col-span-1"
+        >
           <ContentDetailSidebar
             content={contentWithUnlockStatus}
             onPurchaseComplete={handlePurchaseComplete}
           />
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
 
       {/* Data Visualization Charts Section */}
-      <div className="mt-12">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.4 }}
+        className="mt-12"
+      >
         <ContentDataCharts contentId={paramsId.id} />
-      </div>
+      </motion.div>
 
       {/* Comments Section */}
-      <div className="mt-12">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.5 }}
+        className="mt-12"
+      >
         <CommentsSection contentId={paramsId.id} />
-      </div>
+      </motion.div>
     </main>
   );
 }

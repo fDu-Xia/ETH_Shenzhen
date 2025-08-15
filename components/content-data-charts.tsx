@@ -16,6 +16,9 @@ import {
   ResponsiveContainer,
 } from "recharts"
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart"
+import { motion, useMotionTemplate } from "motion/react"
+import { useColorChange } from "@/hooks/animation/use-color-change"
+import { TrendingUp, BarChart3, DollarSign } from "lucide-react"
 
 interface ContentDataChartsProps {
   contentId: string
@@ -69,159 +72,200 @@ const priceTrendData = [
 
 export function ContentDataCharts({ contentId }: ContentDataChartsProps) {
   const [activeTab, setActiveTab] = useState("reading")
+  const color = useColorChange()
+  const borderColor = useMotionTemplate`${color}33`
+  const shadowColor = useMotionTemplate`0 4px 20px ${color}20`
+
+  const tabIcons = {
+    reading: TrendingUp,
+    voting: BarChart3,
+    price: DollarSign
+  }
 
   return (
-    <Card className="bg-[#2A2550] border-purple-500/20">
-      <CardHeader>
-        <CardTitle className="text-xl font-bold text-white">数据分析</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-3 bg-[#1E1B3A] border border-purple-500/20">
-            <TabsTrigger
-              value="reading"
-              className="data-[state=active]:bg-purple-600 data-[state=active]:text-white text-gray-300 transition-all duration-300"
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+    >
+      <Card className="bg-gray-950/30 backdrop-blur-sm border-gray-800">
+        <CardHeader>
+          <CardTitle className="text-xl font-bold text-white flex items-center gap-2">
+            <motion.div
+              animate={{ rotate: [0, 360] }}
+              transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
             >
-              阅读量趋势
-            </TabsTrigger>
-            <TabsTrigger
-              value="voting"
-              className="data-[state=active]:bg-purple-600 data-[state=active]:text-white text-gray-300 transition-all duration-300"
-            >
-              投票趋势
-            </TabsTrigger>
-            <TabsTrigger
-              value="price"
-              className="data-[state=active]:bg-purple-600 data-[state=active]:text-white text-gray-300 transition-all duration-300"
-            >
-              价格走势
-            </TabsTrigger>
-          </TabsList>
+              <BarChart3 className="w-5 h-5" style={{ color: color.get() }} />
+            </motion.div>
+            数据分析
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+            <TabsList className="grid w-full grid-cols-3 bg-gray-800/30 border border-gray-700 p-1 rounded-full">
+              {["reading", "voting", "price"].map((tab) => {
+                const Icon = tabIcons[tab as keyof typeof tabIcons]
+                const labels = {
+                  reading: "阅读量趋势",
+                  voting: "投票趋势",
+                  price: "价格走势"
+                }
+                return (
+                  <TabsTrigger
+                    key={tab}
+                    value={tab}
+                    className="data-[state=active]:bg-gray-700 data-[state=active]:text-white text-gray-400 transition-all duration-300 rounded-full flex items-center gap-2"
+                  >
+                    <Icon className="w-4 h-4" />
+                    <span className="hidden sm:inline">{labels[tab as keyof typeof labels]}</span>
+                  </TabsTrigger>
+                )
+              })}
+            </TabsList>
 
-          <TabsContent value="reading" className="mt-6">
-            <div className="h-[300px] w-full">
-              <ChartContainer
-                config={{
-                  views: {
-                    label: "阅读量",
-                    color: "#8B5CF6",
-                  },
-                }}
-                className="h-full w-full"
+            <TabsContent value="reading" className="mt-6">
+              <motion.div
+                className="h-[300px] w-full p-4 rounded-xl bg-gray-800/20"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.2 }}
               >
-                <ResponsiveContainer width="100%" height="100%">
-                  <LineChart data={readingTrendData}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
-                    <XAxis dataKey="date" stroke="#9CA3AF" fontSize={12} />
-                    <YAxis stroke="#9CA3AF" fontSize={12} />
-                    <ChartTooltip
-                      content={<ChartTooltipContent />}
-                      contentStyle={{
-                        backgroundColor: "#2A2550",
-                        border: "1px solid #8B5CF6",
-                        borderRadius: "8px",
-                        color: "#fff",
-                      }}
-                    />
-                    <Line
-                      type="monotone"
-                      dataKey="views"
-                      stroke="#8B5CF6"
-                      strokeWidth={3}
-                      dot={{ fill: "#8B5CF6", strokeWidth: 2, r: 4 }}
-                      activeDot={{ r: 6, fill: "#A855F7" }}
-                    />
-                  </LineChart>
-                </ResponsiveContainer>
-              </ChartContainer>
-            </div>
-          </TabsContent>
+                <ChartContainer
+                  config={{
+                    views: {
+                      label: "阅读量",
+                      color: color.get(),
+                    },
+                  }}
+                  className="h-full w-full"
+                >
+                  <ResponsiveContainer width="100%" height="100%">
+                    <LineChart data={readingTrendData}>
+                      <CartesianGrid strokeDasharray="3 3" stroke="#374151" opacity={0.3} />
+                      <XAxis dataKey="date" stroke="#9CA3AF" fontSize={12} />
+                      <YAxis stroke="#9CA3AF" fontSize={12} />
+                      <ChartTooltip
+                        content={<ChartTooltipContent />}
+                        contentStyle={{
+                          backgroundColor: "rgba(17, 24, 39, 0.9)",
+                          border: `1px solid ${color.get()}`,
+                          borderRadius: "12px",
+                          color: "#fff",
+                          backdropFilter: "blur(8px)",
+                        }}
+                      />
+                      <Line
+                        type="monotone"
+                        dataKey="views"
+                        stroke={color.get()}
+                        strokeWidth={3}
+                        dot={{ fill: color.get(), strokeWidth: 2, r: 4 }}
+                        activeDot={{ r: 6, fill: color.get(), stroke: "#fff", strokeWidth: 2 }}
+                      />
+                    </LineChart>
+                  </ResponsiveContainer>
+                </ChartContainer>
+              </motion.div>
+            </TabsContent>
 
-          <TabsContent value="voting" className="mt-6">
-            <div className="h-[300px] w-full">
-              <ChartContainer
-                config={{
-                  likes: {
-                    label: "点赞",
-                    color: "#8B5CF6",
-                  },
-                  dislikes: {
-                    label: "踩",
-                    color: "#6B7280",
-                  },
-                }}
-                className="h-full w-full"
+            <TabsContent value="voting" className="mt-6">
+              <motion.div
+                className="h-[300px] w-full p-4 rounded-xl bg-gray-800/20"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.2 }}
               >
-                <ResponsiveContainer width="100%" height="100%">
-                  <BarChart data={votingTrendData}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
-                    <XAxis dataKey="date" stroke="#9CA3AF" fontSize={12} />
-                    <YAxis stroke="#9CA3AF" fontSize={12} />
-                    <ChartTooltip
-                      content={<ChartTooltipContent />}
-                      contentStyle={{
-                        backgroundColor: "#2A2550",
-                        border: "1px solid #8B5CF6",
-                        borderRadius: "8px",
-                        color: "#fff",
-                      }}
-                    />
-                    <Bar dataKey="likes" fill="#8B5CF6" radius={[2, 2, 0, 0]} />
-                    <Bar dataKey="dislikes" fill="#6B7280" radius={[2, 2, 0, 0]} />
-                  </BarChart>
-                </ResponsiveContainer>
-              </ChartContainer>
-            </div>
-          </TabsContent>
+                <ChartContainer
+                  config={{
+                    likes: {
+                      label: "点赞",
+                      color: color.get(),
+                    },
+                    dislikes: {
+                      label: "踩",
+                      color: "#6B7280",
+                    },
+                  }}
+                  className="h-full w-full"
+                >
+                  <ResponsiveContainer width="100%" height="100%">
+                    <BarChart data={votingTrendData}>
+                      <CartesianGrid strokeDasharray="3 3" stroke="#374151" opacity={0.3} />
+                      <XAxis dataKey="date" stroke="#9CA3AF" fontSize={12} />
+                      <YAxis stroke="#9CA3AF" fontSize={12} />
+                      <ChartTooltip
+                        content={<ChartTooltipContent />}
+                        contentStyle={{
+                          backgroundColor: "rgba(17, 24, 39, 0.9)",
+                          border: `1px solid ${color.get()}`,
+                          borderRadius: "12px",
+                          color: "#fff",
+                          backdropFilter: "blur(8px)",
+                        }}
+                      />
+                      <Bar dataKey="likes" fill={color.get()} radius={[4, 4, 0, 0]} />
+                      <Bar dataKey="dislikes" fill="#6B7280" radius={[4, 4, 0, 0]} />
+                    </BarChart>
+                  </ResponsiveContainer>
+                </ChartContainer>
+              </motion.div>
+            </TabsContent>
 
-          <TabsContent value="price" className="mt-6">
-            <div className="h-[300px] w-full">
-              <ChartContainer
-                config={{
-                  price: {
-                    label: "价格 (ETH)",
-                    color: "#8B5CF6",
-                  },
-                }}
-                className="h-full w-full"
+            <TabsContent value="price" className="mt-6">
+              <motion.div
+                className="h-[300px] w-full p-4 rounded-xl bg-gray-800/20"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.2 }}
               >
-                <ResponsiveContainer width="100%" height="100%">
-                  <AreaChart data={priceTrendData}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
-                    <XAxis dataKey="date" stroke="#9CA3AF" fontSize={12} />
-                    <YAxis stroke="#9CA3AF" fontSize={12} tickFormatter={(value) => `${value} ETH`} />
-                    <ChartTooltip
-                      content={<ChartTooltipContent />}
-                      contentStyle={{
-                        backgroundColor: "#2A2550",
-                        border: "1px solid #8B5CF6",
-                        borderRadius: "8px",
-                        color: "#fff",
-                      }}
-                      formatter={(value) => [`${value} ETH`, "价格"]}
-                    />
-                    <defs>
-                      <linearGradient id="priceGradient" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="#8B5CF6" stopOpacity={0.8} />
-                        <stop offset="95%" stopColor="#8B5CF6" stopOpacity={0.1} />
-                      </linearGradient>
-                    </defs>
-                    <Area
-                      type="monotone"
-                      dataKey="price"
-                      stroke="#8B5CF6"
-                      strokeWidth={3}
-                      fill="url(#priceGradient)"
-                      dot={{ fill: "#8B5CF6", strokeWidth: 2, r: 4 }}
-                      activeDot={{ r: 6, fill: "#A855F7" }}
-                    />
-                  </AreaChart>
-                </ResponsiveContainer>
-              </ChartContainer>
-            </div>
-          </TabsContent>
-        </Tabs>
-      </CardContent>
-    </Card>
+                <ChartContainer
+                  config={{
+                    price: {
+                      label: "价格 (ETH)",
+                      color: color.get(),
+                    },
+                  }}
+                  className="h-full w-full"
+                >
+                  <ResponsiveContainer width="100%" height="100%">
+                    <AreaChart data={priceTrendData}>
+                      <CartesianGrid strokeDasharray="3 3" stroke="#374151" opacity={0.3} />
+                      <XAxis dataKey="date" stroke="#9CA3AF" fontSize={12} />
+                      <YAxis stroke="#9CA3AF" fontSize={12} tickFormatter={(value) => `${value} ETH`} />
+                      <ChartTooltip
+                        content={<ChartTooltipContent />}
+                        contentStyle={{
+                          backgroundColor: "rgba(17, 24, 39, 0.9)",
+                          border: `1px solid ${color.get()}`,
+                          borderRadius: "12px",
+                          color: "#fff",
+                          backdropFilter: "blur(8px)",
+                        }}
+                        formatter={(value) => [`${value} ETH`, "价格"]}
+                      />
+                      <defs>
+                        <linearGradient id="priceGradient" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="5%" stopColor={color.get()} stopOpacity={0.8} />
+                          <stop offset="95%" stopColor={color.get()} stopOpacity={0.1} />
+                        </linearGradient>
+                      </defs>
+                      <Area
+                        type="monotone"
+                        dataKey="price"
+                        stroke={color.get()}
+                        strokeWidth={3}
+                        fill="url(#priceGradient)"
+                        dot={{ fill: color.get(), strokeWidth: 2, r: 4 }}
+                        activeDot={{ r: 6, fill: color.get(), stroke: "#fff", strokeWidth: 2 }}
+                      />
+                    </AreaChart>
+                  </ResponsiveContainer>
+                </ChartContainer>
+              </motion.div>
+            </TabsContent>
+          </Tabs>
+        </CardContent>
+      </Card>
+    </motion.div>
   )
 }

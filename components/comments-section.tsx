@@ -1,6 +1,11 @@
+"use client"
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { MessageCircle, Heart, Reply } from "lucide-react"
+import { MessageCircle, Heart, Reply, Send } from "lucide-react"
+import { motion, useMotionTemplate } from "motion/react"
+import { useColorChange } from "@/hooks/animation/use-color-change"
+import { useState } from "react"
 
 interface CommentsSectionProps {
   contentId: string
@@ -47,70 +52,139 @@ const mockComments = [
 ]
 
 export function CommentsSection({ contentId }: CommentsSectionProps) {
-  return (
-    <Card className="bg-gray-800/50 border-gray-700">
-      <CardHeader>
-        <CardTitle className="text-white flex items-center gap-2">
-          <MessageCircle className="w-5 h-5 text-purple-400" />
-          评论区 ({mockComments.length})
-        </CardTitle>
-      </CardHeader>
-      <CardContent className="space-y-6">
-        {/* Comment Input Placeholder */}
-        <div className="bg-gray-700/50 rounded-lg p-4 border border-gray-600">
-          <p className="text-gray-400 text-sm mb-3">发表您的看法...</p>
-          <div className="flex justify-between items-center">
-            <span className="text-xs text-gray-500">需要解锁内容后才能评论</span>
-            <Button size="sm" disabled className="bg-purple-600/50">
-              发布评论
-            </Button>
-          </div>
-        </div>
+  const color = useColorChange()
+  const borderColor = useMotionTemplate`${color}33`
+  const shadowColor = useMotionTemplate`0 4px 20px ${color}20`
+  const [likedComments, setLikedComments] = useState<Set<string>>(new Set())
 
-        {/* Comments List */}
-        <div className="space-y-4">
-          {mockComments.map((comment) => (
-            <div key={comment.id} className="bg-gray-700/30 rounded-lg p-4">
-              <div className="flex items-start gap-3">
-                <img
-                  src={comment.author.avatar || "/placeholder.svg"}
-                  alt={comment.author.name}
-                  className="w-8 h-8 rounded-full"
-                />
-                <div className="flex-1">
-                  <div className="flex items-center gap-2 mb-2">
-                    <span className="font-medium text-white text-sm">{comment.author.name}</span>
-                    {comment.author.verified && (
-                      <div className="w-3 h-3 bg-blue-500 rounded-full flex items-center justify-center">
-                        <div className="w-1.5 h-1.5 bg-white rounded-full" />
-                      </div>
-                    )}
-                    <span className="text-xs text-gray-400">{comment.timestamp}</span>
-                  </div>
-                  <p className="text-gray-300 text-sm mb-3">{comment.content}</p>
-                  <div className="flex items-center gap-4">
-                    <button className="flex items-center gap-1 text-gray-400 hover:text-purple-400 text-xs">
-                      <Heart className="w-3 h-3" />
-                      <span>{comment.likes}</span>
-                    </button>
-                    <button className="flex items-center gap-1 text-gray-400 hover:text-purple-400 text-xs">
-                      <Reply className="w-3 h-3" />
-                      <span>回复 ({comment.replies})</span>
-                    </button>
+  const toggleLike = (commentId: string) => {
+    setLikedComments(prev => {
+      const newSet = new Set(prev)
+      if (newSet.has(commentId)) {
+        newSet.delete(commentId)
+      } else {
+        newSet.add(commentId)
+      }
+      return newSet
+    })
+  }
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+    >
+      <Card className="bg-gray-950/30 backdrop-blur-sm border-gray-800">
+        <CardHeader>
+          <CardTitle className="text-white flex items-center gap-2">
+            <MessageCircle className="w-5 h-5" style={{ color: color.get() }} />
+            评论区 ({mockComments.length})
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-6">
+          {/* Comment Input */}
+          <motion.div
+            className="rounded-xl p-4 border bg-gray-800/20"
+            style={{ borderColor: borderColor }}
+            whileHover={{ boxShadow: shadowColor.get() }}
+          >
+            <textarea
+              placeholder="发表您的看法..."
+              className="w-full bg-transparent text-gray-300 placeholder-gray-500 resize-none outline-none mb-3"
+              rows={3}
+              disabled
+            />
+            <div className="flex justify-between items-center">
+              <span className="text-xs text-gray-500">需要解锁内容后才能评论</span>
+              <motion.button
+                disabled
+                className="px-4 py-2 rounded-full text-white text-sm font-medium flex items-center gap-2 opacity-50 cursor-not-allowed"
+                style={{ backgroundColor: color }}
+              >
+                <Send className="w-4 h-4" />
+                发布评论
+              </motion.button>
+            </div>
+          </motion.div>
+
+          {/* Comments List */}
+          <div className="space-y-4">
+            {mockComments.map((comment, index) => (
+              <motion.div
+                key={comment.id}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: index * 0.1 }}
+                className="rounded-xl p-4 bg-gray-800/20 hover:bg-gray-800/30 transition-colors"
+              >
+                <div className="flex items-start gap-3">
+                  <motion.img
+                    src={comment.author.avatar || "/placeholder.svg"}
+                    alt={comment.author.name}
+                    className="w-10 h-10 rounded-full ring-2 ring-gray-800"
+                    whileHover={{ scale: 1.1 }}
+                  />
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2 mb-2">
+                      <span className="font-medium text-white text-sm">{comment.author.name}</span>
+                      {comment.author.verified && (
+                        <motion.div
+                          className="w-3 h-3 rounded-full flex items-center justify-center"
+                          style={{ backgroundColor: color }}
+                          whileHover={{ scale: 1.3 }}
+                        >
+                          <div className="w-1.5 h-1.5 bg-white rounded-full" />
+                        </motion.div>
+                      )}
+                      <span className="text-xs text-gray-500">• {comment.timestamp}</span>
+                    </div>
+                    <p className="text-gray-300 text-sm mb-3 leading-relaxed">{comment.content}</p>
+                    <div className="flex items-center gap-4">
+                      <motion.button
+                        onClick={() => toggleLike(comment.id)}
+                        className={`flex items-center gap-1.5 text-xs transition-colors ${
+                          likedComments.has(comment.id) ? 'text-red-400' : 'text-gray-400 hover:text-red-400'
+                        }`}
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.95 }}
+                      >
+                        <Heart
+                          className={`w-3.5 h-3.5 ${likedComments.has(comment.id) ? 'fill-current' : ''}`}
+                        />
+                        <span>{comment.likes + (likedComments.has(comment.id) ? 1 : 0)}</span>
+                      </motion.button>
+                      <motion.button
+                        className="flex items-center gap-1.5 text-gray-400 hover:text-white text-xs transition-colors"
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.95 }}
+                      >
+                        <Reply className="w-3.5 h-3.5" />
+                        <span>回复 ({comment.replies})</span>
+                      </motion.button>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
-          ))}
-        </div>
+              </motion.div>
+            ))}
+          </div>
 
-        {/* Load More Comments */}
-        <div className="text-center">
-          <Button variant="outline" className="border-gray-600 text-gray-400 hover:text-white bg-transparent">
-            加载更多评论
-          </Button>
-        </div>
-      </CardContent>
-    </Card>
+          {/* Load More Comments */}
+          <div className="text-center pt-4">
+            <motion.button
+              className="px-6 py-2.5 rounded-full border text-gray-400 hover:text-white text-sm font-medium transition-colors"
+              style={{ borderColor: borderColor }}
+              whileHover={{
+                scale: 1.05,
+                backgroundColor: `${color.get()}10`
+              }}
+              whileTap={{ scale: 0.95 }}
+            >
+              加载更多评论
+            </motion.button>
+          </div>
+        </CardContent>
+      </Card>
+    </motion.div>
   )
 }
