@@ -128,15 +128,29 @@ export default function PublishPage() {
   return (
       <main className="container mx-auto pt-8 py-4">
         {/* Header */}
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
-          <div>
+        <motion.div
+          className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+        >
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
+          >
             <h1 className="text-3xl md:text-4xl font-light mb-2 text-white">
               创作中心
             </h1>
             <p className="text-gray-400">将您的知识转化为价值</p>
-          </div>
+          </motion.div>
 
-          <div className="flex items-center gap-3">
+          <motion.div
+            className="flex items-center gap-3"
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.2, ease: "easeOut" }}
+          >
             <motion.button
                 onClick={handleSaveDraft}
                 disabled={isDraft}
@@ -196,13 +210,16 @@ export default function PublishPage() {
                   </>
               )}
             </motion.button>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
         {/* Progress Indicator */}
         <motion.div
             className="p-4 rounded-2xl bg-gray-950/30 backdrop-blur-sm mb-8"
             style={{ border, boxShadow }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
         >
           <div className="flex items-center justify-between mb-3">
             <span className="text-sm text-gray-400">完成进度</span>
@@ -267,6 +284,9 @@ export default function PublishPage() {
               <motion.div
                   className="p-6 rounded-2xl bg-gray-950/30 backdrop-blur-sm"
                   style={{ border, boxShadow }}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.4, ease: "easeOut" }}
               >
                 <h3 className="text-lg font-medium mb-4 text-white">
                   内容标题
@@ -299,6 +319,9 @@ export default function PublishPage() {
               <motion.div
                   className="p-6 rounded-2xl bg-gray-950/30 backdrop-blur-sm"
                   style={{ border, boxShadow }}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.5, ease: "easeOut" }}
               >
                 <h3 className="text-lg font-medium mb-4 text-white">
                   内容摘要
@@ -331,6 +354,9 @@ export default function PublishPage() {
               <motion.div
                   className="p-6 rounded-2xl bg-gray-950/30 backdrop-blur-sm"
                   style={{ border, boxShadow }}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.6, ease: "easeOut" }}
               >
                 <h3 className="text-lg font-medium mb-4 text-white">
                   封面图片
@@ -397,6 +423,9 @@ export default function PublishPage() {
               <motion.div
                   className="p-6 rounded-2xl bg-gray-950/30 backdrop-blur-sm"
                   style={{ border, boxShadow }}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.7, ease: "easeOut" }}
               >
                 <h3 className="text-lg font-medium mb-4 text-white">
                   内容正文
@@ -426,6 +455,9 @@ export default function PublishPage() {
             <motion.div
                 className="sticky top-4 p-6 rounded-2xl bg-gray-950/30 backdrop-blur-sm"
                 style={{ border, boxShadow }}
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.8, ease: "easeOut" }}
             >
               <h3 className="text-lg font-medium mb-4 text-white">发布指南</h3>
 
@@ -442,13 +474,13 @@ export default function PublishPage() {
                           key={item}
                           initial={{ opacity: 0, x: -20 }}
                           animate={{ opacity: 1, x: 0 }}
-                          transition={{ delay: index * 0.1 }}
+                          transition={{ delay: 0.9 + index * 0.1, ease: "easeOut" }}
                           className="flex items-center gap-3"
                       >
                         <motion.div
                             initial={{ scale: 0 }}
                             animate={{ scale: 1 }}
-                            transition={{ delay: index * 0.1 + 0.2 }}
+                            transition={{ delay: 1.0 + index * 0.1, type: "spring", stiffness: 200 }}
                             style={{ color }}
                         >
                           <CheckCircle className="w-4 h-4" />
@@ -460,9 +492,9 @@ export default function PublishPage() {
 
                 <motion.div
                     className="pt-4 border-t border-gray-700/50"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.8 }}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 1.4, duration: 0.5, ease: "easeOut" }}
                 >
                   <h4 className="font-medium mb-3 text-white">发布提示</h4>
                   <div className="space-y-2">
