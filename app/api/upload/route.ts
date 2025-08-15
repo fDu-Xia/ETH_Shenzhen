@@ -1,10 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { ObjectManager } from '@filebase/sdk';
+import { S3Client, PutObjectCommand, HeadObjectCommand } from '@aws-sdk/client-s3';
 
-// Filebase configuration
+// Filebase configuration (S3-compatible)
 const S3_KEY = process.env.FILEBASE_S3_KEY || '';
 const S3_SECRET = process.env.FILEBASE_S3_SECRET || '';
 const BUCKET_NAME = process.env.FILEBASE_BUCKET_NAME || 'demo-uploads';
+const ENDPOINT = 'https://s3.filebase.com'; // Filebase S3 endpoint
 
 export async function POST(request: NextRequest) {
   try {
@@ -51,26 +52,46 @@ export async function POST(request: NextRequest) {
       bucket: BUCKET_NAME
     });
 
-    // Initialize ObjectManager with Filebase SDK
-    const objectManager = new ObjectManager(S3_KEY, S3_SECRET, {
-      bucket: BUCKET_NAME
+    // Create S3 client for Filebase
+    const s3Client = new S3Client({
+      region: 'us-east-1', // Filebase uses us-east-1
+      endpoint: ENDPOINT,
+      credentials: {
+        accessKeyId: S3_KEY,
+        secretAccessKey: S3_SECRET,
+      },
+      forcePathStyle: true, // Required for Filebase
     });
 
-    // Upload file to IPFS via Filebase using the correct method
     console.log('Starting upload...');
-    const uploadedObject = await objectManager.upload(objectName, buffer);
-    console.log('Upload result:', uploadedObject);
+    
+    // Upload file using S3 PutObject command
+    const uploadCommand = new PutObjectCommand({
+      Bucket: BUCKET_NAME,
+      Key: objectName,
+      Body: buffer,
+      ContentType: file.type || 'application/octet-stream',
+      Metadata: {
+        filename: file.name,
+        size: file.size.toString(),
+        uploaded: new Date().toISOString()
+      }
+    });
 
-    // Get the IPFS hash from the upload result
-    // The response structure might be different, let's handle both cases
-    let ipfsHash = '';
-    if (typeof uploadedObject === 'string') {
-      ipfsHash = uploadedObject;
-    } else if (uploadedObject && typeof uploadedObject === 'object') {
-      ipfsHash = uploadedObject.Hash || uploadedObject.Key || uploadedObject.hash || objectName;
-    } else {
-      ipfsHash = objectName;
-    }
+    const uploadResult = await s3Client.send(uploadCommand);
+    console.log('Upload result:', uploadResult);
+
+    // Get the IPFS hash by checking the object metadata
+    const headCommand = new HeadObjectCommand({
+      Bucket: BUCKET_NAME,
+      Key: objectName,
+    });
+
+    const headResult = await s3Client.send(headCommand);
+    console.log('Head result:', headResult);
+
+    // Extract IPFS hash from metadata
+    const ipfsHash = headResult.Metadata?.cid || objectName;
     
     // Construct the IPFS gateway URL
     const fileUrl = `https://ipfs.io/ipfs/${ipfsHash}`;
