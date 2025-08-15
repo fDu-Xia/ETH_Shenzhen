@@ -115,40 +115,45 @@ export default function ContentDetailPage({
     <main className="container mx-auto px-4 pt-8 pb-4">
       {/* Page Title with Dynamic Color */}
       <motion.div
-        initial={{ opacity: 0, y: -20 }}
+        initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
         className="mb-8"
       >
-        <h1 className="text-3xl font-bold text-white mb-2">内容详情</h1>
+        <motion.h1
+          className="text-3xl font-bold text-white mb-2"
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
+        >
+          内容详情
+        </motion.h1>
         <motion.div
           className="h-1 w-24 rounded-full"
           style={{ backgroundColor: color }}
+          initial={{ width: 0 }}
+          animate={{ width: 96 }}
+          transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
         />
       </motion.div>
 
       {/* Main Content Layout */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5, delay: 0.1 }}
-        className="grid grid-cols-1 lg:grid-cols-3 gap-8"
-      >
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Left Main Content (2/3 width on desktop) */}
         <div className="lg:col-span-2 space-y-8">
           <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.3, ease: "easeOut" }}
           >
             <ContentDetailMain content={contentWithUnlockStatus} />
           </motion.div>
 
           {isUnlocked && (
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
+              initial={{ opacity: 0, y: 30, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
             >
               <UnlockedContentDisplay
                 content={{
@@ -164,9 +169,9 @@ export default function ContentDetailPage({
 
         {/* Right Sidebar (1/3 width on desktop) */}
         <motion.div
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.4, ease: "easeOut" }}
           className="lg:col-span-1"
         >
           <ContentDetailSidebar
@@ -174,13 +179,13 @@ export default function ContentDetailPage({
             onPurchaseComplete={handlePurchaseComplete}
           />
         </motion.div>
-      </motion.div>
+      </div>
 
       {/* Data Visualization Charts Section */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.4 }}
+        transition={{ duration: 0.6, delay: 0.6, ease: "easeOut" }}
         className="mt-12"
       >
         <ContentDataCharts contentId={paramsId.id} />
@@ -188,9 +193,9 @@ export default function ContentDetailPage({
 
       {/* Comments Section */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.5 }}
+        transition={{ duration: 0.6, delay: 0.8, ease: "easeOut" }}
         className="mt-12"
       >
         <CommentsSection contentId={paramsId.id} />
