@@ -96,10 +96,11 @@ export function ContentCard({ content }: ContentCardProps) {
                 transition={{ duration: 0.3 }}
               >
                 <motion.div
-                  className="flex items-center gap-1 px-2.5 py-1 rounded-md backdrop-blur-md"
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-md backdrop-blur-md shadow-lg"
                   style={{
-                    background: useMotionTemplate`linear-gradient(135deg, ${color}80, ${color}50)`,
-                    border: useMotionTemplate`1px solid ${color}60`,
+                    background: useMotionTemplate`linear-gradient(135deg, ${color}20, ${color}30)`,
+                    border: useMotionTemplate`1px solid ${color}40`,
+                    boxShadow: useMotionTemplate`0 2px 8px ${color}20, inset 0 1px 0 ${color}20`,
                   }}
                   animate={{
                     scale: [1, 1.02, 1],
@@ -109,17 +110,45 @@ export function ContentCard({ content }: ContentCardProps) {
                     repeat: Infinity,
                     repeatType: "reverse",
                   }}
+                  whileHover={{
+                    scale: 1.05,
+                  }}
                 >
-                  <TrendingUp className="w-3.5 h-3.5 text-white" />
-                  <span className="text-xs font-medium text-white">热门</span>
+                  <TrendingUp className="w-4 h-4" style={{ color: color.get() }} />
+                  <motion.span
+                    className="text-sm font-semibold"
+                    style={{
+                      color: color,
+                      textShadow: useMotionTemplate`0 0 8px ${color}40`,
+                    }}
+                  >
+                    热门
+                  </motion.span>
                 </motion.div>
               </motion.div>
             )}
-            <div className="absolute top-3 right-3 bg-gray-950/70 backdrop-blur-md rounded-md px-2.5 py-1 border border-gray-700/30 shadow-lg">
-              <span className="text-white font-medium text-sm">
+            <motion.div
+              className="absolute top-3 right-3 backdrop-blur-md rounded-md px-3 py-1.5 shadow-lg"
+              style={{
+                background: useMotionTemplate`linear-gradient(135deg, ${color}15, ${color}25)`,
+                border: useMotionTemplate`1px solid ${color}40`,
+                boxShadow: useMotionTemplate`0 2px 8px ${color}20, inset 0 1px 0 ${color}20`,
+              }}
+              whileHover={{
+                scale: 1.05,
+              }}
+              transition={{ duration: 0.2 }}
+            >
+              <motion.span
+                className="font-semibold text-sm"
+                style={{
+                  color: color,
+                  textShadow: useMotionTemplate`0 0 8px ${color}40`,
+                }}
+              >
                 {content.price}
-              </span>
-            </div>
+              </motion.span>
+            </motion.div>
           </div>
         </div>
 
