@@ -14,25 +14,43 @@ export const HeroSection = () => {
 
   return (
     <div className="relative z-10 flex flex-col items-center m-auto">
-      <div className="mb-4">
+      <motion.div
+        className="mb-4"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+      >
         <h2 className="text-xl sm:text-2xl md:text-3xl font-light text-gray-300 tracking-wider">
           探索 · 投资 · <span className="font-medium text-white">共创</span>
         </h2>
-      </div>
+      </motion.div>
       
-      <h1 className="max-w-3xl bg-gradient-to-br from-white to-gray-400 bg-clip-text text-center text-3xl font-medium leading-tight text-transparent sm:text-5xl sm:leading-tight md:text-7xl md:leading-tight">
+      <motion.h1
+        className="max-w-3xl bg-gradient-to-br from-white to-gray-400 bg-clip-text text-center text-3xl font-medium leading-tight text-transparent sm:text-5xl sm:leading-tight md:text-7xl md:leading-tight"
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
+      >
         {/* Decrease your SaaS churn by over 90% */}
         发现和投资
         <br />
         优质内容
-      </h1>
+      </motion.h1>
       
-      <p className="my-6 max-w-xl text-center text-base leading-relaxed md:text-lg md:leading-relaxed text-gray-400">
+      <motion.p
+        className="my-6 max-w-xl text-center text-base leading-relaxed md:text-lg md:leading-relaxed text-gray-400"
+        initial={{ opacity: 0, y: 25 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.4, ease: "easeOut" }}
+      >
         在这里，每一份优质内容都是一次投资机会。
         <br />
         与创作者共同成长，分享知识价值的复利。
-      </p>
+      </motion.p>
       <motion.button
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.6, ease: "easeOut" }}
         style={{
           border,
           boxShadow,
