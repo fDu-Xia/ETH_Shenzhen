@@ -18,6 +18,8 @@ import {
   Heading2,
   Heading3,
 } from "lucide-react"
+import { motion, useMotionTemplate } from "motion/react"
+import { useColorChange } from "@/hooks/animation/use-color-change"
 
 interface RichTextEditorProps {
   content: string
@@ -26,6 +28,8 @@ interface RichTextEditorProps {
 
 export function RichTextEditor({ content, onChange }: RichTextEditorProps) {
   const [activeTab, setActiveTab] = useState("edit")
+  const color = useColorChange()
+  const border = useMotionTemplate`1px solid ${color}30`
 
   const insertMarkdown = (before: string, after = "") => {
     const textarea = document.getElementById("content-editor") as HTMLTextAreaElement
@@ -81,34 +85,64 @@ export function RichTextEditor({ content, onChange }: RichTextEditorProps) {
   return (
     <div className="space-y-4">
       <Tabs value={activeTab} onValueChange={setActiveTab}>
-        <TabsList className="grid w-full grid-cols-2 bg-[#1E1B3A] border-purple-500/20">
-          <TabsTrigger value="edit" className="data-[state=active]:bg-purple-600">
+        <motion.div
+          className="grid w-full grid-cols-2 bg-gray-950/30 backdrop-blur-sm rounded-full p-1"
+          style={{ border }}
+        >
+          <motion.button
+            onClick={() => setActiveTab("edit")}
+            className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+              activeTab === "edit"
+                ? "text-white"
+                : "text-gray-400 hover:text-white"
+            }`}
+            style={{
+              background: activeTab === "edit" ? color : "transparent",
+            }}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+          >
             编辑
-          </TabsTrigger>
-          <TabsTrigger value="preview" className="data-[state=active]:bg-purple-600">
+          </motion.button>
+          <motion.button
+            onClick={() => setActiveTab("preview")}
+            className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+              activeTab === "preview"
+                ? "text-white"
+                : "text-gray-400 hover:text-white"
+            }`}
+            style={{
+              background: activeTab === "preview" ? color : "transparent",
+            }}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+          >
             预览
-          </TabsTrigger>
-        </TabsList>
+          </motion.button>
+        </motion.div>
 
         <TabsContent value="edit" className="space-y-4">
           {/* Formatting Toolbar */}
-          <div className="flex flex-wrap gap-1 p-2 bg-[#1E1B3A] rounded-lg border border-purple-500/20">
+          <motion.div
+            className="flex flex-wrap gap-1 p-2 bg-gray-900/50 rounded-xl backdrop-blur-sm"
+            style={{ border }}
+          >
             {formatButtons.map((button, index) => (
-              <Button
+              <motion.button
                 key={index}
-                variant="ghost"
-                size="sm"
                 onClick={button.action}
                 title={button.label}
-                className="h-8 w-8 p-0 hover:bg-purple-600/20"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                className="h-8 w-8 p-0 rounded hover:bg-gray-800/50 transition-colors flex items-center justify-center text-gray-400 hover:text-white"
               >
                 <button.icon className="w-4 h-4" />
-              </Button>
+              </motion.button>
             ))}
-          </div>
+          </motion.div>
 
           {/* Editor */}
-          <Textarea
+          <motion.textarea
             id="content-editor"
             placeholder="开始编写您的内容...
 
@@ -123,13 +157,18 @@ export function RichTextEditor({ content, onChange }: RichTextEditorProps) {
 ![图片](url)"
             value={content}
             onChange={(e) => onChange(e.target.value)}
-            className="bg-[#1E1B3A] border-purple-500/30 min-h-[400px] font-mono"
+            className="w-full px-3 py-3 bg-gray-900/50 border border-gray-700/50 text-white placeholder:text-gray-500 min-h-[400px] font-mono rounded-xl hover:bg-gray-900/70 transition-all resize-none focus:outline-none focus:ring-0"
+            whileFocus={{
+              boxShadow: `0 0 0 2px ${color.get()}40`,
+              borderColor: color.get(),
+            }}
           />
         </TabsContent>
 
         <TabsContent value="preview">
-          <div
-            className="bg-[#1E1B3A] border border-purple-500/20 rounded-lg p-4 min-h-[400px] prose prose-invert max-w-none"
+          <motion.div
+            className="bg-gray-900/50 rounded-xl p-4 min-h-[400px] prose prose-invert max-w-none backdrop-blur-sm"
+            style={{ border }}
             dangerouslySetInnerHTML={{
               __html: content ? markdownToHtml(content) : "<p class='text-gray-400'>内容预览将在这里显示...</p>",
             }}
