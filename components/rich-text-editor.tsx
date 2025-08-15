@@ -19,7 +19,7 @@ import {
   Heading3,
 } from "lucide-react"
 import { motion, useMotionTemplate } from "motion/react"
-import { useColorChange } from "@/hooks/animation/use-color-change"
+import { useColorAnimation } from "@/components/color-animation-provider"
 
 interface RichTextEditorProps {
   content: string
@@ -28,7 +28,7 @@ interface RichTextEditorProps {
 
 export function RichTextEditor({ content, onChange }: RichTextEditorProps) {
   const [activeTab, setActiveTab] = useState("edit")
-  const color = useColorChange()
+  const color = useColorAnimation()
   const border = useMotionTemplate`1px solid ${color}30`
 
   const insertMarkdown = (before: string, after = "") => {

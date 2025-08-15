@@ -7,8 +7,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { monadTestnetConfig } from "@/config/monad";
 import { useThemeStore } from "@/lib/stores/theme-store";
 import { useEffect, useState } from "react";
-import { useColorChange } from "@/hooks/animation/use-color-change";
-import { useMotionValue } from "motion/react";
+import { ColorAnimationProvider, useColorAnimation } from "@/components/color-animation-provider";
 
 const config = createConfig({
   chains: [monadTestnetConfig],
@@ -23,7 +22,7 @@ const queryClient = new QueryClient();
 function RainbowKitThemeProvider({ children }: { children: React.ReactNode }) {
   const colorsTop = useThemeStore((state) => state.colorsTop);
   const [currentColor, setCurrentColor] = useState(colorsTop[0]);
-  const color = useColorChange();
+  const color = useColorAnimation();
   
   useEffect(() => {
     const unsubscribe = color.on("change", (latest) => {
@@ -50,9 +49,11 @@ export function Providers({ children }: { children: React.ReactNode }) {
   return (
     <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
-        <RainbowKitThemeProvider>
-          {children}
-        </RainbowKitThemeProvider>
+        <ColorAnimationProvider>
+          <RainbowKitThemeProvider>
+            {children}
+          </RainbowKitThemeProvider>
+        </ColorAnimationProvider>
       </QueryClientProvider>
     </WagmiProvider>
   );

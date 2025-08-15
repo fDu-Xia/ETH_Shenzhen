@@ -7,7 +7,7 @@ import { Wallet, TrendingUp, Users, Clock, ThumbsUp, Unlock, CheckCircle } from 
 import { PurchaseConfirmationModal } from "./purchase-confirmation-modal"
 import { VotingModal } from "./voting-modal"
 import { motion, useMotionTemplate } from "motion/react"
-import { useColorChange } from "@/hooks/animation/use-color-change"
+import { useColorAnimation } from "@/components/color-animation-provider"
 
 interface ContentDetailSidebarProps {
   content: {
@@ -35,7 +35,7 @@ interface ContentDetailSidebarProps {
 export function ContentDetailSidebar({ content, onPurchaseComplete }: ContentDetailSidebarProps) {
   const [showPurchaseModal, setShowPurchaseModal] = useState(false)
   const [showVotingModal, setShowVotingModal] = useState(false)
-  const color = useColorChange()
+  const color = useColorAnimation()
   const borderColor = useMotionTemplate`${color}33`
   const shadowColor = useMotionTemplate`0 4px 20px ${color}20`
 

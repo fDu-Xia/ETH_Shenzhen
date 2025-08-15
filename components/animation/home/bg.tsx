@@ -3,10 +3,10 @@
 import { Stars } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { useMotionTemplate, motion } from "motion/react";
-import { useColorChange } from "@/hooks/animation/use-color-change";
+import { useColorAnimation } from "@/components/color-animation-provider";
 
 export default function Bg({ children }: { children: React.ReactNode }) {
-  const color = useColorChange();
+  const color = useColorAnimation();
   const backgroundImage = useMotionTemplate`radial-gradient(125% 125% at 50% 0%, #020617 50%, ${color})`;
 
   return (

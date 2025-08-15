@@ -34,7 +34,7 @@ import {
   ArrowRight,
 } from "lucide-react";
 import { motion, useMotionTemplate } from "motion/react";
-import { useColorChange } from "@/hooks/animation/use-color-change";
+import { useColorAnimation } from "@/components/color-animation-provider";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -232,7 +232,7 @@ export default function ProfilePage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [filterType, setFilterType] = useState("all");
   
-  const color = useColorChange();
+  const color = useColorAnimation();
   const border = useMotionTemplate`1px solid ${color}30`;
   const boxShadow = useMotionTemplate`0px 4px 24px ${color}10`;
   const buttonBorder = useMotionTemplate`1px solid ${color}`;

@@ -3,7 +3,7 @@
 import { Calendar, Eye, Heart, MessageCircle, Users } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { motion, useMotionTemplate } from "motion/react"
-import { useColorChange } from "@/hooks/animation/use-color-change"
+import { useColorAnimation } from "@/components/color-animation-provider"
 
 interface ContentDetailMainProps {
   content: {
@@ -28,7 +28,7 @@ interface ContentDetailMainProps {
 }
 
 export function ContentDetailMain({ content }: ContentDetailMainProps) {
-  const color = useColorChange()
+  const color = useColorAnimation()
   const borderColor = useMotionTemplate`${color}33`
   const shadowColor = useMotionTemplate`0 4px 20px ${color}20`
   const bgColor = useMotionTemplate`${color}10`

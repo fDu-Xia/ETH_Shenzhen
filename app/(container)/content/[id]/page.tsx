@@ -7,7 +7,7 @@ import { CommentsSection } from "@/components/comments-section";
 import { ContentDataCharts } from "@/components/content-data-charts";
 import { UnlockedContentDisplay } from "@/components/unlocked-content-display";
 import { motion } from "motion/react";
-import { useColorChange } from "@/hooks/animation/use-color-change";
+import { useColorAnimation } from "@/components/color-animation-provider";
 
 // Mock data - in real app this would come from API
 const mockContent = {
@@ -100,7 +100,7 @@ export default function ContentDetailPage({
 }) {
   const [isUnlocked, setIsUnlocked] = useState(mockContent.isUnlocked);
   const paramsId = use(params);
-  const color = useColorChange();
+  const color = useColorAnimation();
 
   const handlePurchaseComplete = () => {
     setIsUnlocked(true);

@@ -17,7 +17,7 @@ import {
 } from "recharts"
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart"
 import { motion, useMotionTemplate } from "motion/react"
-import { useColorChange } from "@/hooks/animation/use-color-change"
+import { useColorAnimation } from "@/components/color-animation-provider"
 import { TrendingUp, BarChart3, DollarSign } from "lucide-react"
 
 interface ContentDataChartsProps {
@@ -72,7 +72,7 @@ const priceTrendData = [
 
 export function ContentDataCharts({ contentId }: ContentDataChartsProps) {
   const [activeTab, setActiveTab] = useState("reading")
-  const color = useColorChange()
+  const color = useColorAnimation()
   const borderColor = useMotionTemplate`${color}33`
   const shadowColor = useMotionTemplate`0 4px 20px ${color}20`
 

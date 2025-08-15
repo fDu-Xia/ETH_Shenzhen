@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Download, Bookmark, Share2, Eye, FileText, Image as ImageIcon, CheckCircle } from "lucide-react"
 import { motion, useMotionTemplate } from "motion/react"
-import { useColorChange } from "@/hooks/animation/use-color-change"
+import { useColorAnimation } from "@/components/color-animation-provider"
 import { useState } from "react"
 
 interface UnlockedContentDisplayProps {
@@ -17,7 +17,7 @@ interface UnlockedContentDisplayProps {
 }
 
 export function UnlockedContentDisplay({ content }: UnlockedContentDisplayProps) {
-  const color = useColorChange()
+  const color = useColorAnimation()
   const borderColor = useMotionTemplate`${color}33`
   const shadowColor = useMotionTemplate`0 4px 20px ${color}20`
   const [savedToLibrary, setSavedToLibrary] = useState(false)

@@ -3,12 +3,12 @@
 import Link from "next/link";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { usePathname } from "next/navigation";
-import { useColorChange } from "@/hooks/animation/use-color-change";
+import { useColorAnimation } from "@/components/color-animation-provider";
 import { motion, useMotionTemplate } from "motion/react";
 
 export function Header() {
   const pathname = usePathname();
-  const color = useColorChange();
+  const color = useColorAnimation();
   const backgroundImage = useMotionTemplate`linear-gradient(to right, ${color}, ${color}dd)`;
   const backgroundColor = useMotionTemplate`${color}`;
 

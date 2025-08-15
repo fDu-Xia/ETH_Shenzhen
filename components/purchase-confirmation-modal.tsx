@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Wallet, AlertCircle, CheckCircle, Loader2, ShieldCheck } from "lucide-react"
 import { motion, useMotionTemplate } from "motion/react"
-import { useColorChange } from "@/hooks/animation/use-color-change"
+import { useColorAnimation } from "@/components/color-animation-provider"
 
 interface PurchaseConfirmationModalProps {
   isOpen: boolean
@@ -31,7 +31,7 @@ export function PurchaseConfirmationModal({
 }: PurchaseConfirmationModalProps) {
   const [transactionStatus, setTransactionStatus] = useState<TransactionStatus>("idle")
   const [walletBalance] = useState(5.2) // Mock wallet balance
-  const color = useColorChange()
+  const color = useColorAnimation()
   const borderColor = useMotionTemplate`${color}33`
   const shadowColor = useMotionTemplate`0 4px 20px ${color}20`
   const bgColor = useMotionTemplate`${color}10`

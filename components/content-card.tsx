@@ -12,7 +12,7 @@ import {
   ArrowRight,
 } from "lucide-react";
 import { motion, useMotionTemplate } from "motion/react";
-import { useColorChange } from "@/hooks/animation/use-color-change";
+import { useColorAnimation } from "@/components/color-animation-provider";
 import { useState } from "react";
 
 interface ContentCardProps {
@@ -38,7 +38,7 @@ interface ContentCardProps {
 }
 
 export function ContentCard({ content }: ContentCardProps) {
-  const color = useColorChange();
+  const color = useColorAnimation();
   const boxShadow = useMotionTemplate`0px 4px 24px ${color}10, inset 0 0 0 1px ${color}30`;
   const hoverBoxShadow = useMotionTemplate`0px 4px 24px ${color}20, inset 0 0 0 2px ${color}60`;
   const [isHovered, setIsHovered] = useState(false);

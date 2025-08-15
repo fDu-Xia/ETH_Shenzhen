@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { MessageCircle, Heart, Reply, Send } from "lucide-react"
 import { motion, useMotionTemplate } from "motion/react"
-import { useColorChange } from "@/hooks/animation/use-color-change"
+import { useColorAnimation } from "@/components/color-animation-provider"
 import { useState } from "react"
 
 interface CommentsSectionProps {
@@ -52,7 +52,7 @@ const mockComments = [
 ]
 
 export function CommentsSection({ contentId }: CommentsSectionProps) {
-  const color = useColorChange()
+  const color = useColorAnimation()
   const borderColor = useMotionTemplate`${color}33`
   const shadowColor = useMotionTemplate`0 4px 20px ${color}20`
   const [likedComments, setLikedComments] = useState<Set<string>>(new Set())

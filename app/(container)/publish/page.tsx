@@ -29,7 +29,7 @@ import {
 import { ContentPreviewModal } from "@/components/content-preview-modal";
 import { RichTextEditor } from "@/components/rich-text-editor";
 import { motion, useMotionTemplate } from "motion/react";
-import { useColorChange } from "@/hooks/animation/use-color-change";
+import { useColorAnimation } from "@/components/color-animation-provider";
 
 interface PublishFormData {
   title: string;
@@ -201,7 +201,7 @@ export default function PublishPage() {
 
   const progress = calculateProgress();
 
-  const color = useColorChange();
+  const color = useColorAnimation();
   const border = useMotionTemplate`1px solid ${color}30`;
   const boxShadow = useMotionTemplate`0px 4px 24px ${color}10`;
   const buttonBorder = useMotionTemplate`1px solid ${color}`;

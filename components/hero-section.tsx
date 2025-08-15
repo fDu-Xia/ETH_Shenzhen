@@ -3,11 +3,11 @@
 import { ArrowRight } from "lucide-react";
 import { useMotionTemplate, motion } from "motion/react";
 import { useRouter } from "next/navigation";
-import { useColorChange } from "@/hooks/animation/use-color-change";
+import { useColorAnimation } from "@/components/color-animation-provider";
 
 export const HeroSection = () => {
   const router = useRouter();
-  const color = useColorChange();
+  const color = useColorAnimation();
 
   const border = useMotionTemplate`1px solid ${color}`;
   const boxShadow = useMotionTemplate`0px 4px 24px ${color}`;

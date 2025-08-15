@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input"
 import { Card, CardContent } from "@/components/ui/card"
 import { ThumbsUp, TrendingUp, History, Loader2, ArrowLeft, Coins } from "lucide-react"
 import { motion, useMotionTemplate } from "motion/react"
-import { useColorChange } from "@/hooks/animation/use-color-change"
+import { useColorAnimation } from "@/components/color-animation-provider"
 
 interface VotingModalProps {
   isOpen: boolean
@@ -27,7 +27,7 @@ export function VotingModal({ isOpen, onClose, contentTitle }: VotingModalProps)
   const [voteAmount, setVoteAmount] = useState("")
   const [isVoting, setIsVoting] = useState(false)
   const [showHistory, setShowHistory] = useState(false)
-  const color = useColorChange()
+  const color = useColorAnimation()
   const borderColor = useMotionTemplate`${color}33`
   const shadowColor = useMotionTemplate`0 4px 20px ${color}20`
 
