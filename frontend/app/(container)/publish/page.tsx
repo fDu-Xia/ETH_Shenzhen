@@ -70,7 +70,7 @@ const CONTENT_FACTORY_ABI = [
 ] as const;
 
 // Contract address (you need to replace this with your deployed contract address)
-const CONTENT_FACTORY_ADDRESS = "0x369Cdba534Aac0Ce3E9F73607d36BAfB7a31428A" as `0x${string}`; // Replace with actual deployed contract address
+const CONTENT_FACTORY_ADDRESS = "0xf2BCA2F38f715f3e86A5eD06413087082a2406DF" as `0x${string}`; // Replace with actual deployed contract address
 
 // Chain configuration - change to mainnet for production
 const CURRENT_CHAIN = monadTestnet; // or mainnet
