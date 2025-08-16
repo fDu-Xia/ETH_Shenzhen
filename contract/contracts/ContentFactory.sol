@@ -51,20 +51,16 @@ contract ContentFactory is ReentrancyGuard, Ownable(msg.sender) {
      * 创建新内容
      */
     function createContent(
-        string memory _ipfsUrl,
-        string memory _name,
-        string memory _symbol
+        string memory _ipfsUrl
     ) external nonReentrant {
         require(bytes(_ipfsUrl).length > 0, "IPFS hash cannot be empty");
         
         uint256 contentId = nextContentId++;
         
         // 如果没有提供name和symbol，使用默认值
-        string memory name = bytes(_name).length > 0 ? 
-            _name : 
+        string memory name =
             string(abi.encodePacked("Content Token #", toString(contentId)));
-        string memory symbol = bytes(_symbol).length > 0 ? 
-            _symbol : 
+        string memory symbol =
             string(abi.encodePacked("CT", toString(contentId)));
         
         // 部署新的ContentCoin合约
