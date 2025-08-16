@@ -34,6 +34,7 @@ interface ContentCardProps {
     };
     tags: string[];
     trending: boolean;
+    ipfsUrl?: string;
   };
 }
 
@@ -80,13 +81,26 @@ export function ContentCard({ content }: ContentCardProps) {
         {/* Image Container with Padding */}
         <div className="p-2 pb-0">
           {/* Image */}
-          <div className="relative overflow-hidden rounded-md">
+          <div className="relative overflow-hidden rounded-md bg-gray-800/50">
             <Image
-              src={content.image || "/placeholder.svg"}
+              src={content.image}
               alt={content.title}
-              width={300}
-              height={200}
-              className="w-full h-48 object-cover"
+              width={400}
+              height={250}
+              className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
+              onError={(e) => {
+                console.error(`Failed to load image: ${content.image}`);
+                // Fallback to placeholder if image fails to load
+                const target = e.target as HTMLImageElement;
+                target.src = "/placeholder.jpg";
+              }}
+              onLoad={() => {
+                console.log(`Successfully loaded image: ${content.image}`);
+              }}
+              priority={false}
+              quality={85}
+              placeholder="blur"
+              blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
             />
             {content.trending && (
               <motion.div
@@ -157,11 +171,17 @@ export function ContentCard({ content }: ContentCardProps) {
           {/* Author */}
           <div className="flex items-center mb-3">
             <Image
-              src={content.author.avatar || "/placeholder.svg"}
+              src={content.author.avatar || "/placeholder-user.jpg"}
               alt={content.author.name}
-              width={32}
-              height={32}
-              className="w-8 h-8 rounded-full mr-2"
+              width={40}
+              height={40}
+              className="w-8 h-8 rounded-full mr-2 object-cover border border-gray-600/50"
+              onError={(e) => {
+                // Fallback to placeholder if avatar fails to load
+                const target = e.target as HTMLImageElement;
+                target.src = "/placeholder-user.jpg";
+              }}
+              quality={90}
             />
             <span className="text-gray-300 text-sm">{content.author.name}</span>
             {content.author.verified && (
@@ -176,6 +196,16 @@ export function ContentCard({ content }: ContentCardProps) {
           <p className="text-gray-400 text-sm mb-4 line-clamp-2">
             {content.description}
           </p>
+          
+          {/* Blockchain Info */}
+          {content.ipfsUrl && (
+            <div className="mb-3 p-2 bg-gray-800/30 rounded border border-gray-700/30">
+              <p className="text-xs text-gray-400 mb-1">IPFS Content</p>
+              <p className="text-xs text-gray-300 font-mono break-all">
+                {content.ipfsUrl.length > 20 ? `${content.ipfsUrl.slice(0, 20)}...` : content.ipfsUrl}
+              </p>
+            </div>
+          )}
 
           {/* Tags */}
           <div className="flex flex-wrap gap-3 mb-4">
@@ -194,15 +224,18 @@ export function ContentCard({ content }: ContentCardProps) {
             <div className="flex items-center space-x-4">
               <div className="flex items-center">
                 <Users className="w-4 h-4 mr-1" />
-                {content.stats.investors}
+                <span className="font-medium">{content.stats.investors}</span>
+                <span className="ml-1 text-xs">investors</span>
               </div>
               <div className="flex items-center">
                 <Eye className="w-4 h-4 mr-1" />
-                {content.stats.views}
+                <span className="font-medium">{content.stats.views}</span>
+                <span className="ml-1 text-xs">views</span>
               </div>
               <div className="flex items-center">
                 <Heart className="w-4 h-4 mr-1" />
-                {content.stats.likes}
+                <span className="font-medium">{content.stats.likes}</span>
+                <span className="ml-1 text-xs">ratings</span>
               </div>
             </div>
           </div>

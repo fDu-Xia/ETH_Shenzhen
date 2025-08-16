@@ -4,9 +4,11 @@ import { ContentGrid } from "@/components/content-grid";
 import { SearchAndFilters } from "@/components/search-and-filters";
 import { motion, useMotionTemplate } from "motion/react";
 import { useColorAnimation } from "@/components/color-animation-provider";
+import { useContentFactory } from "@/hooks/use-content-factory";
 
 export default function ExplorePage() {
   const color = useColorAnimation();
+  const { contentCount, loading: contractLoading, error: contractError } = useContentFactory();
   const glowText = useMotionTemplate`0 0 20px ${color}, 0 0 40px ${color}40, 0 0 60px ${color}20`;
   const borderGlow = useMotionTemplate`1px solid ${color}`;
   
@@ -147,6 +149,8 @@ export default function ExplorePage() {
                 </motion.span>
               </p>
             </motion.div>
+
+
 
             {/* Wave line decoration */}
             <motion.div
