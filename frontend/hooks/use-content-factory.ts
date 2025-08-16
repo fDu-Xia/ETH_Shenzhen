@@ -175,7 +175,7 @@ export function useContentFactory() {
           title: title,
           description: description,
           image: coverImage,
-          price: `${Number(currentPrice) / 1e18} ETH`,
+          price: `${Number(currentPrice) / 1e18} MON`,
           author: {
             name: creator.slice(0, 6) + '...' + creator.slice(-4),
             avatar: '/placeholder-user.jpg',
@@ -206,7 +206,7 @@ export function useContentFactory() {
           title: `Content #${contentId.toString()}`,
           description: `Content created by ${creator.slice(0, 6)}...${creator.slice(-4)}`,
           image: '/placeholder.jpg',
-          price: '0.001 ETH',
+          price: '0.001 MON',
           author: {
             name: creator.slice(0, 6) + '...' + creator.slice(-4),
             avatar: '/placeholder-user.jpg',

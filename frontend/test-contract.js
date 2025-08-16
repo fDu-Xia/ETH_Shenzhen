@@ -154,7 +154,7 @@ async function testContract() {
 
         console.log(`    IPFS URL: ${ipfsUrl}`);
         console.log(`    Total Supply: ${Number(totalSupply)}`);
-        console.log(`    Current Price: ${Number(currentPrice) / 1e18} ETH`);
+        console.log(`    Current Price: ${Number(currentPrice) / 1e18} MON`);
         console.log(`    Average Rating: ${Number(averageRating)}`);
         console.log(`    Ratings Count: ${Number(ratingsCount)}`);
         console.log('');

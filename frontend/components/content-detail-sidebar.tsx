@@ -291,7 +291,7 @@ export function ContentDetailSidebar({ content, onPurchaseComplete }: ContentDet
                                     transition={{ type: "spring", stiffness: 200 }}
                                 >
                                     {currentPrice ? parseFloat(currentPrice).toFixed(6) : '加载中...'}
-                                    <span className="text-lg" style={{ color: color.get() }}>ETH</span>
+                                    <span className="text-lg" style={{ color: color.get() }}>MON</span>
                                 </motion.div>
                                 <p className="text-sm text-gray-400 mt-1">
                                     {priceInUSD ? `≈ $${priceInUSD} USD` : '计算中...'}
@@ -436,7 +436,7 @@ export function ContentDetailSidebar({ content, onPurchaseComplete }: ContentDet
                                 <div className="flex justify-between items-center">
                                     <span className="text-gray-400 text-sm">当前价格</span>
                                     <span className="text-white font-medium">
-                    {currentPrice ? `${parseFloat(currentPrice).toFixed(6)} ETH` : '加载中...'}
+                    {currentPrice ? `${parseFloat(currentPrice).toFixed(6)} MON` : '加载中...'}
                   </span>
                                 </div>
                                 <div className="flex justify-between items-center">

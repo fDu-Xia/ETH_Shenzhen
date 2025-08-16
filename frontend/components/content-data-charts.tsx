@@ -221,7 +221,7 @@ export function ContentDataCharts({ contentId }: ContentDataChartsProps) {
                 <ChartContainer
                   config={{
                     price: {
-                      label: "价格 (ETH)",
+                      label: "价格 (MON)",
                       color: color.get(),
                     },
                   }}
@@ -231,7 +231,7 @@ export function ContentDataCharts({ contentId }: ContentDataChartsProps) {
                     <AreaChart data={priceTrendData}>
                       <CartesianGrid strokeDasharray="3 3" stroke="#374151" opacity={0.3} />
                       <XAxis dataKey="date" stroke="#9CA3AF" fontSize={12} />
-                      <YAxis stroke="#9CA3AF" fontSize={12} tickFormatter={(value) => `${value} ETH`} />
+                      <YAxis stroke="#9CA3AF" fontSize={12} tickFormatter={(value) => `${value} MON`} />
                       <ChartTooltip
                         content={<ChartTooltipContent />}
                         contentStyle={{
@@ -241,7 +241,7 @@ export function ContentDataCharts({ contentId }: ContentDataChartsProps) {
                           color: "#fff",
                           backdropFilter: "blur(8px)",
                         }}
-                        formatter={(value) => [`${value} ETH`, "价格"]}
+                        formatter={(value) => [`${value} MON`, "价格"]}
                       />
                       <defs>
                         <linearGradient id="priceGradient" x1="0" y1="0" x2="0" y2="1">

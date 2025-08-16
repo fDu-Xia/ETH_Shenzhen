@@ -51,7 +51,7 @@ export function BlockchainInfo({ content }: BlockchainInfoProps) {
   };
 
   const formatPrice = (price: number) => {
-    return `${price.toFixed(6)} ETH`;
+    return `${price.toFixed(6)} MON`;
   };
 
   return (

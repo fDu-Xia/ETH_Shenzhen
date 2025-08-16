@@ -61,7 +61,7 @@ export function ContentPreviewModal({ isOpen, onClose, content }: ContentPreview
               </div>
               <div className="flex items-center gap-1">
                 <DollarSign className="w-4 h-4" />
-                <span>{content.price} ETH</span>
+                <span>{content.price} MON</span>
               </div>
             </div>
 

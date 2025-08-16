@@ -374,7 +374,7 @@ export function VotingModal({ isOpen, onClose, contentTitle, contractAddress, wa
                                                         <div className="flex justify-between items-center">
                                                             <span className="text-sm text-gray-400">费用:</span>
                                                             <span style={{ color: color.get() }}>
-                                {bonusCost} ETH
+                                {bonusCost} MON
                               </span>
                                                         </div>
                                                         <div className="flex justify-between items-center">
@@ -478,7 +478,7 @@ export function VotingModal({ isOpen, onClose, contentTitle, contractAddress, wa
                                                         支持 {vote.tokensSupported} 代币
                                                     </motion.div>
                                                     <div className="text-xs text-gray-500 mt-1">
-                                                        费用: {vote.bonusCost} ETH • {vote.timestamp}
+                                                        费用: {vote.bonusCost} MON • {vote.timestamp}
                                                     </div>
                                                 </div>
                                                 <motion.div
