@@ -17,7 +17,6 @@ export function Header() {
     { href: "/explore", label: "发现" },
     { href: "/publish", label: "发布" },
     { href: "/profile", label: "个人" },
-    { href: "/demo", label: "Demo" },
   ];
 
   return (
