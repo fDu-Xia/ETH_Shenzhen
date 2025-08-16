@@ -9,7 +9,7 @@ import { VotingModal } from "./voting-modal"
 import { motion, useMotionTemplate } from "motion/react"
 import { useColorAnimation } from "@/components/color-animation-provider"
 import { createPublicClient, createWalletClient, custom, formatEther, parseEther, getContract } from 'viem'
-import { mainnet } from 'viem/chains'
+import { monadTestnet } from 'viem/chains'
 
 // ContentCoin合约ABI
 const CONTENT_COIN_ABI = [
@@ -97,7 +97,7 @@ export function ContentDetailSidebar({ content, onPurchaseComplete }: ContentDet
 
     // 创建公共客户端用于读取操作
     const publicClient = createPublicClient({
-        chain: mainnet,
+        chain: monadTestnet,
         transport: custom(typeof window !== 'undefined' ? window.ethereum : undefined)
     })
 
@@ -212,7 +212,7 @@ export function ContentDetailSidebar({ content, onPurchaseComplete }: ContentDet
 
             // 创建钱包客户端用于写入操作
             const walletClient = createWalletClient({
-                chain: mainnet,
+                chain: monadTestnet,
                 transport: custom(window.ethereum)
             })
 
