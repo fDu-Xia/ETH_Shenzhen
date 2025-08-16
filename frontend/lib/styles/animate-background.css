@@ -1,0 +1,5 @@
+.animate-background {
+    background-color: hsla(244.85294117647055, 100%, 50%, 1);
+    background-image: radial-gradient(circle at 50% 0%, hsla(319, 0%, 0%, 1) 49.15975941515135%, transparent 102.23193813062571%);
+    background-blend-mode: normal;
+}
