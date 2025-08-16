@@ -47,6 +47,16 @@ export interface ContentData {
   creator: string;
   ipfsUrl: string;
   createdAt: number;
+  // IPFS metadata
+  ipfsData?: {
+    title: string;
+    summary: string;
+    timestamp: string;
+    author: string;
+    version: string;
+    contentType: string;
+    coverImage?: string;
+  };
 }
 
 export function useContentFactory() {
@@ -81,6 +91,25 @@ export function useContentFactory() {
       console.error('Error fetching contents:', contentsError);
     }
   }, [countError, contentsError]);
+
+  // Fetch IPFS data from the URL
+  const fetchIpfsData = async (ipfsUrl: string) => {
+    try {
+      // Convert IPFS hash to gateway URL
+      const gatewayUrl = `https://muddy-moccasin-worm.myfilebase.com/ipfs/${ipfsUrl}`;
+      const response = await fetch(gatewayUrl);
+      
+      if (!response.ok) {
+        throw new Error(`Failed to fetch IPFS data: ${response.status}`);
+      }
+      
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error('Error fetching IPFS data:', error);
+      return null;
+    }
+  };
 
   // Transform raw contract data to ContentData format
   const transformContentData = useCallback(async (contentIds: bigint[], contractAddresses: string[], creators: string[]) => {
@@ -123,12 +152,29 @@ export function useContentFactory() {
           ratingsCount
         ] = detailedInfoArray;
 
+        // Fetch IPFS data if we have an IPFS URL
+        let ipfsData = null;
+        let coverImage = '/placeholder.jpg';
+        let title = `Content #${contentId.toString()}`;
+        let description = `Content created by ${creator.slice(0, 6)}...${creator.slice(-4)}`;
+
+        if (ipfsUrl) {
+          ipfsData = await fetchIpfsData(ipfsUrl);
+          if (ipfsData) {
+            title = ipfsData.metadata?.title || title;
+            description = ipfsData.metadata?.summary || description;
+            if (ipfsData.content?.coverImage) {
+              coverImage = ipfsData.content.coverImage;
+            }
+          }
+        }
+
         // Create a transformed content object with real data
         const content: ContentData = {
           id: contentId.toString(),
-          title: `Content #${contentId.toString()}`,
-          description: `Content created by ${creator.slice(0, 6)}...${creator.slice(-4)}`,
-          image: ipfsUrl || '/placeholder.jpg', // Use the URL directly
+          title: title,
+          description: description,
+          image: coverImage,
           price: `${Number(currentPrice) / 1e18} ETH`,
           author: {
             name: creator.slice(0, 6) + '...' + creator.slice(-4),
@@ -146,9 +192,10 @@ export function useContentFactory() {
           creator,
           ipfsUrl: ipfsUrl || '',
           createdAt: Date.now(),
+          ipfsData: ipfsData,
         };
 
-        console.log(`Content ${contentId} - Image URL: ${content.image}`);
+        console.log(`Content ${contentId} - IPFS Data:`, ipfsData);
         transformedContents.push(content);
       } catch (error) {
         console.error(`Error fetching detailed info for content ${contentId}:`, error);

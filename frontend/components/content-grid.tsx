@@ -10,7 +10,8 @@ export function ContentGrid() {
     return (
       <div className="flex flex-col items-center justify-center py-12">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-500 mb-4"></div>
-        <p className="text-gray-400">Loading content from blockchain...</p>
+        <p className="text-gray-400">Loading content from blockchain and IPFS...</p>
+        <p className="text-gray-500 text-sm mt-2">This may take a few moments for the first load</p>
       </div>
     );
   }

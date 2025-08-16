@@ -35,6 +35,11 @@ interface ContentCardProps {
     tags: string[];
     trending: boolean;
     ipfsUrl?: string;
+    ipfsData?: {
+      contentType: string;
+      timestamp: string;
+      version: string;
+    };
   };
 }
 
@@ -95,7 +100,7 @@ export function ContentCard({ content }: ContentCardProps) {
                 target.src = "/placeholder.jpg";
               }}
               onLoad={() => {
-                console.log(`Successfully loaded image: ${content.image}`);
+                console.log(`Successfully loaded image: ${content.image.substring(0, 50)}...`);
               }}
               priority={false}
               quality={85}
@@ -196,6 +201,28 @@ export function ContentCard({ content }: ContentCardProps) {
           <p className="text-gray-400 text-sm mb-4 line-clamp-2">
             {content.description}
           </p>
+          
+          {/* IPFS Metadata */}
+          {content.ipfsData && (
+            <div className="mb-3 space-y-2">
+              <div className="p-2 bg-gray-800/30 rounded border border-gray-700/30">
+                <p className="text-xs text-gray-400 mb-1">Content Type</p>
+                <p className="text-xs text-gray-300 font-medium">
+                  {content.ipfsData.contentType}
+                </p>
+              </div>
+              <div className="p-2 bg-gray-800/30 rounded border border-gray-700/30">
+                <p className="text-xs text-gray-400 mb-1">Created</p>
+                <p className="text-xs text-gray-300">
+                  {new Date(content.ipfsData.timestamp).toLocaleDateString()}
+                </p>
+              </div>
+              <div className="p-2 bg-gray-800/30 rounded border border-gray-700/30">
+                <p className="text-xs text-gray-400 mb-1">Version</p>
+                <p className="text-xs text-gray-300">{content.ipfsData.version}</p>
+              </div>
+            </div>
+          )}
           
           {/* Blockchain Info */}
           {content.ipfsUrl && (
