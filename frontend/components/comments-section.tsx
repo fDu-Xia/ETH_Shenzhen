@@ -16,36 +16,36 @@ const mockComments = [
   {
     id: "1",
     author: {
-      name: "加密投资者",
+      name: "Crypto Investor",
       avatar: "/crypto-investor.png",
       verified: false,
     },
-    content: "非常有见地的分析！Web3社交网络确实是未来的趋势，期待看到更多深度内容。",
-    timestamp: "2小时前",
+    content: "Very insightful analysis! Web3 social networks are indeed the future trend, looking forward to more in-depth content.",
+    timestamp: "2 hours ago",
     likes: 12,
     replies: 3,
   },
   {
     id: "2",
     author: {
-      name: "区块链开发者",
+      name: "Blockchain Developer",
       avatar: "/blockchain-developer.png",
       verified: true,
     },
-    content: "技术架构部分讲得很清楚，对我们团队的项目很有帮助。已经解锁支持作者！",
-    timestamp: "5小时前",
+    content: "The technical architecture part is explained very clearly, very helpful for our team's project. Already unlocked to support the author!",
+    timestamp: "5 hours ago",
     likes: 8,
     replies: 1,
   },
   {
     id: "3",
     author: {
-      name: "Web3爱好者",
+      name: "Web3 Enthusiast",
       avatar: "/web3-enthusiast.png",
       verified: false,
     },
-    content: "想了解更多关于代币经济学的内容，作者有计划出续集吗？",
-    timestamp: "1天前",
+    content: "Want to learn more about tokenomics, does the author plan to release a sequel?",
+    timestamp: "1 day ago",
     likes: 5,
     replies: 0,
   },
@@ -79,7 +79,7 @@ export function CommentsSection({ contentId }: CommentsSectionProps) {
         <CardHeader>
           <CardTitle className="text-white flex items-center gap-2">
             <MessageCircle className="w-5 h-5" style={{ color: color.get() }} />
-            评论区 ({mockComments.length})
+            Comments ({mockComments.length})
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-6">
@@ -90,20 +90,20 @@ export function CommentsSection({ contentId }: CommentsSectionProps) {
             whileHover={{ boxShadow: shadowColor.get() }}
           >
             <textarea
-              placeholder="发表您的看法..."
+              placeholder="Share your thoughts..."
               className="w-full bg-transparent text-gray-300 placeholder-gray-500 resize-none outline-none mb-3"
               rows={3}
               disabled
             />
             <div className="flex justify-between items-center">
-              <span className="text-xs text-gray-500">需要解锁内容后才能评论</span>
+              <span className="text-xs text-gray-500">Need to unlock content to comment</span>
               <motion.button
                 disabled
                 className="px-4 py-2 rounded-full text-white text-sm font-medium flex items-center gap-2 opacity-50 cursor-not-allowed"
                 style={{ backgroundColor: color }}
               >
                 <Send className="w-4 h-4" />
-                发布评论
+                Post Comment
               </motion.button>
             </div>
           </motion.div>
@@ -160,7 +160,7 @@ export function CommentsSection({ contentId }: CommentsSectionProps) {
                         whileTap={{ scale: 0.95 }}
                       >
                         <Reply className="w-3.5 h-3.5" />
-                        <span>回复 ({comment.replies})</span>
+                        <span>Reply ({comment.replies})</span>
                       </motion.button>
                     </div>
                   </div>
@@ -180,7 +180,7 @@ export function CommentsSection({ contentId }: CommentsSectionProps) {
               }}
               whileTap={{ scale: 0.95 }}
             >
-              加载更多评论
+              Load More Comments
             </motion.button>
           </div>
         </CardContent>

@@ -66,7 +66,7 @@ export default function ExplorePage() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
                 >
-                  探索
+                  Explore
                 </motion.span>
                 <motion.span
                   className="font-thin mx-2 text-gray-500"
@@ -82,7 +82,7 @@ export default function ExplorePage() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.3, ease: "easeOut" }}
                 >
-                  投资
+                  Invest
                 </motion.span>
                 <motion.span
                   className="font-thin mx-2 text-gray-500"
@@ -101,7 +101,7 @@ export default function ExplorePage() {
                     textShadow: useMotionTemplate`0 0 20px ${color}, 0 0 40px ${color}40, 0 0 60px ${color}20`,
                   }}
                 >
-                  共创
+                  Co-create
                 </motion.span>
               </h1>
             </motion.div>
@@ -136,7 +136,7 @@ export default function ExplorePage() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.8 }}
                 >
-                  在这里，每一份优质内容都是一次投资机会。
+                  Here, every piece of quality content is an investment opportunity.
                 </motion.span>
                 <br className="hidden md:block" />
                 <motion.span
@@ -145,7 +145,7 @@ export default function ExplorePage() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.9 }}
                 >
-                  与创作者共同成长，分享知识价值的复利。
+                  Grow with creators and share the compound value of knowledge.
                 </motion.span>
               </p>
             </motion.div>

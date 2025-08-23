@@ -6,7 +6,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
 export function ContractTest() {
-  const { contents, loading, error, contentCount, refreshContents } = useContentFactory();
+  const { contents, loading, error, contentCount, refreshContents } =
+    useContentFactory();
 
   return (
     <Card className="w-full max-w-2xl mx-auto">
@@ -40,7 +41,9 @@ export function ContractTest() {
 
         {loading && (
           <div className="p-3 bg-blue-500/10 border border-blue-500/20 rounded-md">
-            <p className="text-blue-400 text-sm">Loading content from blockchain...</p>
+            <p className="text-blue-400 text-sm">
+              Loading content from blockchain...
+            </p>
           </div>
         )}
 
@@ -49,10 +52,17 @@ export function ContractTest() {
             <h3 className="font-semibold mb-2">Contents Found:</h3>
             <div className="space-y-2">
               {contents.map((content) => (
-                <div key={content.id} className="p-2 bg-gray-800/50 rounded border">
+                <div
+                  key={content.id}
+                  className="p-2 bg-gray-800/50 rounded border"
+                >
                   <p className="font-medium">ID: {content.id}</p>
-                  <p className="text-sm text-gray-400">Creator: {content.creator}</p>
-                  <p className="text-sm text-gray-400">Contract: {content.contractAddress}</p>
+                  <p className="text-sm text-gray-400">
+                    Creator: {content.creator}
+                  </p>
+                  <p className="text-sm text-gray-400">
+                    Contract: {content.contractAddress}
+                  </p>
                 </div>
               ))}
             </div>
@@ -62,7 +72,8 @@ export function ContractTest() {
         {contents && contents.length === 0 && !loading && !error && (
           <div className="p-3 bg-yellow-500/10 border border-yellow-500/20 rounded-md">
             <p className="text-yellow-400 text-sm">
-              No content found. The contract might be empty or there might be a connection issue.
+              No content found. The contract might be empty or there might be a
+              connection issue.
             </p>
           </div>
         )}

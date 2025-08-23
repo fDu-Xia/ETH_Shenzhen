@@ -81,7 +81,7 @@ export default function ContentDetailPage({
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
         >
-          内容详情
+          Content Details
         </motion.h1>
         <motion.div
           className="h-1 w-24 rounded-full"

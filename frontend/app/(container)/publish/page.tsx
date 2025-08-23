@@ -32,7 +32,8 @@ import {
     decodeEventLog,
     Hash
 } from 'viem';
-import { monadTestnet } from 'viem/chains';
+import {  sepolia as monadTestnet } from 'viem/chains';
+import { monadTestnetConfig } from "@/config/monad";
 
 // Web3 related types
 declare global {
@@ -70,7 +71,7 @@ const CONTENT_FACTORY_ABI = [
 ] as const;
 
 // Contract address (you need to replace this with your deployed contract address)
-const CONTENT_FACTORY_ADDRESS = "0xf2BCA2F38f715f3e86A5eD06413087082a2406DF" as `0x${string}`; // Replace with actual deployed contract address
+const CONTENT_FACTORY_ADDRESS = "0xEc845F3f96481BCfEc70A3f4118D000499985600" as `0x${string}`; // Replace with actual deployed contract address
 
 // Chain configuration - change to mainnet for production
 const CURRENT_CHAIN = monadTestnet; // or mainnet
@@ -128,7 +129,7 @@ export default function PublishPage() {
 
     const connectWallet = async () => {
         if (typeof window === "undefined" || !window.ethereum) {
-            alert("请安装 MetaMask 钱包");
+            alert("Please install MetaMask wallet");
             return;
         }
 
@@ -157,11 +158,10 @@ export default function PublishPage() {
                 setPublicClient(publicClient);
                 setWalletClient(walletClient);
 
-                console.log("钱包连接成功:", accounts[0]);
             }
         } catch (error) {
-            console.error("钱包连接失败:", error);
-            alert("钱包连接失败");
+            console.error("Wallet connection failed:", error);
+            alert("Wallet connection failed");
         } finally {
             setIsConnectingWallet(false);
         }
@@ -170,10 +170,9 @@ export default function PublishPage() {
     const callCreateContentContract = async (ipfsHash: string): Promise<ContractCallResult> => {
         try {
             if (!walletClient || !publicClient || !isWalletConnected) {
-                throw new Error("钱包未连接");
+                throw new Error("Wallet not connected");
             }
 
-            console.log("调用合约 createContent，IPFS Hash:", ipfsHash);
 
             // Call the contract function
             const hash = await walletClient.writeContract({
@@ -184,14 +183,10 @@ export default function PublishPage() {
                 account: walletAddress as `0x${string}`
             });
 
-            console.log("交易已提交:", hash);
-
             // Wait for transaction confirmation
             const receipt = await publicClient.waitForTransactionReceipt({
                 hash: hash as Hash
             });
-
-            console.log("交易确认:", receipt);
 
             // Parse the ContentCreated event to get contentId and contract address
             let contentId = "";
@@ -218,7 +213,7 @@ export default function PublishPage() {
                         }
                     }
                 } catch (parseError) {
-                    console.warn("解析事件日志失败:", parseError);
+                    console.warn("Failed to parse event logs:", parseError);
                 }
             }
 
@@ -229,13 +224,13 @@ export default function PublishPage() {
                 contractAddress
             };
         } catch (error: any) {
-            console.error("合约调用失败:", error);
+            console.error("Contract call failed:", error);
 
-            let errorMessage = "合约调用失败";
+            let errorMessage = "Contract call failed";
             if (error.name === 'UserRejectedRequestError') {
-                errorMessage = "用户取消了交易";
+                errorMessage = "User rejected the transaction";
             } else if (error.name === 'TransactionExecutionError') {
-                errorMessage = "交易执行失败";
+                errorMessage = "Transaction execution failed";
             } else if (error.message) {
                 errorMessage = error.message;
             }
@@ -275,7 +270,7 @@ export default function PublishPage() {
         if (file) {
             // Check if file is an image
             if (!file.type.startsWith('image/')) {
-                setErrors(prev => ({ ...prev, coverImage: "请选择图片文件" }));
+                setErrors(prev => ({ ...prev, coverImage: "Please select an image file" }));
                 return;
             }
             setSelectedFile(file);
@@ -294,10 +289,10 @@ export default function PublishPage() {
     const validateForm = () => {
         const newErrors: Record<string, string> = {};
 
-        if (!formData.title.trim()) newErrors.title = "请输入内容标题";
-        if (!formData.summary.trim()) newErrors.summary = "请输入内容摘要";
-        if (!formData.content.trim()) newErrors.content = "请输入内容正文";
-        if (!formData.coverImage) newErrors.coverImage = "请上传封面图片";
+        if (!formData.title.trim()) newErrors.title = "Please enter content title";
+        if (!formData.summary.trim()) newErrors.summary = "Please enter content summary";
+        if (!formData.content.trim()) newErrors.content = "Please enter content body";
+        if (!formData.coverImage) newErrors.coverImage = "Please upload cover image";
 
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
@@ -314,7 +309,7 @@ export default function PublishPage() {
     const handlePublish = async () => {
         // Check wallet connection first
         if (!isWalletConnected) {
-            alert("请先连接钱包");
+            alert("Please connect wallet first");
             return;
         }
 
@@ -380,14 +375,14 @@ export default function PublishPage() {
             });
 
             if (!response.ok) {
-                throw new Error("内容上传到 IPFS 失败");
+                throw new Error("Failed to upload content to IPFS");
             }
 
             const result = await response.json();
             const ipfsHash = result.ipfsHash;
 
             setPublishProgress(70);
-            setUploadResult(`IPFS 上传成功！Hash: ${ipfsHash}`);
+            setUploadResult(`IPFS upload successful! Hash: ${ipfsHash}`);
 
             // Step 5: Call smart contract to create content on blockchain
             setPublishProgress(85);
@@ -396,14 +391,14 @@ export default function PublishPage() {
             if (contractResult.success) {
                 setPublishProgress(100);
                 setContractResult(contractResult);
-                setUploadResult(`发布成功！内容已上链！`);
+                setUploadResult(`Published successfully! Content is on-chain!`);
             } else {
-                throw new Error(contractResult.error || "区块链交易失败");
+                throw new Error(contractResult.error || "Blockchain transaction failed");
             }
 
         } catch (error: any) {
-            console.error("发布失败:", error);
-            setUploadResult(`发布失败: ${error.message || error}`);
+            console.error("Publishing failed:", error);
+            setUploadResult(`Publishing failed: ${error.message || error}`);
             setPublishProgress(0);
         } finally {
             setIsPublishing(false);
@@ -442,9 +437,9 @@ export default function PublishPage() {
                     transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
                 >
                     <h1 className="text-3xl md:text-4xl font-light mb-2 text-white">
-                        创作中心
+                        Creation Center
                     </h1>
-                    <p className="text-gray-400">将您的知识转化为价值</p>
+                    <p className="text-gray-400">Turn your knowledge into value</p>
                 </motion.div>
 
                 <motion.div
@@ -469,12 +464,12 @@ export default function PublishPage() {
                             {isConnectingWallet ? (
                                 <>
                                     <Clock className="w-4 h-4 animate-spin" />
-                                    连接中...
+                                    Connecting...
                                 </>
                             ) : (
                                 <>
                                     <Wallet className="w-4 h-4" />
-                                    连接钱包
+                                    Connect Wallet
                                 </>
                             )}
                         </motion.button>
@@ -502,12 +497,12 @@ export default function PublishPage() {
                         {isDraft ? (
                             <>
                                 <Clock className="w-4 h-4 animate-spin" />
-                                保存中...
+                                Saving...
                             </>
                         ) : (
                             <>
                                 <Save className="w-4 h-4" />
-                                保存草稿
+                                Save Draft
                             </>
                         )}
                     </motion.button>
@@ -522,7 +517,7 @@ export default function PublishPage() {
                         className="px-4 py-2 rounded-full text-sm font-medium bg-gray-950/30 text-white backdrop-blur-sm transition-colors hover:bg-gray-950/50 flex items-center gap-2 border border-gray-700/50"
                     >
                         <Eye className="w-4 h-4" />
-                        预览
+                        Preview
                     </motion.button>
 
                     <motion.button
@@ -539,11 +534,11 @@ export default function PublishPage() {
                         {isPublishing ? (
                             <>
                                 <Clock className="w-4 h-4 animate-spin" />
-                                发布中...
+                                Publishing...
                             </>
                         ) : (
                             <>
-                                发布内容
+                                Publish Content
                                 <ArrowRight className="w-4 h-4 transition-transform group-hover:-rotate-45" />
                             </>
                         )}
@@ -560,7 +555,7 @@ export default function PublishPage() {
                 transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
             >
                 <div className="flex items-center justify-between mb-3">
-                    <span className="text-sm text-gray-400">完成进度</span>
+                    <span className="text-sm text-gray-400">Completion Progress</span>
                     <motion.span
                         className="text-sm font-medium text-white"
                         style={{ color }}
@@ -599,13 +594,13 @@ export default function PublishPage() {
                             <Clock className="w-5 h-5" />
                         </motion.div>
                         <span className="font-medium text-white">
-                  {publishProgress <= 15 && "验证内容格式..."}
-                            {publishProgress > 15 && publishProgress <= 25 && "处理封面图片..."}
-                            {publishProgress > 25 && publishProgress <= 35 && "打包内容数据..."}
-                            {publishProgress > 35 && publishProgress <= 50 && "上传到 IPFS..."}
-                            {publishProgress > 50 && publishProgress <= 70 && "IPFS 上传完成..."}
-                            {publishProgress > 70 && publishProgress <= 85 && "调用智能合约..."}
-                            {publishProgress > 85 && "发布完成！"}
+                  {publishProgress <= 15 && "Validating content format..."}
+                           {publishProgress > 15 && publishProgress <= 25 && "Processing cover image..."}
+                           {publishProgress > 25 && publishProgress <= 35 && "Packing content data..."}
+                           {publishProgress > 35 && publishProgress <= 50 && "Uploading to IPFS..."}
+                           {publishProgress > 50 && publishProgress <= 70 && "IPFS upload complete..."}
+                           {publishProgress > 70 && publishProgress <= 85 && "Calling smart contract..."}
+                           {publishProgress > 85 && "Publishing complete!"}
                 </span>
                     </div>
                     <div className="h-2 bg-gray-800/50 rounded-full overflow-hidden">
@@ -623,7 +618,7 @@ export default function PublishPage() {
             )}
 
             {/* Publish Result */}
-            {uploadResult && uploadResult.includes("发布成功") && contractResult && (
+            {uploadResult && (uploadResult.includes("Published successfully") || uploadResult.includes("发布成功")) && contractResult && (
                 <motion.div
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -637,14 +632,14 @@ export default function PublishPage() {
                                     {uploadResult}
                                 </p>
                                 <p className="text-green-400/70 text-sm mt-1">
-                                    您的内容已永久存储在区块链和 IPFS 网络上
+                                    Your content has been permanently stored on blockchain and IPFS network
                                 </p>
 
                                 {/* Contract Results */}
                                 <div className="mt-3 space-y-2">
                                     {contractResult.contentId && (
                                         <div className="p-2 bg-gray-900/50 rounded-lg">
-                                            <p className="text-xs text-gray-400 mb-1">内容 ID:</p>
+                                            <p className="text-xs text-gray-400 mb-1">Content ID:</p>
                                             <p className="text-xs text-green-400 font-mono">
                                                 #{contractResult.contentId}
                                             </p>
@@ -653,7 +648,7 @@ export default function PublishPage() {
 
                                     {contractResult.contractAddress && (
                                         <div className="p-2 bg-gray-900/50 rounded-lg">
-                                            <p className="text-xs text-gray-400 mb-1">ContentCoin 合约地址:</p>
+                                            <p className="text-xs text-gray-400 mb-1">ContentCoin Contract Address:</p>
                                             <p className="text-xs text-green-400 font-mono break-all">
                                                 {contractResult.contractAddress}
                                             </p>
@@ -664,13 +659,16 @@ export default function PublishPage() {
                                         <div className="p-2 bg-gray-900/50 rounded-lg">
                                             <div className="flex items-center justify-between">
                                                 <div className="flex-1">
-                                                    <p className="text-xs text-gray-400 mb-1">交易哈希:</p>
+                                                    <p className="text-xs text-gray-400 mb-1">Transaction Hash:</p>
                                                     <p className="text-xs text-green-400 font-mono break-all">
                                                         {contractResult.transactionHash}
                                                     </p>
                                                 </div>
                                                 <a
-                                                    href={`https://${CURRENT_CHAIN.name === 'Monad Testnet' ? 'Monad Testnet.' : ''}etherscan.io/tx/${contractResult.transactionHash}`}
+                                                    // href={`https://${CURRENT_CHAIN.name === 'Monad Testnet' ? 'Monad Testnet.' : ''}etherscan.io/tx/${contractResult.transactionHash}`}
+                                                    // https://etherscan.io/tx/0x06eba08751ae55533249fb81c0edb719320758e7b12b3c09bbeca80f8bcf272d
+                                                    // https://sepolia.etherscan.io/tx/0x06eba08751ae55533249fb81c0edb719320758e7b12b3c09bbeca80f8bcf272d
+                                                    href={`https://sepolia.etherscan.io/tx/${contractResult.transactionHash}`}
                                                     target="_blank"
                                                     rel="noopener noreferrer"
                                                     className="ml-2 p-1 rounded hover:bg-gray-700/50 transition-colors"
@@ -690,14 +688,14 @@ export default function PublishPage() {
                             className="px-4 py-2 rounded-full text-sm font-medium bg-gray-900/50 text-white backdrop-blur-sm transition-colors hover:bg-gray-900/70 flex items-center gap-2 border border-gray-700/50"
                         >
                             <ArrowRight className="w-4 h-4" />
-                            发布新内容
+                            Publish New Content
                         </motion.button>
                     </div>
                 </motion.div>
             )}
 
             {/* Error Result */}
-            {uploadResult && uploadResult.includes("失败") && (
+            {uploadResult && (uploadResult.includes("failed") || uploadResult.includes("失败")) && (
                 <motion.div
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -710,7 +708,7 @@ export default function PublishPage() {
                                 {uploadResult}
                             </p>
                             <p className="text-red-400/70 text-sm mt-1">
-                                请检查网络连接和钱包设置后重试
+                                Please check your network connection and wallet settings and try again
                             </p>
                         </div>
                     </div>
@@ -730,10 +728,10 @@ export default function PublishPage() {
                             transition={{ duration: 0.6, delay: 0.4, ease: "easeOut" }}
                         >
                             <h3 className="text-lg font-medium mb-4 text-white">
-                                内容标题
+                                Content Title
                             </h3>
                             <motion.input
-                                placeholder="输入吸引人的标题..."
+                                placeholder="Enter an attractive title..."
                                 value={formData.title}
                                 onChange={(e) => handleInputChange("title", e.target.value)}
                                 className="w-full px-3 py-2 bg-gray-900/50 border border-gray-700/50 text-white placeholder:text-gray-500 rounded-xl h-10 hover:bg-gray-900/70 transition-all focus:outline-none focus:ring-0"
@@ -765,10 +763,10 @@ export default function PublishPage() {
                             transition={{ duration: 0.6, delay: 0.5, ease: "easeOut" }}
                         >
                             <h3 className="text-lg font-medium mb-4 text-white">
-                                内容摘要
+                                Content Summary
                             </h3>
                             <motion.textarea
-                                placeholder="简要描述您的内容..."
+                                placeholder="Briefly describe your content..."
                                 value={formData.summary}
                                 onChange={(e) => handleInputChange("summary", e.target.value)}
                                 className="w-full px-3 py-2 bg-gray-900/50 border border-gray-700/50 text-white placeholder:text-gray-500 min-h-[100px] rounded-xl hover:bg-gray-900/70 transition-all resize-none focus:outline-none focus:ring-0"
@@ -800,13 +798,13 @@ export default function PublishPage() {
                             transition={{ duration: 0.6, delay: 0.6, ease: "easeOut" }}
                         >
                             <h3 className="text-lg font-medium mb-4 text-white">
-                                封面图片
+                                Cover Image
                             </h3>
                             <div className="space-y-4">
                                 {/* File Selection */}
                                 <div className="flex flex-col gap-4">
                                     <p className="text-sm text-gray-400">
-                                        选择封面图片（将与内容一起上传到 IPFS）
+                                        Select cover image (will be uploaded to IPFS with content)
                                     </p>
 
                                     <label className="relative cursor-pointer inline-block">
@@ -822,7 +820,7 @@ export default function PublishPage() {
                                             className="px-6 py-3 rounded-full bg-gray-900/50 text-gray-200 border border-gray-700 hover:bg-gray-900/70 transition-colors inline-flex items-center gap-2"
                                         >
                                             <Upload className="w-4 h-4" />
-                                            选择图片文件
+                                            Select Image File
                                         </motion.div>
                                     </label>
                                 </div>
@@ -866,7 +864,7 @@ export default function PublishPage() {
                                                 animate={{ opacity: 1, y: 0 }}
                                                 className="mt-4"
                                             >
-                                                <p className="text-sm text-gray-400 mb-2">图片预览：</p>
+                                                <p className="text-sm text-gray-400 mb-2">Image Preview:</p>
                                                 <img
                                                     src={formData.coverImage}
                                                     alt="Cover preview"
@@ -903,7 +901,7 @@ export default function PublishPage() {
                             transition={{ duration: 0.6, delay: 0.7, ease: "easeOut" }}
                         >
                             <h3 className="text-lg font-medium mb-4 text-white">
-                                内容正文
+                                Content Body
                             </h3>
                             <RichTextEditor
                                 content={formData.content}
@@ -934,17 +932,17 @@ export default function PublishPage() {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6, delay: 0.8, ease: "easeOut" }}
                     >
-                        <h3 className="text-lg font-medium mb-4 text-white">发布指南</h3>
+                        <h3 className="text-lg font-medium mb-4 text-white">Publishing Guide</h3>
 
                         <div className="space-y-4">
                             <div className="space-y-3">
                                 {[
-                                    "连接 Web3 钱包",
-                                    "使用吸引人的标题",
-                                    "添加高质量封面图",
-                                    "内容结构清晰",
-                                    "保持内容原创性",
-                                    "优化阅读体验",
+                                    "Connect Web3 wallet",
+                                    "Use an attractive title",
+                                    "Add high-quality cover image",
+                                    "Clear content structure",
+                                    "Keep content original",
+                                    "Optimize reading experience",
                                 ].map((item, index) => (
                                     <motion.div
                                         key={item}
@@ -980,19 +978,19 @@ export default function PublishPage() {
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 1.4, duration: 0.5, ease: "easeOut" }}
                             >
-                                <h4 className="font-medium mb-3 text-white">发布提示</h4>
+                                <h4 className="font-medium mb-3 text-white">Publishing Tips</h4>
                                 <div className="space-y-2">
                                     <p className="text-xs text-gray-400">
-                                        • 内容一旦发布将永久存储在区块链上
+                                        • Content will be permanently stored on blockchain once published
                                     </p>
                                     <p className="text-xs text-gray-400">
-                                        • 需要支付少量 Gas 费用进行上链
+                                        • Small gas fee required for on-chain transaction
                                     </p>
                                     <p className="text-xs text-gray-400">
-                                        • 请确保内容符合社区规范
+                                        • Please ensure content complies with community guidelines
                                     </p>
                                     <p className="text-xs text-gray-400">
-                                        • 高质量内容将获得更多曝光
+                                        • High-quality content will get more exposure
                                     </p>
                                 </div>
                             </motion.div>
@@ -1006,14 +1004,14 @@ export default function PublishPage() {
                 isOpen={isPreviewOpen}
                 onClose={() => setIsPreviewOpen(false)}
                 content={{
-                    title: formData.title || "内容标题",
-                    summary: formData.summary || "内容摘要",
-                    content: formData.content || "内容正文",
+                    title: formData.title || "Content Title",
+                    summary: formData.summary || "Content Summary",
+                    content: formData.content || "Content Body",
                     coverImage:
                         formData.coverImage || "/placeholder.svg?height=300&width=600",
                     price: 0,
                     tags: [],
-                    category: "未分类",
+                    category: "Uncategorized",
                 }}
             />
         </main>

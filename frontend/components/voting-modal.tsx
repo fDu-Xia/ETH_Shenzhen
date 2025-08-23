@@ -9,7 +9,7 @@ import { ThumbsUp, TrendingUp, History, Loader2, ArrowLeft, Coins, AlertCircle, 
 import { motion, useMotionTemplate } from "motion/react"
 import { useColorAnimation } from "@/components/color-animation-provider"
 import { createPublicClient, createWalletClient, custom, formatEther, parseEther, getContract } from 'viem'
-import { monadTestnet } from 'viem/chains'
+import { sepolia as monadTestnet } from 'viem/chains'
 
 // ContentCoin合约ABI
 const CONTENT_COIN_ABI = [

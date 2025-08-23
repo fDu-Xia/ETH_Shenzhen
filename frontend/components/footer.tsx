@@ -14,48 +14,48 @@ export function Footer() {
               <span className="text-xl font-bold text-white">ContentDAO</span>
             </div>
             <p className="text-gray-400 max-w-md">
-              去中心化内容付费平台，让优质内容获得应有的价值，让创作者直接从粉丝获得收益。
+              Decentralized content payment platform that gives quality content its deserved value and allows creators to earn directly from fans.
             </p>
           </div>
 
           {/* Links */}
           <div>
-            <h3 className="text-white font-semibold mb-4">平台</h3>
+            <h3 className="text-white font-semibold mb-4">Platform</h3>
             <ul className="space-y-2">
               <li>
                 <Link href="/about" className="text-gray-400 hover:text-purple-400 transition-colors">
-                  关于我们
+                  About Us
                 </Link>
               </li>
               <li>
                 <Link href="/how-it-works" className="text-gray-400 hover:text-purple-400 transition-colors">
-                  工作原理
+                  How It Works
                 </Link>
               </li>
               <li>
                 <Link href="/tokenomics" className="text-gray-400 hover:text-purple-400 transition-colors">
-                  代币经济
+                  Tokenomics
                 </Link>
               </li>
             </ul>
           </div>
 
           <div>
-            <h3 className="text-white font-semibold mb-4">支持</h3>
+            <h3 className="text-white font-semibold mb-4">Support</h3>
             <ul className="space-y-2">
               <li>
                 <Link href="/help" className="text-gray-400 hover:text-purple-400 transition-colors">
-                  帮助中心
+                  Help Center
                 </Link>
               </li>
               <li>
                 <Link href="/docs" className="text-gray-400 hover:text-purple-400 transition-colors">
-                  开发文档
+                  Developer Docs
                 </Link>
               </li>
               <li>
                 <Link href="/contact" className="text-gray-400 hover:text-purple-400 transition-colors">
-                  联系我们
+                  Contact Us
                 </Link>
               </li>
             </ul>

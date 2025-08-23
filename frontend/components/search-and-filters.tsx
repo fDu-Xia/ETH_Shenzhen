@@ -6,7 +6,7 @@ import { motion, useMotionTemplate } from "motion/react"
 import { useColorAnimation } from "@/components/color-animation-provider"
 
 export function SearchAndFilters() {
-  const [activeFilter, setActiveFilter] = useState("热门")
+  const [activeFilter, setActiveFilter] = useState("Trending")
   const [searchQuery, setSearchQuery] = useState("")
   const color = useColorAnimation()
   
@@ -15,9 +15,9 @@ export function SearchAndFilters() {
   const focusBoxShadow = useMotionTemplate`0px 4px 24px ${color}40`
 
   const filters = [
-    { name: "热门", icon: TrendingUp },
-    { name: "最新", icon: Clock },
-    { name: "价格", icon: DollarSign },
+    { name: "Trending", icon: TrendingUp },
+    { name: "Latest", icon: Clock },
+    { name: "Price", icon: DollarSign },
   ]
 
   return (
@@ -33,7 +33,7 @@ export function SearchAndFilters() {
         <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5 z-10" />
         <input
           type="text"
-          placeholder="搜索内容、创作者或标签..."
+          placeholder="Search content, creators or tags..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           className="w-full pl-12 pr-4 py-3 bg-gray-950/30 backdrop-blur-sm rounded-full text-white placeholder-gray-400 focus:outline-none focus:bg-gray-950/50 transition-colors"
@@ -44,7 +44,7 @@ export function SearchAndFilters() {
       <div className="flex flex-wrap items-center gap-4">
         <div className="flex items-center space-x-2">
           <Filter className="w-5 h-5 text-gray-400" />
-          <span className="text-gray-400">排序:</span>
+          <span className="text-gray-400">Sort by:</span>
         </div>
 
         <div className="bg-gray-800/40 backdrop-blur-sm rounded-full p-1 flex items-center gap-1">

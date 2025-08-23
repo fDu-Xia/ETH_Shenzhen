@@ -59,10 +59,10 @@ import {
 // Mock user data
 const userData = {
   id: "1",
-  username: "区块链研究员",
+  username: "Blockchain Researcher",
   avatar: "/blockchain-researcher.png",
-  bio: "专注于区块链技术研究和Web3生态分析，拥有5年行业经验",
-  joinDate: "2023年3月",
+  bio: "Focused on blockchain technology research and Web3 ecosystem analysis, with 5 years of industry experience",
+  joinDate: "March 2023",
   totalEarnings: "12,450",
   totalViews: "45,230",
   totalContent: 23,
@@ -72,7 +72,7 @@ const userData = {
 const userContent = [
   {
     id: "1",
-    title: "Web3社交网络的未来发展趋势",
+    title: "Future Development Trends of Web3 Social Networks",
     preview: "/web3-social-network-future.png",
     publishDate: "2024-01-15",
     views: 2340,
@@ -81,7 +81,7 @@ const userContent = [
   },
   {
     id: "2",
-    title: "DeFi协议安全审计完整指南",
+    title: "Complete Guide to DeFi Protocol Security Audit",
     preview: "/defi-security-audit.png",
     publishDate: "2024-01-10",
     views: 1890,
@@ -90,7 +90,7 @@ const userContent = [
   },
   {
     id: "3",
-    title: "智能合约常见漏洞分析",
+    title: "Common Smart Contract Vulnerability Analysis",
     preview: "/smart-contract-vulnerabilities.png",
     publishDate: "2024-01-08",
     views: 0,
@@ -99,7 +99,7 @@ const userContent = [
   },
   {
     id: "4",
-    title: "去中心化存储解决方案对比",
+    title: "Decentralized Storage Solution Comparison",
     preview: "/decentralized-storage-comparison.png",
     publishDate: "2024-01-05",
     views: 1560,
@@ -109,19 +109,19 @@ const userContent = [
 ];
 
 const monthlyIncomeData = [
-  { month: "10月", income: 2340, contentSales: 1800, votingRevenue: 540 },
-  { month: "11月", income: 3120, contentSales: 2400, votingRevenue: 720 },
-  { month: "12月", income: 2890, contentSales: 2200, votingRevenue: 690 },
-  { month: "1月", income: 4100, contentSales: 3200, votingRevenue: 900 },
-  { month: "2月", income: 3650, contentSales: 2800, votingRevenue: 850 },
-  { month: "3月", income: 4500, contentSales: 3500, votingRevenue: 1000 },
+  { month: "Oct", income: 2340, contentSales: 1800, votingRevenue: 540 },
+  { month: "Nov", income: 3120, contentSales: 2400, votingRevenue: 720 },
+  { month: "Dec", income: 2890, contentSales: 2200, votingRevenue: 690 },
+  { month: "Jan", income: 4100, contentSales: 3200, votingRevenue: 900 },
+  { month: "Feb", income: 3650, contentSales: 2800, votingRevenue: 850 },
+  { month: "Mar", income: 4500, contentSales: 3500, votingRevenue: 1000 },
 ];
 
 const incomeSourceData = [
-  { name: "内容销售", value: 18200, color: "#8B5CF6" },
-  { name: "投票分成", value: 4700, color: "#A855F7" },
-  { name: "打赏收入", value: 1800, color: "#9333EA" },
-  { name: "推荐奖励", value: 800, color: "#7C3AED" },
+  { name: "Content Sales", value: 18200, color: "#8B5CF6" },
+  { name: "Voting Revenue", value: 4700, color: "#A855F7" },
+  { name: "Tips Income", value: 1800, color: "#9333EA" },
+  { name: "Referral Rewards", value: 800, color: "#7C3AED" },
 ];
 
 const dailyIncomeData = [
@@ -146,57 +146,57 @@ const incomeRecords = [
   {
     id: "1",
     date: "2024-03-15",
-    type: "内容销售",
+    type: "Content Sales",
     amount: "420.00",
-    source: "Web3社交网络的未来发展趋势",
-    status: "已到账",
+    source: "Future Development Trends of Web3 Social Networks",
+    status: "Received",
   },
   {
     id: "2",
     date: "2024-03-14",
-    type: "投票分成",
+    type: "Voting Revenue",
     amount: "85.50",
-    source: "DeFi协议安全审计完整指南",
-    status: "已到账",
+    source: "Complete Guide to DeFi Protocol Security Audit",
+    status: "Received",
   },
   {
     id: "3",
     date: "2024-03-13",
-    type: "内容销售",
+    type: "Content Sales",
     amount: "350.00",
-    source: "智能合约常见漏洞分析",
-    status: "已到账",
+    source: "Common Smart Contract Vulnerability Analysis",
+    status: "Received",
   },
   {
     id: "4",
     date: "2024-03-12",
-    type: "打赏收入",
+    type: "Tips Income",
     amount: "120.00",
-    source: "去中心化存储解决方案对比",
-    status: "处理中",
+    source: "Decentralized Storage Solution Comparison",
+    status: "Processing",
   },
   {
     id: "5",
     date: "2024-03-11",
-    type: "推荐奖励",
+    type: "Referral Rewards",
     amount: "50.00",
-    source: "推荐新用户注册",
-    status: "已到账",
+    source: "New User Referral Registration",
+    status: "Received",
   },
 ];
 
 const purchaseHistory = [
   {
     id: "1",
-    title: "去中心化存储解决方案对比",
-    author: "区块链研究员",
+    title: "Decentralized Storage Solution Comparison",
+    author: "Blockchain Researcher",
     purchaseDate: "2024-03-10",
     price: "280.00",
   },
   {
     id: "2",
-    title: "智能合约常见漏洞分析",
-    author: "区块链研究员",
+    title: "Common Smart Contract Vulnerability Analysis",
+    author: "Blockchain Researcher",
     purchaseDate: "2024-03-09",
     price: "180.00",
   },
@@ -207,19 +207,19 @@ const getStatusBadge = (status: string) => {
     case "published":
       return (
         <Badge className="bg-green-500/20 text-green-400 border-green-500/30">
-          已发布
+          Published
         </Badge>
       );
     case "draft":
       return (
         <Badge className="bg-yellow-500/20 text-yellow-400 border-yellow-500/30">
-          草稿
+          Draft
         </Badge>
       );
     case "removed":
       return (
         <Badge className="bg-red-500/20 text-red-400 border-red-500/30">
-          已下架
+          Removed
         </Badge>
       );
     default:
@@ -242,7 +242,11 @@ export default function ProfilePage() {
     const matchesSearch =
       record.source.toLowerCase().includes(searchTerm.toLowerCase()) ||
       record.type.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesType = filterType === "all" || record.type === filterType;
+    const matchesType = filterType === "all" ||
+      (filterType === "Content Sales" && record.type === "Content Sales") ||
+      (filterType === "Voting Revenue" && record.type === "Voting Revenue") ||
+      (filterType === "Tips Income" && record.type === "Tips Income") ||
+      (filterType === "Referral Rewards" && record.type === "Referral Rewards");
     return matchesSearch && matchesType;
   });
 
@@ -288,7 +292,7 @@ export default function ProfilePage() {
                 <p className="text-gray-400 mb-2">{userData.bio}</p>
                 <div className="flex items-center text-sm text-gray-500">
                   <Calendar className="w-4 h-4 mr-1" />
-                  加入时间：{userData.joinDate}
+                  Joined: {userData.joinDate}
                 </div>
               </motion.div>
               <motion.button
@@ -304,7 +308,7 @@ export default function ProfilePage() {
                 className="px-4 py-2 rounded-full text-sm font-medium bg-gray-950/30 text-white backdrop-blur-sm transition-colors hover:bg-gray-950/50 flex items-center gap-2 group"
               >
                 <Edit className="w-4 h-4" />
-                编辑资料
+                Edit Profile
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:-rotate-45" />
               </motion.button>
             </div>
@@ -324,7 +328,7 @@ export default function ProfilePage() {
                 >
                   {userData.totalContent}
                 </motion.div>
-                <div className="text-sm text-gray-400">发布内容</div>
+                <div className="text-sm text-gray-400">Published</div>
               </motion.div>
               <motion.div
                 className="text-center p-4 rounded-xl bg-gray-900/30"
@@ -336,7 +340,7 @@ export default function ProfilePage() {
                 <div className="text-2xl font-bold text-green-400">
                   {userData.totalViews}
                 </div>
-                <div className="text-sm text-gray-400">总阅读量</div>
+                <div className="text-sm text-gray-400">Total Views</div>
               </motion.div>
               <motion.div
                 className="text-center p-4 rounded-xl bg-gray-900/30"
@@ -348,7 +352,7 @@ export default function ProfilePage() {
                 <div className="text-2xl font-bold text-yellow-400">
                   ¥{userData.totalEarnings}
                 </div>
-                <div className="text-sm text-gray-400">总收入</div>
+                <div className="text-sm text-gray-400">Total Income</div>
               </motion.div>
             </div>
           </div>
@@ -378,7 +382,7 @@ export default function ProfilePage() {
             whileTap={{ scale: 0.98 }}
           >
             <FileText className="w-4 h-4" />
-            我的内容
+            My Content
           </motion.button>
           <motion.button
             onClick={() => setActiveTab("income")}
@@ -394,7 +398,7 @@ export default function ProfilePage() {
             whileTap={{ scale: 0.98 }}
           >
             <TrendingUp className="w-4 h-4" />
-            收入统计
+            Income Stats
           </motion.button>
           <motion.button
             onClick={() => setActiveTab("purchases")}
@@ -410,14 +414,14 @@ export default function ProfilePage() {
             whileTap={{ scale: 0.98 }}
           >
             <ShoppingBag className="w-4 h-4" />
-            购买记录
+            Purchase History
           </motion.button>
         </motion.div>
 
         {/* My Content Tab */}
         <TabsContent value="content" className="mt-6">
           <div className="flex justify-between items-center mb-6">
-            <h2 className="text-2xl md:text-3xl font-light text-white">我的内容</h2>
+            <h2 className="text-2xl md:text-3xl font-light text-white">My Content</h2>
             <motion.button
               onClick={() => (window.location.href = "/publish")}
               style={{
@@ -429,7 +433,7 @@ export default function ProfilePage() {
               className="px-4 py-2 rounded-full text-sm font-medium bg-gray-950/30 text-white backdrop-blur-sm transition-colors hover:bg-gray-950/50 flex items-center gap-2 group"
             >
               <Plus className="w-4 h-4" />
-              发布新内容
+              Publish New Content
               <ArrowRight className="w-4 h-4 transition-transform group-hover:-rotate-45" />
             </motion.button>
           </div>
@@ -494,7 +498,7 @@ export default function ProfilePage() {
                       className="px-3 py-1.5 rounded-full text-xs font-medium bg-gray-900/50 text-white backdrop-blur-sm transition-colors hover:bg-gray-900/70 flex items-center gap-1 border border-gray-700/50"
                     >
                       <Edit className="w-3 h-3" />
-                      编辑
+                      Edit
                     </motion.button>
 
                     <DropdownMenu>
@@ -510,7 +514,7 @@ export default function ProfilePage() {
                       <DropdownMenuContent className="bg-gray-900/95 backdrop-blur-sm border-gray-700/50 rounded-xl">
                         <DropdownMenuItem className="text-red-400 hover:bg-red-500/20 rounded-lg cursor-pointer">
                           <Trash2 className="w-4 h-4 mr-2" />
-                          删除
+                          Delete
                         </DropdownMenuItem>
                       </DropdownMenuContent>
                     </DropdownMenu>
@@ -534,9 +538,9 @@ export default function ProfilePage() {
               }}
               style={{ border }}
             >
-              <p className="text-sm font-medium text-gray-400 mb-2">总收入</p>
+              <p className="text-sm font-medium text-gray-400 mb-2">Total Income</p>
               <div className="text-2xl font-bold text-green-400">¥25,500</div>
-              <p className="text-xs text-gray-500">累计收入</p>
+              <p className="text-xs text-gray-500">Cumulative Income</p>
             </motion.div>
 
             <motion.div
@@ -549,9 +553,9 @@ export default function ProfilePage() {
               }}
               style={{ border }}
             >
-              <p className="text-sm font-medium text-gray-400 mb-2">本月收入</p>
+              <p className="text-sm font-medium text-gray-400 mb-2">This Month</p>
               <motion.div className="text-2xl font-bold" style={{ color }}>¥4,500</motion.div>
-              <p className="text-xs text-gray-500">+9.8% 较上月</p>
+              <p className="text-xs text-gray-500">+9.8% vs last month</p>
             </motion.div>
 
             <motion.div
@@ -564,9 +568,9 @@ export default function ProfilePage() {
               }}
               style={{ border }}
             >
-              <p className="text-sm font-medium text-gray-400 mb-2">内容销售收入</p>
+              <p className="text-sm font-medium text-gray-400 mb-2">Content Sales Revenue</p>
               <div className="text-2xl font-bold text-blue-400">¥18,200</div>
-              <p className="text-xs text-gray-500">71% 总收入占比</p>
+              <p className="text-xs text-gray-500">71% of total</p>
             </motion.div>
 
             <motion.div
@@ -579,9 +583,9 @@ export default function ProfilePage() {
               }}
               style={{ border }}
             >
-              <p className="text-sm font-medium text-gray-400 mb-2">投票分成收入</p>
+              <p className="text-sm font-medium text-gray-400 mb-2">Voting Revenue</p>
               <div className="text-2xl font-bold text-yellow-400">¥4,700</div>
-              <p className="text-xs text-gray-500">18% 总收入占比</p>
+              <p className="text-xs text-gray-500">18% of total</p>
             </motion.div>
           </div>
 
@@ -601,7 +605,7 @@ export default function ProfilePage() {
                 <FileText className="w-8 h-8 mx-auto mb-2" />
               </motion.div>
               <div className="text-xl font-bold text-white">23</div>
-              <div className="text-sm text-gray-400">内容总数</div>
+              <div className="text-sm text-gray-400">Total Content</div>
             </motion.div>
 
             <motion.div
@@ -616,7 +620,7 @@ export default function ProfilePage() {
             >
               <Eye className="w-8 h-8 text-blue-400 mx-auto mb-2" />
               <div className="text-xl font-bold text-white">45,230</div>
-              <div className="text-sm text-gray-400">总阅读量</div>
+              <div className="text-sm text-gray-400">Total Views</div>
             </motion.div>
 
             <motion.div
@@ -631,7 +635,7 @@ export default function ProfilePage() {
             >
               <ThumbsUp className="w-8 h-8 text-green-400 mx-auto mb-2" />
               <div className="text-xl font-bold text-white">3,456</div>
-              <div className="text-sm text-gray-400">总投票数</div>
+              <div className="text-sm text-gray-400">Total Votes</div>
             </motion.div>
 
             <motion.div
@@ -646,7 +650,7 @@ export default function ProfilePage() {
             >
               <BarChart3 className="w-8 h-8 text-yellow-400 mx-auto mb-2" />
               <div className="text-xl font-bold text-white">¥1,109</div>
-              <div className="text-sm text-gray-400">平均每篇收入</div>
+              <div className="text-sm text-gray-400">Avg. Income per Article</div>
             </motion.div>
 
             <motion.div
@@ -661,7 +665,7 @@ export default function ProfilePage() {
             >
               <Users className="w-8 h-8 text-pink-400 mx-auto mb-2" />
               <div className="text-xl font-bold text-white">1,234</div>
-              <div className="text-sm text-gray-400">粉丝数量</div>
+              <div className="text-sm text-gray-400">Followers</div>
             </motion.div>
           </div>
 
@@ -672,7 +676,7 @@ export default function ProfilePage() {
               className="p-6 rounded-2xl bg-gray-950/30 backdrop-blur-sm"
               style={{ border, boxShadow }}
             >
-              <h3 className="text-lg font-medium mb-4 text-white">月度收入趋势</h3>
+              <h3 className="text-lg font-medium mb-4 text-white">Monthly Income Trend</h3>
                 <ResponsiveContainer width="100%" height={300}>
                   <LineChart data={monthlyIncomeData}>
                     <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
@@ -701,7 +705,7 @@ export default function ProfilePage() {
               className="p-6 rounded-2xl bg-gray-950/30 backdrop-blur-sm"
               style={{ border, boxShadow }}
             >
-              <h3 className="text-lg font-medium mb-4 text-white">收入来源分布</h3>
+              <h3 className="text-lg font-medium mb-4 text-white">Income Source Distribution</h3>
                 <ResponsiveContainer width="100%" height={300}>
                   <PieChart>
                     <Pie
@@ -736,7 +740,7 @@ export default function ProfilePage() {
             className="p-6 rounded-2xl bg-gray-950/30 backdrop-blur-sm mb-8"
             style={{ border, boxShadow }}
           >
-            <h3 className="text-lg font-medium mb-4 text-white">最近30天收入</h3>
+            <h3 className="text-lg font-medium mb-4 text-white">Last 30 Days Income</h3>
               <ResponsiveContainer width="100%" height={300}>
                 <BarChart data={dailyIncomeData}>
                   <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
@@ -760,7 +764,7 @@ export default function ProfilePage() {
             style={{ border, boxShadow }}
           >
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
-              <h3 className="text-lg font-medium text-white">详细收入记录</h3>
+              <h3 className="text-lg font-medium text-white">Detailed Income Records</h3>
               <motion.button
                 style={{ boxShadow: buttonShadow }}
                 whileHover={{ scale: 1.05 }}
@@ -768,7 +772,7 @@ export default function ProfilePage() {
                 className="px-4 py-2 rounded-full text-sm font-medium bg-gray-900/50 text-white backdrop-blur-sm transition-colors hover:bg-gray-900/70 flex items-center gap-2 border border-gray-700/50"
               >
                 <Download className="w-4 h-4" />
-                导出
+                Export
               </motion.button>
             </div>
 
@@ -784,7 +788,7 @@ export default function ProfilePage() {
                 <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5 z-10" />
                 <input
                   type="text"
-                  placeholder="搜索收入记录..."
+                  placeholder="Search income records..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   className="w-full pl-12 pr-4 py-3 bg-gray-950/30 backdrop-blur-sm rounded-full text-white placeholder-gray-400 focus:outline-none focus:bg-gray-950/50 transition-colors"
@@ -793,7 +797,7 @@ export default function ProfilePage() {
               <Select value={filterType} onValueChange={setFilterType}>
                 <SelectTrigger className="w-full sm:w-48 bg-gray-900/50 border-gray-700/50 focus:border-gray-600 text-white rounded-xl h-12 hover:bg-gray-900/70 transition-colors">
                   <Filter className="w-4 h-4 mr-2" />
-                  <SelectValue placeholder="筛选类型" />
+                  <SelectValue placeholder="Filter Type" />
                 </SelectTrigger>
                 <SelectContent className="bg-gray-900/95 backdrop-blur-sm border-gray-700/50 rounded-xl">
                   <style jsx global>{`
@@ -805,11 +809,11 @@ export default function ProfilePage() {
                       background: ${color.get()}10 !important;
                     }
                   `}</style>
-                  <SelectItem value="all" className="text-gray-300 hover:text-white rounded-lg transition-colors cursor-pointer">全部类型</SelectItem>
-                  <SelectItem value="内容销售" className="text-gray-300 hover:text-white rounded-lg transition-colors cursor-pointer">内容销售</SelectItem>
-                  <SelectItem value="投票分成" className="text-gray-300 hover:text-white rounded-lg transition-colors cursor-pointer">投票分成</SelectItem>
-                  <SelectItem value="打赏收入" className="text-gray-300 hover:text-white rounded-lg transition-colors cursor-pointer">打赏收入</SelectItem>
-                  <SelectItem value="推荐奖励" className="text-gray-300 hover:text-white rounded-lg transition-colors cursor-pointer">推荐奖励</SelectItem>
+                  <SelectItem value="all" className="text-gray-300 hover:text-white rounded-lg transition-colors cursor-pointer">All Types</SelectItem>
+                  <SelectItem value="Content Sales" className="text-gray-300 hover:text-white rounded-lg transition-colors cursor-pointer">Content Sales</SelectItem>
+                  <SelectItem value="Voting Revenue" className="text-gray-300 hover:text-white rounded-lg transition-colors cursor-pointer">Voting Revenue</SelectItem>
+                  <SelectItem value="Tips Income" className="text-gray-300 hover:text-white rounded-lg transition-colors cursor-pointer">Tips Income</SelectItem>
+                  <SelectItem value="Referral Rewards" className="text-gray-300 hover:text-white rounded-lg transition-colors cursor-pointer">Referral Rewards</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -826,17 +830,17 @@ export default function ProfilePage() {
                       <div className="flex items-center gap-3 mb-1">
                         <span className={`
                           px-2 py-1 rounded-full text-xs font-medium
-                          ${record.type === "内容销售" ? "bg-blue-500/20 text-blue-400" : ""}
-                          ${record.type === "投票分成" ? "bg-green-500/20 text-green-400" : ""}
-                          ${record.type === "打赏收入" ? "bg-yellow-500/20 text-yellow-400" : ""}
-                          ${record.type === "推荐奖励" ? "bg-purple-500/20 text-purple-400" : ""}
+                          ${record.type === "Content Sales" ? "bg-blue-500/20 text-blue-400" : ""}
+                          ${record.type === "Voting Revenue" ? "bg-green-500/20 text-green-400" : ""}
+                          ${record.type === "Tips Income" ? "bg-yellow-500/20 text-yellow-400" : ""}
+                          ${record.type === "Referral Rewards" ? "bg-purple-500/20 text-purple-400" : ""}
                         `}>
                           {record.type}
                         </span>
                         <span className={`
                           px-2 py-1 rounded-full text-xs font-medium
-                          ${record.status === "已到账" ? "bg-green-500/20 text-green-400" : ""}
-                          ${record.status === "处理中" ? "bg-yellow-500/20 text-yellow-400" : ""}
+                          ${record.status === "Received" ? "bg-green-500/20 text-green-400" : ""}
+                          ${record.status === "Processing" ? "bg-yellow-500/20 text-yellow-400" : ""}
                         `}>
                           {record.status}
                         </span>
@@ -860,7 +864,7 @@ export default function ProfilePage() {
 
         {/* Purchase History Tab */}
         <TabsContent value="purchases" className="mt-6">
-          <h2 className="text-2xl md:text-3xl font-light text-white mb-6">购买记录</h2>
+          <h2 className="text-2xl md:text-3xl font-light text-white mb-6">Purchase History</h2>
 
           <div className="space-y-4">
             {purchaseHistory.map((purchase, index) => (
@@ -886,10 +890,10 @@ export default function ProfilePage() {
                   <div className="flex-1">
                     <h3 className="font-semibold mb-1 text-white">{purchase.title}</h3>
                     <p className="text-sm text-gray-400 mb-2">
-                      作者：{purchase.author}
+                      Author: {purchase.author}
                     </p>
                     <p className="text-xs text-gray-500">
-                      购买时间：{purchase.purchaseDate}
+                      Purchase Date: {purchase.purchaseDate}
                     </p>
                   </div>
                   <div className="text-right">
@@ -900,7 +904,7 @@ export default function ProfilePage() {
                       ¥{purchase.price}
                     </motion.div>
                     <span className="px-3 py-1 rounded-full text-xs font-medium bg-green-500/20 text-green-400">
-                      已完成
+                      Completed
                     </span>
                   </div>
                 </div>

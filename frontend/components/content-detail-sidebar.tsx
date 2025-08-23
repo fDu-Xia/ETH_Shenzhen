@@ -9,7 +9,7 @@ import { VotingModal } from "./voting-modal"
 import { motion, useMotionTemplate } from "motion/react"
 import { useColorAnimation } from "@/components/color-animation-provider"
 import { createPublicClient, createWalletClient, custom, formatEther, parseEther, getContract } from 'viem'
-import { monadTestnet } from 'viem/chains'
+import { sepolia as monadTestnet } from 'viem/chains'
 
 // ContentCoin合约ABI
 const CONTENT_COIN_ABI = [
@@ -122,7 +122,7 @@ export function ContentDetailSidebar({ content, onPurchaseComplete }: ContentDet
                     setWalletAddress(accounts[0])
                 }
             } catch (error) {
-                console.error('检查钱包连接失败:', error)
+                console.error('Failed to check wallet connection:', error)
             }
         }
     }
@@ -135,12 +135,12 @@ export function ContentDetailSidebar({ content, onPurchaseComplete }: ContentDet
                 setWalletAddress(accounts[0])
                 setError(null)
             } catch (error: any) {
-                setError('连接钱包失败: ' + error.message)
+                setError('Failed to connect wallet: ' + error.message)
             } finally {
                 setIsLoading(false)
             }
         } else {
-            setError('请安装MetaMask钱包')
+            setError('Please install MetaMask wallet')
         }
     }
 
@@ -163,8 +163,8 @@ export function ContentDetailSidebar({ content, onPurchaseComplete }: ContentDet
             setPriceInUSD(usdPrice)
 
         } catch (error: any) {
-            console.error('获取价格失败:', error)
-            setError('获取价格失败')
+            console.error('Failed to get price:', error)
+            setError('Failed to get price')
         }
     }
 
@@ -183,7 +183,7 @@ export function ContentDetailSidebar({ content, onPurchaseComplete }: ContentDet
             setUserTokenBalance(balanceFormatted)
 
         } catch (error: any) {
-            console.error('获取余额失败:', error)
+            console.error('Failed to get balance:', error)
         }
     }
 
@@ -246,13 +246,13 @@ export function ContentDetailSidebar({ content, onPurchaseComplete }: ContentDet
 
             setError(null)
         } catch (error: any) {
-            console.error('购买失败:', error)
+            console.error('Purchase failed:', error)
             if (error.code === 4001) {
-                setError('交易被用户取消')
+                setError('Transaction cancelled by user')
             } else if (error.code === -32603) {
-                setError('交易失败，请检查余额是否足够')
+                setError('Transaction failed, please check if you have sufficient balance')
             } else {
-                setError('购买失败: ' + (error.shortMessage || error.message))
+                setError('Purchase failed: ' + (error.shortMessage || error.message))
             }
         } finally {
             setIsLoading(false)
@@ -279,7 +279,7 @@ export function ContentDetailSidebar({ content, onPurchaseComplete }: ContentDet
                                 >
                                     <Wallet className="w-5 h-5" style={{ color: color.get() }} />
                                 </motion.div>
-                                内容解锁
+                                Content Unlock
                             </CardTitle>
                         </CardHeader>
                         <CardContent className="space-y-4">
@@ -290,11 +290,11 @@ export function ContentDetailSidebar({ content, onPurchaseComplete }: ContentDet
                                     animate={{ scale: 1 }}
                                     transition={{ type: "spring", stiffness: 200 }}
                                 >
-                                    {currentPrice ? parseFloat(currentPrice).toFixed(6) : '加载中...'}
+                                    {currentPrice ? parseFloat(currentPrice).toFixed(6) : 'Loading...'}
                                     <span className="text-lg" style={{ color: color.get() }}>MON</span>
                                 </motion.div>
                                 <p className="text-sm text-gray-400 mt-1">
-                                    {priceInUSD ? `≈ $${priceInUSD} USD` : '计算中...'}
+                                    {priceInUSD ? `≈ $${priceInUSD} USD` : 'Calculating...'}
                                 </p>
                             </div>
 
@@ -312,7 +312,7 @@ export function ContentDetailSidebar({ content, onPurchaseComplete }: ContentDet
                                     whileTap={{ scale: 0.98 }}
                                 >
                                     <CheckCircle className="w-5 h-5" />
-                                    已解锁 (持有 {parseFloat(userTokenBalance).toFixed(2)} 代币)
+                                    Unlocked (holding {parseFloat(userTokenBalance).toFixed(2)} tokens)
                                 </motion.button>
                             ) : (
                                 <motion.button
@@ -331,12 +331,12 @@ export function ContentDetailSidebar({ content, onPurchaseComplete }: ContentDet
                                     ) : (
                                         <Unlock className="w-5 h-5" />
                                     )}
-                                    {isLoading ? '处理中...' : !walletAddress ? '连接钱包' : '立即解锁内容'}
+                                    {isLoading ? 'Processing...' : !walletAddress ? 'Connect Wallet' : 'Unlock Content Now'}
                                 </motion.button>
                             )}
 
                             <div className="text-xs text-gray-500 text-center">
-                                {!walletAddress ? '请先连接钱包' : '解锁后永久访问 • 支持作者创作'}
+                                {!walletAddress ? 'Please connect wallet first' : 'Permanent access after unlock • Support creators'}
                             </div>
                         </CardContent>
                     </Card>
@@ -352,12 +352,12 @@ export function ContentDetailSidebar({ content, onPurchaseComplete }: ContentDet
                         <CardHeader className="pb-3">
                             <CardTitle className="text-white flex items-center gap-2">
                                 <ThumbsUp className="w-5 h-5" style={{ color: color.get() }} />
-                                投票支持
+                                Vote Support
                             </CardTitle>
                         </CardHeader>
                         <CardContent className="space-y-4">
                             <p className="text-sm text-gray-400">
-                                {isUnlocked ? '持有代币用户可以进行评分投票' : '购买后可以对内容进行评分'}
+                                {isUnlocked ? 'Token holders can vote and rate' : 'Purchase to rate content'}
                             </p>
                             <motion.button
                                 onClick={() => setShowVotingModal(true)}
@@ -371,7 +371,7 @@ export function ContentDetailSidebar({ content, onPurchaseComplete }: ContentDet
                                 whileTap={{ scale: isUnlocked ? 0.98 : 1 }}
                             >
                                 <ThumbsUp className="w-4 h-4" />
-                                投票支持
+                                Vote Support
                             </motion.button>
                         </CardContent>
                     </Card>
@@ -387,16 +387,16 @@ export function ContentDetailSidebar({ content, onPurchaseComplete }: ContentDet
                         <CardHeader className="pb-3">
                             <CardTitle className="text-white flex items-center gap-2">
                                 <TrendingUp className="w-5 h-5" style={{ color: color.get() }} />
-                                内容统计
+                                Content Stats
                             </CardTitle>
                         </CardHeader>
                         <CardContent>
                             <div className="grid grid-cols-2 gap-3">
                                 {[
-                                    { value: content.stats.views.toLocaleString(), label: "总阅读量" },
-                                    { value: content.stats.investors, label: "投资者数" },
-                                    { value: content.stats.likes, label: "点赞数" },
-                                    { value: content.stats.comments, label: "评论数" }
+                                    { value: content.stats.views.toLocaleString(), label: "Total Views" },
+                                    { value: content.stats.investors, label: "Investors" },
+                                    { value: content.stats.likes, label: "Likes" },
+                                    { value: content.stats.comments, label: "Comments" }
                                 ].map((stat, index) => (
                                     <motion.div
                                         key={index}
@@ -425,7 +425,7 @@ export function ContentDetailSidebar({ content, onPurchaseComplete }: ContentDet
                         <CardHeader className="pb-3">
                             <CardTitle className="text-white flex items-center gap-2">
                                 <Users className="w-5 h-5" style={{ color: color.get() }} />
-                                投资收益
+                                Investment Returns
                             </CardTitle>
                         </CardHeader>
                         <CardContent className="space-y-3">
@@ -434,13 +434,13 @@ export function ContentDetailSidebar({ content, onPurchaseComplete }: ContentDet
                                 style={{ borderColor: borderColor }}
                             >
                                 <div className="flex justify-between items-center">
-                                    <span className="text-gray-400 text-sm">当前价格</span>
+                                    <span className="text-gray-400 text-sm">Current Price</span>
                                     <span className="text-white font-medium">
-                    {currentPrice ? `${parseFloat(currentPrice).toFixed(6)} MON` : '加载中...'}
+                    {currentPrice ? `${parseFloat(currentPrice).toFixed(6)} MON` : 'Loading...'}
                   </span>
                                 </div>
                                 <div className="flex justify-between items-center">
-                                    <span className="text-gray-400 text-sm">24h 涨幅</span>
+                                    <span className="text-gray-400 text-sm">24h Change</span>
                                     <motion.span
                                         className="text-green-400 font-medium"
                                         animate={{ opacity: [1, 0.5, 1] }}
@@ -450,16 +450,16 @@ export function ContentDetailSidebar({ content, onPurchaseComplete }: ContentDet
                                     </motion.span>
                                 </div>
                                 <div className="flex justify-between items-center">
-                                    <span className="text-gray-400 text-sm">我的持仓</span>
+                                    <span className="text-gray-400 text-sm">My Holdings</span>
                                     <span className="text-white font-medium">
-                    {parseFloat(userTokenBalance).toFixed(2)} 代币
+                    {parseFloat(userTokenBalance).toFixed(2)} tokens
                   </span>
                                 </div>
                             </motion.div>
                             <div className="pt-2 border-t border-gray-800/50">
                                 <div className="flex items-center gap-2 text-xs text-gray-500">
                                     <Clock className="w-3 h-3" />
-                                    <span>价格实时更新</span>
+                                    <span>Real-time price updates</span>
                                 </div>
                             </div>
                         </CardContent>

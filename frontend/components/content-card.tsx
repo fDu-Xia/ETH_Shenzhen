@@ -141,7 +141,7 @@ export function ContentCard({ content }: ContentCardProps) {
                       textShadow: useMotionTemplate`0 0 8px ${color}40`,
                     }}
                   >
-                    热门
+                    Trending
                   </motion.span>
                 </motion.div>
               </motion.div>
@@ -278,7 +278,7 @@ export function ContentCard({ content }: ContentCardProps) {
                 scale: 0.98,
               }}
             >
-              查看详情
+              View Details
               <ArrowRight className="w-4 h-4 transition-transform group-hover:-rotate-45" />
             </motion.button>
           </Link>

@@ -1,6 +1,4 @@
 import { useCallback, useEffect, useState } from 'react';
-import { useReadContract } from 'wagmi';
-import { monadTestnetConfig } from '@/config/monad';
 import { CONTRACT_CONFIG } from '@/config/contracts';
 import ContentFactoryABI from '@/lib/contracts/ContentFactory.json';
 import { publicClient } from '../lib/wagmi';

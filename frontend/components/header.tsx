@@ -13,10 +13,10 @@ export function Header() {
   const backgroundColor = useMotionTemplate`${color}`;
 
   const navItems = [
-    { href: "/", label: "首页" },
-    { href: "/explore", label: "发现" },
-    { href: "/publish", label: "发布" },
-    { href: "/profile", label: "个人" },
+    { href: "/", label: "Home" },
+    { href: "/explore", label: "Explore" },
+    { href: "/publish", label: "Publish" },
+    { href: "/profile", label: "Profile" },
   ];
 
   return (
@@ -26,12 +26,16 @@ export function Header() {
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2 w-[320px]">
             <motion.div
-              style={{ backgroundColor }}
-              className="w-8 h-8 rounded-lg flex items-center justify-center"
+              style={{ color: backgroundColor }}
+              className="text-xl font-bold text-white"
+              // className="w-8 h-8 rounded-lg flex items-center justify-center"
             >
-              <span className="text-white font-bold text-sm">C</span>
+              {/* <span className="text-white font-bold text-sm">C</span> */}
+              Tokenized Knowledge Vault
             </motion.div>
-            <span className="text-xl font-bold text-white">ContentDAO</span>
+            {/* <span className="text-xl font-bold text-white">
+              Tokenized Knowledge Vault
+            </span> */}
           </Link>
 
           {/* Navigation - Apple Store Style Capsule */}
@@ -39,13 +43,15 @@ export function Header() {
             <div className="bg-gray-800/40 backdrop-blur-sm rounded-full p-1 flex items-center">
               {navItems.map((item) => {
                 // 特殊处理：如果是 /content/* 路由，激活"发现"导航项
-                const isActive = item.href === "/explore"
-                  ? (pathname === "/explore" || pathname.startsWith("/content/"))
-                  : pathname === item.href;
-                  
+                const isActive =
+                  item.href === "/explore"
+                    ? pathname === "/explore" ||
+                      pathname.startsWith("/content/")
+                    : pathname === item.href;
+
                 const border = useMotionTemplate`1px solid ${color}`;
                 const boxShadow = useMotionTemplate`0px 2px 8px ${color}`;
-                
+
                 return isActive ? (
                   <motion.div key={item.href} className="relative">
                     <Link href={item.href}>
@@ -121,7 +127,7 @@ export function Header() {
                               whileTap={{ scale: 0.95 }}
                               className="px-4 py-1.5 rounded-full text-sm font-medium bg-gray-950/30 text-white backdrop-blur-sm transition-colors hover:bg-gray-950/50"
                             >
-                              连接钱包
+                              Connect Wallet
                             </motion.button>
                           );
                         }
@@ -133,7 +139,7 @@ export function Header() {
                               type="button"
                               className="px-4 py-1.5 rounded-full text-sm font-medium bg-red-600/30 text-red-300 backdrop-blur-sm transition-colors hover:bg-red-600/50"
                             >
-                              错误网络
+                              Wrong Network
                             </button>
                           );
                         }

@@ -42,7 +42,7 @@ export function ContentPreviewModal({ isOpen, onClose, content }: ContentPreview
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto bg-[#2A2550] border-purple-500/20">
         <DialogHeader>
-          <DialogTitle className="text-xl font-bold">内容预览</DialogTitle>
+          <DialogTitle className="text-xl font-bold">Content Preview</DialogTitle>
         </DialogHeader>
 
         <div className="space-y-6">
@@ -53,7 +53,7 @@ export function ContentPreviewModal({ isOpen, onClose, content }: ContentPreview
             <div className="flex items-center gap-4 text-sm text-gray-400">
               <div className="flex items-center gap-1">
                 <User className="w-4 h-4" />
-                <span>区块链研究员</span>
+                <span>Blockchain Researcher</span>
               </div>
               <div className="flex items-center gap-1">
                 <Calendar className="w-4 h-4" />
@@ -88,17 +88,17 @@ export function ContentPreviewModal({ isOpen, onClose, content }: ContentPreview
 
           {/* Summary */}
           <div className="bg-[#1E1B3A] p-4 rounded-lg border border-purple-500/20">
-            <h3 className="font-semibold mb-2">内容摘要</h3>
+            <h3 className="font-semibold mb-2">Content Summary</h3>
             <p className="text-gray-300">{content.summary}</p>
           </div>
 
           {/* Content */}
           <div className="bg-[#1E1B3A] p-6 rounded-lg border border-purple-500/20">
-            <h3 className="font-semibold mb-4">正文内容</h3>
+            <h3 className="font-semibold mb-4">Main Content</h3>
             <div
               className="prose prose-invert max-w-none"
               dangerouslySetInnerHTML={{
-                __html: content.content ? markdownToHtml(content.content) : "<p class='text-gray-400'>暂无内容</p>",
+                __html: content.content ? markdownToHtml(content.content) : "<p class='text-gray-400'>No content available</p>",
               }}
             />
           </div>
@@ -106,7 +106,7 @@ export function ContentPreviewModal({ isOpen, onClose, content }: ContentPreview
           {/* Actions */}
           <div className="flex justify-end gap-3">
             <Button variant="outline" onClick={onClose} className="border-purple-500/30 bg-transparent">
-              关闭预览
+              Close Preview
             </Button>
           </div>
         </div>
