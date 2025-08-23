@@ -77,7 +77,7 @@ export function UnlockedContentDisplay({ content }: UnlockedContentDisplayProps)
               >
                 <CheckCircle className="w-5 h-5 text-green-400" />
               </motion.div>
-              <span className="text-green-400 font-semibold">内容已解锁</span>
+              <span className="text-green-400 font-semibold">Content Unlocked</span>
             </div>
             <div className="flex gap-3 flex-wrap">
               <motion.button
@@ -91,7 +91,7 @@ export function UnlockedContentDisplay({ content }: UnlockedContentDisplayProps)
                 whileTap={{ scale: 0.95 }}
               >
                 <Download className="w-4 h-4" />
-                下载内容
+                Download Content
               </motion.button>
               <motion.button
                 onClick={handleSave}
@@ -104,7 +104,7 @@ export function UnlockedContentDisplay({ content }: UnlockedContentDisplayProps)
                 whileTap={{ scale: 0.95 }}
               >
                 <Bookmark className={`w-4 h-4 ${savedToLibrary ? 'fill-current' : ''}`} />
-                {savedToLibrary ? '已保存' : '保存到库'}
+                {savedToLibrary ? 'Saved' : 'Save to Library'}
               </motion.button>
               <motion.button
                 onClick={handleShare}
@@ -117,7 +117,7 @@ export function UnlockedContentDisplay({ content }: UnlockedContentDisplayProps)
                 whileTap={{ scale: 0.95 }}
               >
                 <Share2 className="w-4 h-4" />
-                分享
+                Share
               </motion.button>
             </div>
           </CardContent>
@@ -134,7 +134,7 @@ export function UnlockedContentDisplay({ content }: UnlockedContentDisplayProps)
           <CardContent className="p-6">
             <div className="flex items-center gap-2 mb-4">
               <FileText className="w-5 h-5" style={{ color: color.get() }} />
-              <h3 className="text-lg font-semibold text-white">完整内容</h3>
+              <h3 className="text-lg font-semibold text-white">Full Content</h3>
             </div>
             <div className="prose prose-invert max-w-none">
               <div className="text-gray-300 leading-relaxed whitespace-pre-line">{content.fullContent}</div>
@@ -153,7 +153,7 @@ export function UnlockedContentDisplay({ content }: UnlockedContentDisplayProps)
         >
           <div className="flex items-center gap-2">
             <ImageIcon className="w-5 h-5" style={{ color: color.get() }} />
-            <h3 className="text-lg font-semibold text-white">高清图片资源</h3>
+            <h3 className="text-lg font-semibold text-white">HD Image Resources</h3>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {content.images.map((image, index) => (
@@ -190,7 +190,7 @@ export function UnlockedContentDisplay({ content }: UnlockedContentDisplayProps)
                       whileTap={{ scale: 0.95 }}
                     >
                       <Download className="w-4 h-4" />
-                      下载图片
+                      Download Image
                     </motion.button>
                   </CardContent>
                 </Card>

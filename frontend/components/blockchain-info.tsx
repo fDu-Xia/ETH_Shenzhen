@@ -51,7 +51,7 @@ export function BlockchainInfo({ content }: BlockchainInfoProps) {
   };
 
   const formatPrice = (price: number) => {
-    return `${price.toFixed(6)} MON`;
+    return `${price.toFixed(6)} ETH`;
   };
 
   return (
@@ -59,7 +59,7 @@ export function BlockchainInfo({ content }: BlockchainInfoProps) {
       <CardHeader>
         <CardTitle className="flex items-center gap-2 text-white">
           <Hash className="w-5 h-5" style={{ color: color.get() }} />
-          区块链信息
+          Blockchain Information
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
@@ -68,7 +68,7 @@ export function BlockchainInfo({ content }: BlockchainInfoProps) {
           <div className="flex items-center justify-between p-3 bg-gray-800/30 rounded-lg border border-gray-700/30">
             <div className="flex items-center gap-2">
               <Wallet className="w-4 h-4 text-gray-400" />
-              <span className="text-sm text-gray-400">合约地址</span>
+              <span className="text-sm text-gray-400">Contract Address</span>
             </div>
             <div className="flex items-center gap-2">
               <span className="text-sm text-gray-300 font-mono">
@@ -86,7 +86,7 @@ export function BlockchainInfo({ content }: BlockchainInfoProps) {
           <div className="flex items-center justify-between p-3 bg-gray-800/30 rounded-lg border border-gray-700/30">
             <div className="flex items-center gap-2">
               <Users className="w-4 h-4 text-gray-400" />
-              <span className="text-sm text-gray-400">创作者</span>
+              <span className="text-sm text-gray-400">Creator</span>
             </div>
             <div className="flex items-center gap-2">
               <span className="text-sm text-gray-300 font-mono">
@@ -104,29 +104,29 @@ export function BlockchainInfo({ content }: BlockchainInfoProps) {
 
         {/* Token Statistics */}
         <div className="space-y-3">
-          <h4 className="text-sm font-medium text-gray-300 mb-2">代币统计</h4>
+          <h4 className="text-sm font-medium text-gray-300 mb-2">Token Statistics</h4>
           
           <div className="grid grid-cols-2 gap-3">
             <div className="p-3 bg-gray-800/30 rounded-lg border border-gray-700/30 text-center">
               <div className="text-lg font-bold text-white">{content.totalSupply}</div>
-              <div className="text-xs text-gray-400">总供应量</div>
+              <div className="text-xs text-gray-400">Total Supply</div>
             </div>
             
             <div className="p-3 bg-gray-800/30 rounded-lg border border-gray-700/30 text-center">
               <div className="text-lg font-bold text-white">{formatPrice(content.currentPrice)}</div>
-              <div className="text-xs text-gray-400">当前价格</div>
+              <div className="text-xs text-gray-400">Current Price</div>
             </div>
           </div>
 
           <div className="grid grid-cols-2 gap-3">
             <div className="p-3 bg-gray-800/30 rounded-lg border border-gray-700/30 text-center">
               <div className="text-lg font-bold text-white">{content.averageRating.toFixed(1)}</div>
-              <div className="text-xs text-gray-400">平均评分</div>
+              <div className="text-xs text-gray-400">Average Rating</div>
             </div>
             
             <div className="p-3 bg-gray-800/30 rounded-lg border border-gray-700/30 text-center">
               <div className="text-lg font-bold text-white">{content.ratingsCount}</div>
-              <div className="text-xs text-gray-400">评分数量</div>
+              <div className="text-xs text-gray-400">Rating Count</div>
             </div>
           </div>
         </div>
@@ -134,21 +134,21 @@ export function BlockchainInfo({ content }: BlockchainInfoProps) {
         {/* IPFS Information */}
         {content.ipfsData && (
           <div className="space-y-3">
-            <h4 className="text-sm font-medium text-gray-300 mb-2">IPFS 内容</h4>
+            <h4 className="text-sm font-medium text-gray-300 mb-2">IPFS Content</h4>
             
             <div className="p-3 bg-gray-800/30 rounded-lg border border-gray-700/30">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-sm text-gray-400">内容类型</span>
+                <span className="text-sm text-gray-400">Content Type</span>
                 <Badge variant="outline" className="text-xs">
                   {content.ipfsData.contentType}
                 </Badge>
               </div>
               <div className="flex items-center justify-between mb-2">
-                <span className="text-sm text-gray-400">版本</span>
+                <span className="text-sm text-gray-400">Version</span>
                 <span className="text-sm text-gray-300">{content.ipfsData.version}</span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-sm text-gray-400">创建时间</span>
+                <span className="text-sm text-gray-400">Created Time</span>
                 <span className="text-sm text-gray-300">
                   {new Date(content.ipfsData.timestamp).toLocaleDateString()}
                 </span>
@@ -158,7 +158,7 @@ export function BlockchainInfo({ content }: BlockchainInfoProps) {
             {/* IPFS Hash */}
             <div className="p-3 bg-gray-800/30 rounded-lg border border-gray-700/30">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-sm text-gray-400">IPFS 哈希</span>
+                <span className="text-sm text-gray-400">IPFS Hash</span>
                 <button
                   onClick={() => copyToClipboard(content.ipfsUrl, 'ipfs')}
                   className="p-1 hover:bg-gray-700/50 rounded transition-colors"

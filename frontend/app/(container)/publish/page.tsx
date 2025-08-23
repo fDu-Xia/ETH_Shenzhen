@@ -486,7 +486,7 @@ export default function PublishPage() {
 
                     <motion.button
                         onClick={handleSaveDraft}
-                        disabled={isDraft || uploadResult.includes("发布成功")}
+                        disabled={isDraft || uploadResult.includes("Published successfully")}
                         style={{
                             boxShadow: buttonShadow,
                         }}
@@ -522,7 +522,7 @@ export default function PublishPage() {
 
                     <motion.button
                         onClick={handlePublish}
-                        disabled={isPublishing || uploadResult.includes("发布成功") || !isWalletConnected}
+                        disabled={isPublishing || uploadResult.includes("Published successfully") || !isWalletConnected}
                         style={{
                             border: buttonBorder,
                             boxShadow: buttonShadow,
@@ -618,7 +618,7 @@ export default function PublishPage() {
             )}
 
             {/* Publish Result */}
-            {uploadResult && (uploadResult.includes("Published successfully") || uploadResult.includes("发布成功")) && contractResult && (
+            {uploadResult && uploadResult.includes("Published successfully") && contractResult && (
                 <motion.div
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -695,7 +695,7 @@ export default function PublishPage() {
             )}
 
             {/* Error Result */}
-            {uploadResult && (uploadResult.includes("failed") || uploadResult.includes("失败")) && (
+            {uploadResult && uploadResult.includes("failed") && (
                 <motion.div
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}

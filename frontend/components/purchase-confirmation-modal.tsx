@@ -73,8 +73,8 @@ export function PurchaseConfirmationModal({
             >
               <Loader2 className="w-12 h-12 mx-auto mb-4" style={{ color: color.get() }} />
             </motion.div>
-            <h3 className="text-lg font-semibold text-white mb-2">处理交易中...</h3>
-            <p className="text-gray-400">请稍候，正在确认您的购买</p>
+            <h3 className="text-lg font-semibold text-white mb-2">Processing Transaction...</h3>
+            <p className="text-gray-400">Please wait, confirming your purchase</p>
           </motion.div>
         )
       case "success":
@@ -91,8 +91,8 @@ export function PurchaseConfirmationModal({
             >
               <CheckCircle className="w-12 h-12 text-green-400 mx-auto mb-4" />
             </motion.div>
-            <h3 className="text-lg font-semibold text-white mb-2">购买成功！</h3>
-            <p className="text-gray-400">内容已解锁，正在跳转...</p>
+            <h3 className="text-lg font-semibold text-white mb-2">Purchase Successful!</h3>
+            <p className="text-gray-400">Content unlocked, redirecting...</p>
           </motion.div>
         )
       case "failed":
@@ -108,15 +108,15 @@ export function PurchaseConfirmationModal({
             >
               <AlertCircle className="w-12 h-12 text-red-400 mx-auto mb-4" />
             </motion.div>
-            <h3 className="text-lg font-semibold text-white mb-2">交易失败</h3>
-            <p className="text-gray-400 mb-4">请检查您的钱包余额或网络连接</p>
+            <h3 className="text-lg font-semibold text-white mb-2">Transaction Failed</h3>
+            <p className="text-gray-400 mb-4">Please check your wallet balance or network connection</p>
             <motion.button
               onClick={() => setTransactionStatus("idle")}
               className="px-4 py-2 rounded-full border border-red-400 text-red-400 hover:bg-red-400/10"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              重试
+              Retry
             </motion.button>
           </motion.div>
         )
@@ -141,7 +141,7 @@ export function PurchaseConfirmationModal({
                       />
                       <div className="flex-1">
                         <h4 className="font-semibold text-white text-sm">{content.title}</h4>
-                        <p className="text-gray-400 text-xs mt-1">作者：{content.author}</p>
+                        <p className="text-gray-400 text-xs mt-1">Author: {content.author}</p>
                       </div>
                     </div>
                   </CardContent>
@@ -157,7 +157,7 @@ export function PurchaseConfirmationModal({
                 transition={{ delay: 0.2 }}
               >
                 <div className="flex justify-between items-center">
-                  <span className="text-gray-400">内容价格</span>
+                  <span className="text-gray-400">Content Price</span>
                   <motion.span
                     className="text-white font-semibold"
                     style={{ color: color }}
@@ -166,7 +166,7 @@ export function PurchaseConfirmationModal({
                   </motion.span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-gray-400">钱包余额</span>
+                  <span className="text-gray-400">Wallet Balance</span>
                   <span
                     className={`font-semibold ${walletBalance >= content.price ? "text-green-400" : "text-red-400"}`}
                   >
@@ -175,7 +175,7 @@ export function PurchaseConfirmationModal({
                 </div>
                 <div className="border-t border-gray-800/50 pt-3">
                   <div className="flex justify-between items-center">
-                    <span className="text-white font-semibold">总计</span>
+                    <span className="text-white font-semibold">Total</span>
                     <motion.span
                       className="font-bold text-lg"
                       style={{ color: color }}
@@ -200,7 +200,7 @@ export function PurchaseConfirmationModal({
                 transition={{ delay: 0.3 }}
               >
                 <ShieldCheck className="w-4 h-4" style={{ color: color.get() }} />
-                <span className="text-gray-300 text-sm">安全交易，智能合约保障</span>
+                <span className="text-gray-300 text-sm">Secure transaction, protected by smart contract</span>
               </motion.div>
 
               {walletBalance < content.price && (
@@ -210,7 +210,7 @@ export function PurchaseConfirmationModal({
                   animate={{ opacity: 1, scale: 1 }}
                 >
                   <AlertCircle className="w-4 h-4 text-red-400" />
-                  <span className="text-red-400 text-sm">余额不足，请先充值</span>
+                  <span className="text-red-400 text-sm">Insufficient balance, please top up first</span>
                 </motion.div>
               )}
             </div>
@@ -226,7 +226,7 @@ export function PurchaseConfirmationModal({
                 }}
                 whileTap={{ scale: 0.98 }}
               >
-                取消
+                Cancel
               </motion.button>
               <motion.button
                 onClick={handlePurchase}
@@ -240,7 +240,7 @@ export function PurchaseConfirmationModal({
                 whileTap={{ scale: walletBalance >= content.price ? 0.98 : 1 }}
               >
                 <Wallet className="w-4 h-4" />
-                确认购买
+                Confirm Purchase
               </motion.button>
             </div>
           </>
@@ -259,7 +259,7 @@ export function PurchaseConfirmationModal({
             >
               <Wallet className="w-5 h-5" style={{ color: color.get() }} />
             </motion.div>
-            购买确认
+            Purchase Confirmation
           </DialogTitle>
         </DialogHeader>
         {getStatusContent()}

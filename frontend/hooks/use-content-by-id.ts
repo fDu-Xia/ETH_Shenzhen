@@ -144,7 +144,7 @@ export function useContentById(contentId: string) {
         previewImage: coverImage,
         description: description,
         price: Number(currentPrice) / 1e18,
-        currency: 'MON',
+        currency: 'ETH',
         isUnlocked: false, // Default to locked
         stats: {
           views: 0, // Not available from contract

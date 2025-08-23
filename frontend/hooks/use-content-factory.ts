@@ -224,7 +224,7 @@ export function useContentFactory() {
               6
             )}...${creator.slice(-4)}`,
             image: "/placeholder.jpg",
-            price: "0.001 MON",
+            price: "0.001 ETH",
             author: {
               name: creator.slice(0, 6) + "..." + creator.slice(-4),
               avatar: "/placeholder-user.jpg",

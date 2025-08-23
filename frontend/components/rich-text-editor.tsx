@@ -50,18 +50,18 @@ export function RichTextEditor({ content, onChange }: RichTextEditorProps) {
   }
 
   const formatButtons = [
-    { icon: Heading1, action: () => insertMarkdown("# "), label: "标题1" },
-    { icon: Heading2, action: () => insertMarkdown("## "), label: "标题2" },
-    { icon: Heading3, action: () => insertMarkdown("### "), label: "标题3" },
-    { icon: Bold, action: () => insertMarkdown("**", "**"), label: "粗体" },
-    { icon: Italic, action: () => insertMarkdown("*", "*"), label: "斜体" },
-    { icon: Underline, action: () => insertMarkdown("<u>", "</u>"), label: "下划线" },
-    { icon: List, action: () => insertMarkdown("- "), label: "无序列表" },
-    { icon: ListOrdered, action: () => insertMarkdown("1. "), label: "有序列表" },
-    { icon: Link, action: () => insertMarkdown("[", "](url)"), label: "链接" },
-    { icon: ImageIcon, action: () => insertMarkdown("![alt](", ")"), label: "图片" },
-    { icon: Code, action: () => insertMarkdown("`", "`"), label: "代码" },
-    { icon: Quote, action: () => insertMarkdown("> "), label: "引用" },
+    { icon: Heading1, action: () => insertMarkdown("# "), label: "Heading 1" },
+    { icon: Heading2, action: () => insertMarkdown("## "), label: "Heading 2" },
+    { icon: Heading3, action: () => insertMarkdown("### "), label: "Heading 3" },
+    { icon: Bold, action: () => insertMarkdown("**", "**"), label: "Bold" },
+    { icon: Italic, action: () => insertMarkdown("*", "*"), label: "Italic" },
+    { icon: Underline, action: () => insertMarkdown("<u>", "</u>"), label: "Underline" },
+    { icon: List, action: () => insertMarkdown("- "), label: "Bullet List" },
+    { icon: ListOrdered, action: () => insertMarkdown("1. "), label: "Numbered List" },
+    { icon: Link, action: () => insertMarkdown("[", "](url)"), label: "Link" },
+    { icon: ImageIcon, action: () => insertMarkdown("![alt](", ")"), label: "Image" },
+    { icon: Code, action: () => insertMarkdown("`", "`"), label: "Code" },
+    { icon: Quote, action: () => insertMarkdown("> "), label: "Quote" },
   ]
 
   // Simple markdown to HTML converter for preview
@@ -102,7 +102,7 @@ export function RichTextEditor({ content, onChange }: RichTextEditorProps) {
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >
-            编辑
+            Edit
           </motion.button>
           <motion.button
             onClick={() => setActiveTab("preview")}
@@ -117,7 +117,7 @@ export function RichTextEditor({ content, onChange }: RichTextEditorProps) {
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >
-            预览
+            Preview
           </motion.button>
         </motion.div>
 
@@ -144,17 +144,17 @@ export function RichTextEditor({ content, onChange }: RichTextEditorProps) {
           {/* Editor */}
           <motion.textarea
             id="content-editor"
-            placeholder="开始编写您的内容...
+            placeholder="Start writing your content...
 
-支持 Markdown 格式：
-# 标题1
-## 标题2
-**粗体** *斜体*
-- 列表项
-> 引用
-`代码`
-[链接](url)
-![图片](url)"
+Supports Markdown format:
+# Heading 1
+## Heading 2
+**Bold** *Italic*
+- List item
+> Quote
+`Code`
+[Link](url)
+![Image](url)"
             value={content}
             onChange={(e) => onChange(e.target.value)}
             className="w-full px-3 py-3 bg-gray-900/50 border border-gray-700/50 text-white placeholder:text-gray-500 min-h-[400px] font-mono rounded-xl hover:bg-gray-900/70 transition-all resize-none focus:outline-none focus:ring-0"
@@ -170,7 +170,7 @@ export function RichTextEditor({ content, onChange }: RichTextEditorProps) {
             className="bg-gray-900/50 rounded-xl p-4 min-h-[400px] prose prose-invert max-w-none backdrop-blur-sm"
             style={{ border }}
             dangerouslySetInnerHTML={{
-              __html: content ? markdownToHtml(content) : "<p class='text-gray-400'>内容预览将在这里显示...</p>",
+              __html: content ? markdownToHtml(content) : "<p class='text-gray-400'>Content preview will appear here...</p>",
             }}
           />
         </TabsContent>

@@ -165,7 +165,7 @@ export function ContentCard({ content }: ContentCardProps) {
                   textShadow: useMotionTemplate`0 0 8px ${color}40`,
                 }}
               >
-                {content.price}
+                {content.price.replace('MON', "ETH")}
               </motion.span>
             </motion.div>
           </div>

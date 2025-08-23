@@ -129,8 +129,8 @@ export function VotingModal({ isOpen, onClose, contentTitle, contractAddress, wa
             setHasRated(Number(rating) > 0)
 
         } catch (error: any) {
-            console.error('检查用户状态失败:', error)
-            setError('检查用户状态失败')
+            console.error('Failed to check user status:', error)
+            setError('Failed to check user status')
         } finally {
             setIsLoading(false)
         }
@@ -166,7 +166,7 @@ export function VotingModal({ isOpen, onClose, contentTitle, contractAddress, wa
             setBonusCost(formatEther(totalCost))
 
         } catch (error: any) {
-            console.error('计算成本失败:', error)
+            console.error('Failed to calculate cost:', error)
             setBonusCost("0")
         }
     }
@@ -214,15 +214,15 @@ export function VotingModal({ isOpen, onClose, contentTitle, contractAddress, wa
             onClose()
 
         } catch (error: any) {
-            console.error('投票失败:', error)
+            console.error('Voting failed:', error)
             if (error.code === 4001) {
-                setError('交易被用户取消')
+                setError('Transaction cancelled by user')
             } else if (error.shortMessage?.includes('Must own tokens')) {
-                setError('必须持有代币才能支持')
+                setError('Must hold tokens to support')
             } else if (error.shortMessage?.includes('Already rated')) {
-                setError('您已经支持过了')
+                setError('You have already supported')
             } else {
-                setError('支持失败: ' + (error.shortMessage || error.message))
+                setError('Support failed: ' + (error.shortMessage || error.message))
             }
         } finally {
             setIsVoting(false)
@@ -243,7 +243,7 @@ export function VotingModal({ isOpen, onClose, contentTitle, contractAddress, wa
                         >
                             <ThumbsUp className="w-5 h-5" style={{ color: color.get() }} />
                         </motion.div>
-                        支持内容
+                        Support Content
                     </DialogTitle>
                 </DialogHeader>
 
@@ -257,7 +257,7 @@ export function VotingModal({ isOpen, onClose, contentTitle, contractAddress, wa
                         {isLoading ? (
                             <div className="flex items-center justify-center py-8">
                                 <Loader2 className="w-6 h-6 animate-spin" style={{ color: color.get() }} />
-                                <span className="ml-2 text-gray-400">检查用户状态...</span>
+                                <span className="ml-2 text-gray-400">Checking user status...</span>
                             </div>
                         ) : (
                             <>
@@ -280,15 +280,15 @@ export function VotingModal({ isOpen, onClose, contentTitle, contractAddress, wa
                                                     <h4 className="font-semibold text-white text-sm mb-2">{contentTitle}</h4>
                                                     <div className="space-y-1">
                                                         <p className="text-xs text-gray-400">
-                                                            持有代币: {hasTokens ? "✅" : "❌"}
+                                                            Holding tokens: {hasTokens ? "✅" : "❌"}
                                                         </p>
                                                         <p className="text-xs text-gray-400">
-                                                            已支持: {hasRated ? `✅ (${userSupport} 代币)` : "❌"}
+                                                            Already supported: {hasRated ? `✅ (${userSupport} tokens)` : "❌"}
                                                         </p>
                                                     </div>
                                                     {!hasTokens && (
                                                         <p className="text-xs text-orange-400 mt-2">
-                                                            💡 需要先购买内容解锁代币才能支持
+                                                            💡 Need to purchase content unlock tokens first to support
                                                         </p>
                                                     )}
                                                 </div>
@@ -316,13 +316,13 @@ export function VotingModal({ isOpen, onClose, contentTitle, contractAddress, wa
                                         <div className="space-y-2">
                                             <label className="text-sm text-gray-400 flex items-center gap-2">
                                                 <Zap className="w-4 h-4" />
-                                                支持代币数量
+                                                Support Token Amount
                                             </label>
                                             <motion.input
                                                 type="number"
                                                 step="1"
                                                 min="0"
-                                                placeholder="输入想要获得的代币数量 (0 = 免费支持)"
+                                                placeholder="Enter number of tokens to get (0 = free support)"
                                                 value={supportAmount}
                                                 onChange={(e) => setSupportAmount(e.target.value)}
                                                 className="w-full px-4 py-2.5 rounded-full bg-gray-800/50 border text-white placeholder-gray-500 focus:outline-none transition-all text-sm"
@@ -351,7 +351,7 @@ export function VotingModal({ isOpen, onClose, contentTitle, contractAddress, wa
                                                     }}
                                                     whileTap={{ scale: 0.95 }}
                                                 >
-                                                    {amount === 0 ? "免费支持" : `${amount} 代币`}
+                                                    {amount === 0 ? "Free Support" : `${amount} tokens`}
                                                 </motion.button>
                                             ))}
                                         </div>
@@ -364,29 +364,29 @@ export function VotingModal({ isOpen, onClose, contentTitle, contractAddress, wa
                                                 className="p-3 bg-gray-800/30 rounded-lg space-y-2"
                                             >
                                                 <div className="flex justify-between items-center">
-                                                    <span className="text-sm text-gray-400">支持方式:</span>
+                                                    <span className="text-sm text-gray-400">Support Method:</span>
                                                     <span className="text-white">
-                            {supportTokens === 0 ? "免费支持" : `购买 ${supportTokens} 代币`}
+                            {supportTokens === 0 ? "Free Support" : `Buy ${supportTokens} tokens`}
                           </span>
                                                 </div>
                                                 {supportTokens > 0 && (
                                                     <>
                                                         <div className="flex justify-between items-center">
-                                                            <span className="text-sm text-gray-400">费用:</span>
+                                                            <span className="text-sm text-gray-400">Cost:</span>
                                                             <span style={{ color: color.get() }}>
-                                {bonusCost} MON
+                                {bonusCost} ETH
                               </span>
                                                         </div>
                                                         <div className="flex justify-between items-center">
-                                                            <span className="text-sm text-gray-400">获得代币:</span>
+                                                            <span className="text-sm text-gray-400">Get Tokens:</span>
                                                             <span className="text-white">
-                                {supportTokens} 个
+                                {supportTokens} tokens
                               </span>
                                                         </div>
                                                     </>
                                                 )}
                                                 <div className="text-xs text-gray-500 pt-1 border-t border-gray-700">
-                                                    💡 支持越多，获得的代币越多，未来收益分成也越多
+                                                    💡 The more you support, the more tokens you get, and the more future revenue share
                                                 </div>
                                             </motion.div>
                                         )}
@@ -406,7 +406,7 @@ export function VotingModal({ isOpen, onClose, contentTitle, contractAddress, wa
                                         whileTap={{ scale: 0.98 }}
                                     >
                                         <History className="w-4 h-4" />
-                                        历史记录
+                                        History
                                     </motion.button>
 
                                     <motion.button
@@ -430,7 +430,7 @@ export function VotingModal({ isOpen, onClose, contentTitle, contractAddress, wa
                                         ) : (
                                             <TrendingUp className="w-4 h-4" />
                                         )}
-                                        {isVoting ? "支持中..." : hasRated ? "已支持" : !hasTokens ? "需要持有代币" : "确认支持"}
+                                        {isVoting ? "Supporting..." : hasRated ? "Supported" : !hasTokens ? "Need to hold tokens" : "Confirm Support"}
                                     </motion.button>
                                 </div>
                             </>
@@ -445,7 +445,7 @@ export function VotingModal({ isOpen, onClose, contentTitle, contractAddress, wa
                         <div className="flex items-center justify-between">
                             <h3 className="text-white font-semibold flex items-center gap-2">
                                 <History className="w-4 h-4" style={{ color: color.get() }} />
-                                支持历史
+                                Support History
                             </h3>
                             <motion.button
                                 onClick={() => setShowHistory(false)}
@@ -454,7 +454,7 @@ export function VotingModal({ isOpen, onClose, contentTitle, contractAddress, wa
                                 whileTap={{ scale: 0.95 }}
                             >
                                 <ArrowLeft className="w-4 h-4" />
-                                返回
+                                Back
                             </motion.button>
                         </div>
 
@@ -475,10 +475,10 @@ export function VotingModal({ isOpen, onClose, contentTitle, contractAddress, wa
                                                         style={{ color: color }}
                                                     >
                                                         <Coins className="w-4 h-4" />
-                                                        支持 {vote.tokensSupported} 代币
+                                                        Supported {vote.tokensSupported} tokens
                                                     </motion.div>
                                                     <div className="text-xs text-gray-500 mt-1">
-                                                        费用: {vote.bonusCost} MON • {vote.timestamp}
+                                                        Cost: {vote.bonusCost} ETH • {vote.timestamp}
                                                     </div>
                                                 </div>
                                                 <motion.div
@@ -489,7 +489,7 @@ export function VotingModal({ isOpen, onClose, contentTitle, contractAddress, wa
                                                     }`}
                                                     whileHover={{ scale: 1.05 }}
                                                 >
-                                                    {vote.status === "success" ? "已确认" : "处理中"}
+                                                    {vote.status === "success" ? "Confirmed" : "Processing"}
                                                 </motion.div>
                                             </div>
                                         </CardContent>

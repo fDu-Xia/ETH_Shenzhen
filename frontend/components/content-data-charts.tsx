@@ -97,7 +97,7 @@ export function ContentDataCharts({ contentId }: ContentDataChartsProps) {
             >
               <BarChart3 className="w-5 h-5" style={{ color: color.get() }} />
             </motion.div>
-            数据分析
+            Data Analysis
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -106,9 +106,9 @@ export function ContentDataCharts({ contentId }: ContentDataChartsProps) {
               {["reading", "voting", "price"].map((tab) => {
                 const Icon = tabIcons[tab as keyof typeof tabIcons]
                 const labels = {
-                  reading: "阅读量趋势",
-                  voting: "投票趋势",
-                  price: "价格走势"
+                  reading: "Reading Trend",
+                  voting: "Voting Trend",
+                  price: "Price Trend"
                 }
                 return (
                   <TabsTrigger
@@ -133,7 +133,7 @@ export function ContentDataCharts({ contentId }: ContentDataChartsProps) {
                 <ChartContainer
                   config={{
                     views: {
-                      label: "阅读量",
+                      label: "Views",
                       color: color.get(),
                     },
                   }}
@@ -178,11 +178,11 @@ export function ContentDataCharts({ contentId }: ContentDataChartsProps) {
                 <ChartContainer
                   config={{
                     likes: {
-                      label: "点赞",
+                      label: "Likes",
                       color: color.get(),
                     },
                     dislikes: {
-                      label: "踩",
+                      label: "Dislikes",
                       color: "#6B7280",
                     },
                   }}
@@ -221,7 +221,7 @@ export function ContentDataCharts({ contentId }: ContentDataChartsProps) {
                 <ChartContainer
                   config={{
                     price: {
-                      label: "价格 (MON)",
+                      label: "Price (ETH)",
                       color: color.get(),
                     },
                   }}
@@ -231,7 +231,7 @@ export function ContentDataCharts({ contentId }: ContentDataChartsProps) {
                     <AreaChart data={priceTrendData}>
                       <CartesianGrid strokeDasharray="3 3" stroke="#374151" opacity={0.3} />
                       <XAxis dataKey="date" stroke="#9CA3AF" fontSize={12} />
-                      <YAxis stroke="#9CA3AF" fontSize={12} tickFormatter={(value) => `${value} MON`} />
+                      <YAxis stroke="#9CA3AF" fontSize={12} tickFormatter={(value) => `${value} ETH`} />
                       <ChartTooltip
                         content={<ChartTooltipContent />}
                         contentStyle={{
@@ -241,7 +241,7 @@ export function ContentDataCharts({ contentId }: ContentDataChartsProps) {
                           color: "#fff",
                           backdropFilter: "blur(8px)",
                         }}
-                        formatter={(value) => [`${value} MON`, "价格"]}
+                        formatter={(value) => [`${value} ETH`, "Price"]}
                       />
                       <defs>
                         <linearGradient id="priceGradient" x1="0" y1="0" x2="0" y2="1">

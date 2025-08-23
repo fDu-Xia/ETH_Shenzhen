@@ -82,7 +82,7 @@ export function ContentGrid() {
 
       {/* Content grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 p-4">
-        {contents.map((content) => (
+        {contents.slice(2).map((content) => (
           <div key={content.id} className="p-2">
             <ContentCard content={content} />
           </div>
